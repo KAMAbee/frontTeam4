@@ -35,9 +35,9 @@
    import styles from './MyComponent.module.scss';
 
    export function MyComponent() {
-     return <div className={styles.myBlock}>
+     return (<div className={styles.myBlock}>
                 <div className={styles.myBlock__item}>Hello </div>
-            </div>;
+            </div>;)
    }
    ```
 
