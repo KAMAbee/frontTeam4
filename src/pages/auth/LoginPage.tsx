@@ -15,43 +15,45 @@ export default function LoginPage() {
 
     return (
         <div className={styles.page}>
-            <div className={styles.logoTopLeft}>
+            <div className={styles.topBar}>
                 <Logo />
             </div>
 
-            <div className={styles.container}>
-                <div className={styles.header}>
-                    <h1 className={styles.title}>С возвращением!</h1>
-                    <p className={styles.subtitle}>Встретьте своих товарищей сегодня</p>
-                </div>
+            <div className={styles.content}>
+                <div className={styles.container}>
+                    <div className={styles.header}>
+                        <h1 className={styles.title}>С возвращением!</h1>
+                        <p className={styles.subtitle}>Встретьте своих товарищей сегодня</p>
+                    </div>
 
-                <form className={styles.form} onSubmit={handleSubmit}>
-                    <AuthInput
-                        label="E-mail или номер телефона"
-                        placeholder="Введите e-mail или номер телефона"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-
-                    <div className={styles.passwordWrapper}>
+                    <form className={styles.form} onSubmit={handleSubmit}>
                         <AuthInput
-                            label="Пароль"
-                            placeholder="Введите пароль"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            label="E-mail или номер телефона"
+                            placeholder="Введите e-mail или номер телефона"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
-                        <a href="#" className={styles.forgotPassword}>Забыли пароль?</a>
-                    </div>
 
-                    <div className={styles.loginButton}>
-                        <CommonButton type="submit">Войти</CommonButton>
-                    </div>
-                </form>
+                        <div className={styles.passwordWrapper}>
+                            <AuthInput
+                                label="Пароль"
+                                placeholder="Введите пароль"
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <a href="#" className={styles.forgotPassword}>Забыли пароль?</a>
+                        </div>
 
-                <p className={styles.signupLink}>
-                    Нет аккаунта? <a href="#">Зарегистрироваться</a>
-                </p>
+                        <div className={styles.loginButton}>
+                            <CommonButton type="submit">Войти</CommonButton>
+                        </div>
+                    </form>
+
+                    <div className={styles.signupLink}>
+                        Нет аккаунта? <a href="/register">Зарегистрироваться</a>
+                    </div>
+                </div>
             </div>
         </div>
     )

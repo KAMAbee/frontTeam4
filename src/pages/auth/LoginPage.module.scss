@@ -3,22 +3,27 @@
 .page {
     min-height: 100vh;
     background-color: var(--color-bg);
-    position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
     padding: 24px;
 }
 
-.logoTopLeft {
-    position: absolute;
-    top: 24px;
-    left: 24px;
+.topBar {
+    display: flex;
+    align-items: center;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .container {
     width: 100%;
-    max-width: 400px;
+    max-width: 424px;
 }
 
 .header {
@@ -82,4 +87,10 @@
 
 .loginButton {
     margin-top: 10px;
+}
+
+@media (max-width: 640px) {
+    .page {
+        padding: 16px;
+    }
 }
