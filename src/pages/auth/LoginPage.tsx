@@ -3,8 +3,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { AuthInput } from '../../components/AuthInput'
 import { CommonButton } from '../../components/CommonButton'
-import { LanguageSwitcher } from '../../components/LanguageSwitcher'
-import { Logo } from '../../components/Logo/Logo'
+import { AuthLayout } from '../../layouts/AuthLayout'
 import styles from './LoginPage.module.scss'
 
 export default function LoginPage() {
@@ -18,53 +17,46 @@ export default function LoginPage() {
     }
 
     return (
-        <div className={styles.page}>
-            <div className={styles.topBar}>
-                <Logo />
-                <LanguageSwitcher />
-            </div>
+        <AuthLayout>
+            <div className={styles.container}>
+                <div className={styles.header}>
+                    <h1 className={styles.title}>{t('auth.login.title')}</h1>
+                    <p className={styles.subtitle}>{t('auth.login.subtitle')}</p>
+                </div>
 
-            <div className={styles.content}>
-                <div className={styles.container}>
-                    <div className={styles.header}>
-                        <h1 className={styles.title}>{t('auth.login.title')}</h1>
-                        <p className={styles.subtitle}>{t('auth.login.subtitle')}</p>
-                    </div>
+                <form className={styles.form} onSubmit={handleSubmit}>
+                    <AuthInput
+                        label={t('auth.login.emailLabel')}
+                        placeholder={t('auth.login.emailPlaceholder')}
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                    />
 
-                    <form className={styles.form} onSubmit={handleSubmit}>
+                    <div className={styles.passwordWrapper}>
                         <AuthInput
-                            label={t('auth.login.emailLabel')}
-                            placeholder={t('auth.login.emailPlaceholder')}
-                            value={email}
-                            onChange={(event) => setEmail(event.target.value)}
+                            label={t('auth.login.passwordLabel')}
+                            placeholder={t('auth.login.passwordPlaceholder')}
+                            type="password"
+                            value={password}
+                            onChange={(event) => setPassword(event.target.value)}
                         />
-
-                        <div className={styles.passwordWrapper}>
-                            <AuthInput
-                                label={t('auth.login.passwordLabel')}
-                                placeholder={t('auth.login.passwordPlaceholder')}
-                                type="password"
-                                value={password}
-                                onChange={(event) => setPassword(event.target.value)}
-                            />
-                            <a href="#" className={styles.forgotPassword}>
-                                {t('auth.login.forgotPassword')}
-                            </a>
-                        </div>
-
-                        <div className={styles.loginButton}>
-                            <CommonButton type="submit">{t('auth.login.submit')}</CommonButton>
-                        </div>
-                    </form>
-
-                    <div className={styles.signupLink}>
-                        <Trans
-                            i18nKey="auth.login.signupPrompt"
-                            components={{ signup: <Link to="/register" /> }}
-                        />
+                        <a href="#" className={styles.forgotPassword}>
+                            {t('auth.login.forgotPassword')}
+                        </a>
                     </div>
+
+                    <div className={styles.loginButton}>
+                        <CommonButton type="submit">{t('auth.login.submit')}</CommonButton>
+                    </div>
+                </form>
+
+                <div className={styles.signupLink}>
+                    <Trans
+                        i18nKey="auth.login.signupPrompt"
+                        components={{ signup: <Link to="/register" /> }}
+                    />
                 </div>
             </div>
-        </div>
+        </AuthLayout>
     )
 }

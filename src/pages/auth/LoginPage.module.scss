@@ -1,29 +1,5 @@
 @use '../../styles/global.scss' as *;
 
-.page {
-    min-height: 100vh;
-    background-color: var(--color-bg);
-    display: flex;
-    flex-direction: column;
-    padding: 24px;
-}
-
-.topBar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    width: 100%;
-}
-
-.content {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
 .container {
     width: 100%;
     max-width: 424px;
@@ -90,10 +66,4 @@
 
 .loginButton {
     margin-top: 10px;
-}
-
-@media (max-width: 640px) {
-    .page {
-        padding: 16px;
-    }
 }

@@ -3,8 +3,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { AuthInput } from '../../components/AuthInput'
 import { CommonButton } from '../../components/CommonButton'
-import { LanguageSwitcher } from '../../components/LanguageSwitcher'
-import { Logo } from '../../components/Logo/Logo'
+import { AuthLayout } from '../../layouts/AuthLayout'
 import styles from './RegisterPage.module.scss'
 
 export default function RegisterPage() {
@@ -21,84 +20,77 @@ export default function RegisterPage() {
     }
 
     return (
-        <section className={styles.page}>
-            <div className={styles.topBar}>
-                <Logo />
-                <LanguageSwitcher />
-            </div>
+        <AuthLayout>
+            <div className={styles.container}>
+                <div className={styles.header}>
+                    <h1 className={styles.title}>{t('auth.register.title')}</h1>
+                    <p className={styles.subtitle}>{t('auth.register.subtitle')}</p>
+                </div>
 
-            <div className={styles.content}>
-                <div className={styles.container}>
-                    <div className={styles.header}>
-                        <h1 className={styles.title}>{t('auth.register.title')}</h1>
-                        <p className={styles.subtitle}>{t('auth.register.subtitle')}</p>
-                    </div>
+                <form className={styles.form} onSubmit={handleSubmit}>
+                    <AuthInput
+                        label={t('auth.register.fullNameLabel')}
+                        placeholder={t('auth.register.fullNamePlaceholder')}
+                        value={fullName}
+                        onChange={(event) => setFullName(event.target.value)}
+                        name="fullName"
+                    />
 
-                    <form className={styles.form} onSubmit={handleSubmit}>
+                    <AuthInput
+                        label={t('auth.register.contactLabel')}
+                        placeholder={t('auth.register.contactPlaceholder')}
+                        value={contact}
+                        onChange={(event) => setContact(event.target.value)}
+                        name="contact"
+                    />
+
+                    <div className={styles.passwordGroup}>
                         <AuthInput
-                            label={t('auth.register.fullNameLabel')}
-                            placeholder={t('auth.register.fullNamePlaceholder')}
-                            value={fullName}
-                            onChange={(event) => setFullName(event.target.value)}
-                            name="fullName"
-                        />
-
-                        <AuthInput
-                            label={t('auth.register.contactLabel')}
-                            placeholder={t('auth.register.contactPlaceholder')}
-                            value={contact}
-                            onChange={(event) => setContact(event.target.value)}
-                            name="contact"
-                        />
-
-                        <div className={styles.passwordGroup}>
-                            <AuthInput
-                                label={t('auth.register.passwordLabel')}
-                                placeholder={t('auth.register.passwordPlaceholder')}
-                                type="password"
-                                value={password}
-                                onChange={(event) => setPassword(event.target.value)}
-                                name="password"
-                            />
-                            <p className={styles.passwordHint}>{t('auth.register.passwordHint')}</p>
-                        </div>
-
-                        <AuthInput
-                            label={t('auth.register.confirmPasswordLabel')}
-                            placeholder={t('auth.register.confirmPasswordPlaceholder')}
+                            label={t('auth.register.passwordLabel')}
+                            placeholder={t('auth.register.passwordPlaceholder')}
                             type="password"
-                            value={confirmPassword}
-                            onChange={(event) => setConfirmPassword(event.target.value)}
-                            name="confirmPassword"
+                            value={password}
+                            onChange={(event) => setPassword(event.target.value)}
+                            name="password"
                         />
-
-                        <label className={styles.policyRow}>
-                            <input
-                                type="checkbox"
-                                checked={isPolicyAccepted}
-                                onChange={(event) => setIsPolicyAccepted(event.target.checked)}
-                            />
-                            <span>
-                                <Trans
-                                    i18nKey="auth.register.policy"
-                                    components={{ terms: <a href="#" />, privacy: <a href="#" /> }}
-                                />
-                            </span>
-                        </label>
-
-                        <div className={styles.submitButton}>
-                            <CommonButton type="submit">{t('auth.register.submit')}</CommonButton>
-                        </div>
-                    </form>
-
-                    <div className={styles.loginLink}>
-                        <Trans
-                            i18nKey="auth.register.loginPrompt"
-                            components={{ login: <Link to="/login" /> }}
-                        />
+                        <p className={styles.passwordHint}>{t('auth.register.passwordHint')}</p>
                     </div>
+
+                    <AuthInput
+                        label={t('auth.register.confirmPasswordLabel')}
+                        placeholder={t('auth.register.confirmPasswordPlaceholder')}
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(event) => setConfirmPassword(event.target.value)}
+                        name="confirmPassword"
+                    />
+
+                    <label className={styles.policyRow}>
+                        <input
+                            type="checkbox"
+                            checked={isPolicyAccepted}
+                            onChange={(event) => setIsPolicyAccepted(event.target.checked)}
+                        />
+                        <span>
+                            <Trans
+                                i18nKey="auth.register.policy"
+                                components={{ terms: <a href="#" />, privacy: <a href="#" /> }}
+                            />
+                        </span>
+                    </label>
+
+                    <div className={styles.submitButton}>
+                        <CommonButton type="submit">{t('auth.register.submit')}</CommonButton>
+                    </div>
+                </form>
+
+                <div className={styles.loginLink}>
+                    <Trans
+                        i18nKey="auth.register.loginPrompt"
+                        components={{ login: <Link to="/login" /> }}
+                    />
                 </div>
             </div>
-        </section>
+        </AuthLayout>
     )
 }
