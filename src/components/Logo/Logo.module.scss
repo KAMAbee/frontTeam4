@@ -1,0 +1,11 @@
+@use '../../styles/global.scss' as *;
+
+.logo {
+    display: inline-block;
+    padding: 12px 32px;
+    background-color: var(--color-bg-3);
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text);
+}

@@ -1,0 +1,58 @@
+@use '../../styles/global.scss' as *;
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label {
+    font-size: 16px;
+    color: var(--color-label);
+    font-weight: 500;
+}
+
+.inputContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    width: 100%;
+    padding: 14px 16px;
+    padding-right: 48px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--color-input-bg);
+    font-size: 16px;
+    color: var(--color-text);
+    outline: none;
+    transition: background-color 0.2s;
+
+    &::placeholder {
+        color: var(--color-text-2);
+    }
+
+    &:focus {
+        background-color: var(--color-input-bg-focus);
+    }
+}
+
+.togglePassword {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--color-text-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+
+    &:hover {
+        color: var(--color-text);
+    }
+}

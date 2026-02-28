@@ -1,0 +1,23 @@
+@use '../../styles/global.scss' as *;
+
+.button {
+    width: 100%;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 50px;
+    background-color: var(--color-button-bg);
+    color: var(--color-button-text);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: var(--color-button-bg-hover);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}

@@ -1,1 +1,85 @@
 @use '../../styles/global.scss' as *;
+
+.page {
+    min-height: 100vh;
+    background-color: var(--color-bg);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.logoTopLeft {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.header {
+    margin-bottom: 54px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 8px;
+}
+
+.subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.passwordWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.forgotPassword {
+    align-self: flex-end;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-text-3);
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.signupLink {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 14px;
+    color: var(--color-text-2);
+
+    a {
+        color: var(--color-text);
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+.loginButton {
+    margin-top: 10px;
+}
