@@ -1,4 +1,5 @@
 import { useState, useId, type ChangeEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import styles from './AuthInput.module.scss'
 
 interface AuthInputProps {
@@ -18,6 +19,7 @@ export const AuthInput = ({
     type = 'text',
     name,
 }: AuthInputProps) => {
+    const { t } = useTranslation()
     const generatedId = useId()
     const inputId = name ?? generatedId
     const [showPassword, setShowPassword] = useState(false)
@@ -47,7 +49,11 @@ export const AuthInput = ({
                         type="button"
                         className={styles.togglePassword}
                         onClick={() => setShowPassword(!showPassword)}
-                        aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
+                        aria-label={
+                            showPassword
+                                ? t('auth.input.hidePassword')
+                                : t('auth.input.showPassword')
+                        }
                     >
                         {showPassword ? (
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

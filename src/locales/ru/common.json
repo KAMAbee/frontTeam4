@@ -1,0 +1,40 @@
+{
+  "ui": {
+    "languageSwitcher": {
+      "aria": "Переключение языка"
+    }
+  },
+  "auth": {
+    "input": {
+      "showPassword": "Показать пароль",
+      "hidePassword": "Скрыть пароль"
+    },
+    "login": {
+      "title": "С возвращением!",
+      "subtitle": "Встретьте своих товарищей сегодня",
+      "emailLabel": "E-mail или номер телефона",
+      "emailPlaceholder": "Введите e-mail или номер телефона",
+      "passwordLabel": "Пароль",
+      "passwordPlaceholder": "Введите пароль",
+      "forgotPassword": "Забыли пароль?",
+      "submit": "Войти",
+      "signupPrompt": "Нет аккаунта? <signup>Зарегистрироваться</signup>"
+    },
+    "register": {
+      "title": "Создайте аккаунт",
+      "subtitle": "Это бесплатно и просто",
+      "fullNameLabel": "Полное имя",
+      "fullNamePlaceholder": "Введите ваше имя",
+      "contactLabel": "E-mail или номер телефона",
+      "contactPlaceholder": "Введите e-mail или номер телефона",
+      "passwordLabel": "Пароль",
+      "passwordPlaceholder": "Введите пароль",
+      "passwordHint": "Минимум 8 символов",
+      "confirmPasswordLabel": "Подтвердите пароль",
+      "confirmPasswordPlaceholder": "Введите пароль ещё раз",
+      "policy": "Создавая аккаунт, вы соглашаетесь с <terms>Условиями использования</terms> и <privacy>Политикой конфиденциальности</privacy>",
+      "submit": "Зарегистрироваться",
+      "loginPrompt": "Уже есть аккаунт? <login>Войти</login>"
+    }
+  }
+}

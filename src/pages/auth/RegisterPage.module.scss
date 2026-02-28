@@ -11,7 +11,9 @@
 .topBar {
     display: flex;
     align-items: center;
-    margin-bottom: 24px;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
 }
 
 .content {

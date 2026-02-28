@@ -1,0 +1,40 @@
+{
+  "ui": {
+    "languageSwitcher": {
+      "aria": "Language switcher"
+    }
+  },
+  "auth": {
+    "input": {
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
+    },
+    "login": {
+      "title": "Welcome back!",
+      "subtitle": "Meet your teammates today",
+      "emailLabel": "E-mail or phone number",
+      "emailPlaceholder": "Enter your e-mail or phone number",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "forgotPassword": "Forgot password?",
+      "submit": "Log In",
+      "signupPrompt": "No account yet? <signup>Sign up</signup>"
+    },
+    "register": {
+      "title": "Create your account",
+      "subtitle": "It is free and easy",
+      "fullNameLabel": "Full name",
+      "fullNamePlaceholder": "Enter your name",
+      "contactLabel": "E-mail or phone number",
+      "contactPlaceholder": "Enter your e-mail or phone number",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "passwordHint": "At least 8 characters",
+      "confirmPasswordLabel": "Confirm password",
+      "confirmPasswordPlaceholder": "Enter your password again",
+      "policy": "By creating an account, you agree to the <terms>Terms and Conditions</terms> and the <privacy>Privacy Policy</privacy>",
+      "submit": "Sign Up",
+      "loginPrompt": "Already have an account? <login>Log In</login>"
+    }
+  }
+}

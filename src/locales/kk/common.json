@@ -1,0 +1,40 @@
+{
+  "ui": {
+    "languageSwitcher": {
+      "aria": "Тіл ауыстырғыш"
+    }
+  },
+  "auth": {
+    "input": {
+      "showPassword": "Құпия сөзді көрсету",
+      "hidePassword": "Құпия сөзді жасыру"
+    },
+    "login": {
+      "title": "Қайта қош келдіңіз!",
+      "subtitle": "Бүгін әріптестеріңізбен кездесіңіз",
+      "emailLabel": "E-mail немесе телефон нөмірі",
+      "emailPlaceholder": "E-mail немесе телефон нөміріңізді енгізіңіз",
+      "passwordLabel": "Құпия сөз",
+      "passwordPlaceholder": "Құпия сөзді енгізіңіз",
+      "forgotPassword": "Құпия сөзді ұмыттыңыз ба?",
+      "submit": "Кіру",
+      "signupPrompt": "Тіркелгіңіз жоқ па? <signup>Тіркелу</signup>"
+    },
+    "register": {
+      "title": "Тіркелгі жасаңыз",
+      "subtitle": "Бұл тегін және оңай",
+      "fullNameLabel": "Толық аты-жөні",
+      "fullNamePlaceholder": "Атыңызды енгізіңіз",
+      "contactLabel": "E-mail немесе телефон нөмірі",
+      "contactPlaceholder": "E-mail немесе телефон нөміріңізді енгізіңіз",
+      "passwordLabel": "Құпия сөз",
+      "passwordPlaceholder": "Құпия сөзді енгізіңіз",
+      "passwordHint": "Кемінде 8 таңба",
+      "confirmPasswordLabel": "Құпия сөзді растаңыз",
+      "confirmPasswordPlaceholder": "Құпия сөзді қайта енгізіңіз",
+      "policy": "Тіркелгі жасау арқылы сіз <terms>Пайдалану шарттарымен</terms> және <privacy>Құпиялылық саясатымен</privacy> келісесіз",
+      "submit": "Тіркелу",
+      "loginPrompt": "Тіркелгіңіз бар ма? <login>Кіру</login>"
+    }
+  }
+}
