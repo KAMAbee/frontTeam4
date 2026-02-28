@@ -1,0 +1,27 @@
+:root {
+  --color-bg: #FCFCFD;
+  --color-bg-2: #F4F5F6;
+  --color-text: #182135;
+  --color-text-2: #777E90;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  left: 0;
+  top: 0;
+  color: var(--color-text);
+  background: var(--color-bg);
+  font-family: 'Inter', sans-serif;
+}
