@@ -12,8 +12,8 @@
     "login": {
       "title": "Welcome back!",
       "subtitle": "Meet your teammates today",
-      "emailLabel": "E-mail or phone number",
-      "emailPlaceholder": "Enter your e-mail or phone number",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "Enter your e-mail",
       "passwordLabel": "Password",
       "passwordPlaceholder": "Enter your password",
       "forgotPassword": "Forgot password?",
@@ -23,10 +23,16 @@
     "register": {
       "title": "Create your account",
       "subtitle": "It is free and easy",
+      "lastNameLabel": "Last name",
+      "lastNamePlaceholder": "Enter your last name",
+      "firstNameLabel": "First name",
+      "firstNamePlaceholder": "Enter your first name",
+      "middleNameLabel": "Middle name (optional)",
+      "middleNamePlaceholder": "Enter your middle name",
       "fullNameLabel": "Full name",
       "fullNamePlaceholder": "Enter your name",
-      "contactLabel": "E-mail or phone number",
-      "contactPlaceholder": "Enter your e-mail or phone number",
+      "contactLabel": "E-mail",
+      "contactPlaceholder": "Enter your e-mail",
       "passwordLabel": "Password",
       "passwordPlaceholder": "Enter your password",
       "passwordHint": "At least 8 characters",
@@ -35,6 +41,14 @@
       "policy": "By creating an account, you agree to the <terms>Terms and Conditions</terms> and the <privacy>Privacy Policy</privacy>",
       "submit": "Sign Up",
       "loginPrompt": "Already have an account? <login>Log In</login>"
+    },
+    "validation": {
+      "requiredField": "This field is required",
+      "invalidEmail": "Enter a valid e-mail",
+      "invalidName": "Only letters, spaces, apostrophes and hyphens are allowed",
+      "passwordMinLength": "Password must be at least 8 characters",
+      "passwordsMismatch": "Passwords do not match",
+      "policyRequired": "You must accept the terms and privacy policy"
     }
   }
 }

@@ -12,8 +12,8 @@
     "login": {
       "title": "С возвращением!",
       "subtitle": "Встретьте своих товарищей сегодня",
-      "emailLabel": "E-mail или номер телефона",
-      "emailPlaceholder": "Введите e-mail или номер телефона",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "Введите e-mail",
       "passwordLabel": "Пароль",
       "passwordPlaceholder": "Введите пароль",
       "forgotPassword": "Забыли пароль?",
@@ -23,10 +23,16 @@
     "register": {
       "title": "Создайте аккаунт",
       "subtitle": "Это бесплатно и просто",
+      "lastNameLabel": "Фамилия",
+      "lastNamePlaceholder": "Введите фамилию",
+      "firstNameLabel": "Имя",
+      "firstNamePlaceholder": "Введите имя",
+      "middleNameLabel": "Отчество (необязательно)",
+      "middleNamePlaceholder": "Введите отчество",
       "fullNameLabel": "Полное имя",
       "fullNamePlaceholder": "Введите ваше имя",
-      "contactLabel": "E-mail или номер телефона",
-      "contactPlaceholder": "Введите e-mail или номер телефона",
+      "contactLabel": "E-mail",
+      "contactPlaceholder": "Введите e-mail",
       "passwordLabel": "Пароль",
       "passwordPlaceholder": "Введите пароль",
       "passwordHint": "Минимум 8 символов",
@@ -35,6 +41,14 @@
       "policy": "Создавая аккаунт, вы соглашаетесь с <terms>Условиями использования</terms> и <privacy>Политикой конфиденциальности</privacy>",
       "submit": "Зарегистрироваться",
       "loginPrompt": "Уже есть аккаунт? <login>Войти</login>"
+    },
+    "validation": {
+      "requiredField": "Заполните это поле",
+      "invalidEmail": "Введите корректный e-mail",
+      "invalidName": "Допустимы только буквы, пробелы, апостроф и дефис",
+      "passwordMinLength": "Пароль должен содержать минимум 8 символов",
+      "passwordsMismatch": "Пароли не совпадают",
+      "policyRequired": "Нужно согласиться с условиями и политикой"
     }
   }
 }

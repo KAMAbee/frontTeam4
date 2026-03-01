@@ -39,6 +39,16 @@
     }
 }
 
+.inputError {
+    border: 1px solid var(--color-error);
+}
+
+.errorText {
+    margin: 0;
+    font-size: 14px;
+    color: var(--color-error);
+}
+
 .togglePassword {
     position: absolute;
     right: 12px;

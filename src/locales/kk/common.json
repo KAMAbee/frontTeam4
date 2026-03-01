@@ -12,8 +12,8 @@
     "login": {
       "title": "Қайта қош келдіңіз!",
       "subtitle": "Бүгін әріптестеріңізбен кездесіңіз",
-      "emailLabel": "E-mail немесе телефон нөмірі",
-      "emailPlaceholder": "E-mail немесе телефон нөміріңізді енгізіңіз",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "E-mail",
       "passwordLabel": "Құпия сөз",
       "passwordPlaceholder": "Құпия сөзді енгізіңіз",
       "forgotPassword": "Құпия сөзді ұмыттыңыз ба?",
@@ -23,10 +23,16 @@
     "register": {
       "title": "Тіркелгі жасаңыз",
       "subtitle": "Бұл тегін және оңай",
+      "lastNameLabel": "Тегі",
+      "lastNamePlaceholder": "Тегіңізді енгізіңіз",
+      "firstNameLabel": "Аты",
+      "firstNamePlaceholder": "Атыңызды енгізіңіз",
+      "middleNameLabel": "Әкесінің аты (міндетті емес)",
+      "middleNamePlaceholder": "Әкесінің атын енгізіңіз",
       "fullNameLabel": "Толық аты-жөні",
       "fullNamePlaceholder": "Атыңызды енгізіңіз",
-      "contactLabel": "E-mail немесе телефон нөмірі",
-      "contactPlaceholder": "E-mail немесе телефон нөміріңізді енгізіңіз",
+      "contactLabel": "E-mail",
+      "contactPlaceholder": "E-mail",
       "passwordLabel": "Құпия сөз",
       "passwordPlaceholder": "Құпия сөзді енгізіңіз",
       "passwordHint": "Кемінде 8 таңба",
@@ -35,6 +41,14 @@
       "policy": "Тіркелгі жасау арқылы сіз <terms>Пайдалану шарттарымен</terms> және <privacy>Құпиялылық саясатымен</privacy> келісесіз",
       "submit": "Тіркелу",
       "loginPrompt": "Тіркелгіңіз бар ма? <login>Кіру</login>"
+    },
+    "validation": {
+      "requiredField": "Бұл өрісті толтырыңыз",
+      "invalidEmail": "Дұрыс e-mail енгізіңіз",
+      "invalidName": "Тек әріптер, бос орын, апостроф және дефис рұқсат етіледі",
+      "passwordMinLength": "Құпия сөз кемінде 8 таңбадан тұруы керек",
+      "passwordsMismatch": "Құпия сөздер сәйкес келмейді",
+      "policyRequired": "Шарттар мен құпиялылық саясатына келісу керек"
     }
   }
 }

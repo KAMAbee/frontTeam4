@@ -9,6 +9,7 @@ interface AuthInputProps {
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void
     type?: string
     name?: string
+    error?: string
 }
 
 export const AuthInput = ({
@@ -18,6 +19,7 @@ export const AuthInput = ({
     onChange,
     type = 'text',
     name,
+    error,
 }: AuthInputProps) => {
     const { t } = useTranslation()
     const generatedId = useId()
@@ -37,12 +39,13 @@ export const AuthInput = ({
             <div className={styles.inputContainer}>
                 <input
                     id={inputId}
-                    className={styles.input}
+                    className={`${styles.input} ${error ? styles.inputError : ''}`.trim()}
                     type={inputType}
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}
                     name={name}
+                    aria-invalid={Boolean(error)}
                 />
                 {isPassword && (
                     <button
@@ -69,6 +72,7 @@ export const AuthInput = ({
                     </button>
                 )}
             </div>
+            {error && <p className={styles.errorText}>{error}</p>}
         </div>
     )
 }
