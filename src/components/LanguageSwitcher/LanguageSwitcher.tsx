@@ -1,6 +1,6 @@
 import { FiChevronDown } from 'react-icons/fi'
 import { useTranslation } from 'react-i18next'
-import { useLanguage } from '../../context/LanguageContext'
+import { useLanguage } from '../../context/useLanguage'
 import type { AppLanguage } from '../../i18n'
 import styles from './LanguageSwitcher.module.scss'
 

@@ -1,27 +1,12 @@
 import {
-    createContext,
     useCallback,
-    useContext,
     useEffect,
     useMemo,
     useState,
     type PropsWithChildren,
 } from 'react'
 import i18n, { languageStorageKey, type AppLanguage } from '../i18n'
-
-type LanguageContextValue = {
-    language: AppLanguage
-    setLanguage: (language: AppLanguage) => Promise<void>
-    toggleLanguage: () => Promise<void>
-}
-
-const LanguageContext = createContext<LanguageContextValue | undefined>(undefined)
-
-function normalizeLanguage(language: string | undefined): AppLanguage {
-    if (language === 'en') return 'en'
-    if (language === 'kk') return 'kk'
-    return 'ru'
-}
+import { LanguageContext, languageOrder, normalizeLanguage } from './language-context'
 
 export function LanguageProvider({ children }: PropsWithChildren) {
     const [language, setLanguageState] = useState<AppLanguage>(() =>
@@ -48,7 +33,6 @@ export function LanguageProvider({ children }: PropsWithChildren) {
     }, [])
 
     const toggleLanguage = useCallback(async () => {
-        const languageOrder: AppLanguage[] = ['ru', 'en', 'kk']
         const currentIndex = languageOrder.indexOf(language)
         const nextLanguage = languageOrder[(currentIndex + 1) % languageOrder.length]
         await setLanguage(nextLanguage)
@@ -60,14 +44,4 @@ export function LanguageProvider({ children }: PropsWithChildren) {
     )
 
     return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>
-}
-
-export function useLanguage() {
-    const context = useContext(LanguageContext)
-
-    if (!context) {
-        throw new Error('useLanguage must be used within LanguageProvider')
-    }
-
-    return context
 }
