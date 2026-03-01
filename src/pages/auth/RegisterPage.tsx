@@ -85,14 +85,14 @@ export default function RegisterPage() {
 
     const handleTextFieldChange =
         (field: keyof Omit<RegisterFormValues, 'isPolicyAccepted'>) =>
-        (event: ChangeEvent<HTMLInputElement>) => {
-            const nextValues = { ...formValues, [field]: event.target.value }
-            setFormValues(nextValues)
+            (event: ChangeEvent<HTMLInputElement>) => {
+                const nextValues = { ...formValues, [field]: event.target.value }
+                setFormValues(nextValues)
 
-            if (isSubmitted) {
-                setErrors(validate(nextValues))
+                if (isSubmitted) {
+                    setErrors(validate(nextValues))
+                }
             }
-        }
 
     const handlePolicyChange = (event: ChangeEvent<HTMLInputElement>) => {
         const nextValues = { ...formValues, isPolicyAccepted: event.target.checked }
@@ -135,21 +135,21 @@ export default function RegisterPage() {
 
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <AuthInput
-                        label={t('auth.register.lastNameLabel')}
-                        placeholder={t('auth.register.lastNamePlaceholder')}
-                        value={formValues.lastName}
-                        onChange={handleTextFieldChange('lastName')}
-                        name="lastName"
-                        error={errors.lastName}
-                    />
-
-                    <AuthInput
                         label={t('auth.register.firstNameLabel')}
                         placeholder={t('auth.register.firstNamePlaceholder')}
                         value={formValues.firstName}
                         onChange={handleTextFieldChange('firstName')}
                         name="firstName"
                         error={errors.firstName}
+                    />
+
+                    <AuthInput
+                        label={t('auth.register.lastNameLabel')}
+                        placeholder={t('auth.register.lastNamePlaceholder')}
+                        value={formValues.lastName}
+                        onChange={handleTextFieldChange('lastName')}
+                        name="lastName"
+                        error={errors.lastName}
                     />
 
                     <AuthInput
