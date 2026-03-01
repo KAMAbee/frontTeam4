@@ -1,7 +1,16 @@
 @use '../../styles/global.scss' as *;
 
+.wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
 .select {
-    padding: 12px 16px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 12px 42px 12px 16px;
     border: none;
     border-radius: 50px;
     background-color: var(--color-bg-2);
@@ -16,7 +25,17 @@
         background-color: var(--color-bg-3);
     }
 
-    &:focus {
+    &:active {
         background-color: var(--color-bg-3);
     }
+}
+
+.arrow {
+    position: absolute;
+    right: 14px;
+    width: 16px;
+    height: 16px;
+    color: var(--color-text);
+    pointer-events: none;
+    transition: transform 0.2s ease;
 }

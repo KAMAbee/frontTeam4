@@ -1,3 +1,4 @@
+import { FiChevronDown } from 'react-icons/fi'
 import { useTranslation } from 'react-i18next'
 import { useLanguage } from '../../context/LanguageContext'
 import type { AppLanguage } from '../../i18n'
@@ -14,17 +15,26 @@ export const LanguageSwitcher = () => {
     const { language, setLanguage } = useLanguage()
 
     return (
-        <select
-            className={styles.select}
-            value={language}
-            onChange={(e) => setLanguage(e.target.value as AppLanguage)}
-            aria-label={t('ui.languageSwitcher.aria')}
-        >
-            {languages.map((lang) => (
-                <option key={lang.value} value={lang.value}>
-                    {lang.label}
-                </option>
-            ))}
-        </select>
+        <div className={styles.wrapper}>
+            <select
+                className={styles.select}
+                value={language}
+                onChange={(e) => {
+                    setLanguage(e.target.value as AppLanguage)
+                }}
+
+                aria-label={t('ui.languageSwitcher.aria')}
+            >
+                {languages.map((lang) => (
+                    <option key={lang.value} value={lang.value}>
+                        {lang.label}
+                    </option>
+                ))}
+            </select>
+            <FiChevronDown
+                className={styles.arrow}
+                aria-hidden
+            />
+        </div>
     )
 }
