@@ -1,111 +1,113 @@
 @use '../../styles/global.scss' as *;
 
-.container {
+.registerPage {
     width: 100%;
     max-width: 424px;
-}
 
-.header {
-    margin-bottom: 54px;
-}
-
-.title {
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--color-text);
-    margin: 0 0 8px;
-}
-
-.subtitle {
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--color-text);
-    margin: 0;
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.passwordGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.passwordHint {
-    margin: 0;
-    font-size: 12px;
-    color: var(--color-text-2);
-}
-
-.policyRow {
-    margin-top: 6px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    color: var(--color-text-2);
-    font-size: 13px;
-    line-height: 1.5;
-
-    input {
-        width: 18px;
-        height: 18px;
-        margin-top: 1px;
-        accent-color: var(--color-button-bg);
-        flex-shrink: 0;
+    &__header {
+        margin-bottom: 54px;
     }
 
-    a {
-        color: var(--color-text);
+    &__title {
+        margin: 0 0 8px;
+        font-size: 28px;
         font-weight: 600;
-        text-decoration: none;
+        color: var(--color-text);
+    }
 
-        &:hover {
-            text-decoration: underline;
+    &__subtitle {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--color-text);
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    &__passwordGroup {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__passwordHint {
+        margin: 0;
+        font-size: 12px;
+        color: var(--color-text-2);
+    }
+
+    &__policyRow {
+        margin-top: 6px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        color: var(--color-text-2);
+        font-size: 13px;
+        line-height: 1.5;
+
+        input {
+            width: 18px;
+            height: 18px;
+            margin-top: 1px;
+            flex-shrink: 0;
+            accent-color: var(--color-button-bg);
+        }
+
+        a {
+            color: var(--color-text);
+            font-weight: 600;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
-}
 
-.policyError {
-    margin: -10px 0 0;
-    font-size: 14px;
-    color: var(--color-error);
-}
+    &__policyError {
+        margin: -10px 0 0;
+        font-size: 14px;
+        color: var(--color-error);
+    }
 
-.submitButton {
-    margin-top: 12px;
-}
+    &__submit {
+        margin-top: 12px;
+    }
 
-.loginLink {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 14px;
-    color: var(--color-text-2);
+    &__loginLink {
+        margin-top: 50px;
+        text-align: center;
+        font-size: 14px;
+        color: var(--color-text-2);
 
-    a {
-        color: var(--color-text);
-        font-weight: 600;
-        text-decoration: none;
+        a {
+            color: var(--color-text);
+            font-weight: 600;
+            text-decoration: none;
 
-        &:hover {
-            text-decoration: underline;
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 }
 
 @media (max-width: 640px) {
-    .title {
-        font-size: 28px;
-    }
+    .registerPage {
+        &__title {
+            font-size: 28px;
+        }
 
-    .subtitle {
-        font-size: 16px;
-    }
+        &__subtitle {
+            font-size: 16px;
+        }
 
-    .loginLink {
-        font-size: 14px;
+        &__loginLink {
+            font-size: 14px;
+        }
     }
 }

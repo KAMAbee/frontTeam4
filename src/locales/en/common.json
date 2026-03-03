@@ -2,6 +2,37 @@
   "ui": {
     "languageSwitcher": {
       "aria": "Language switcher"
+    },
+    "back": "Back",
+    "pagination": {
+      "prev": "Prev",
+      "next": "Next",
+      "trainingsAria": "Trainings pagination",
+      "requestsAria": "Requests pagination"
+    }
+  },
+  "sidebar": {
+    "brand": "Corporate Training",
+    "workspace": "Workspace",
+    "navAria": "Sidebar navigation",
+    "emptyMessage": "Navigation for this role will be available soon.",
+    "navLabels": {
+      "trainings": "Trainings",
+      "myRequests": "My Requests",
+      "profile": "Profile"
+    },
+    "roles": {
+      "ADMIN": "Admin",
+      "MANAGER": "Manager",
+      "EMPLOYEE": "Employee"
+    }
+  },
+  "topbar": {
+    "logout": "Logout",
+    "roles": {
+      "ADMIN": "Admin",
+      "MANAGER": "Manager",
+      "EMPLOYEE": "Employee"
     }
   },
   "auth": {

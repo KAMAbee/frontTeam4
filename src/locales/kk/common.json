@@ -2,6 +2,37 @@
   "ui": {
     "languageSwitcher": {
       "aria": "Тіл ауыстырғыш"
+    },
+    "back": "Артқа",
+    "pagination": {
+      "prev": "Артқа",
+      "next": "Алға",
+      "trainingsAria": "Оқулар беттеу",
+      "requestsAria": "Өтінімдер беттеу"
+    }
+  },
+  "sidebar": {
+    "brand": "Корпоративтік оқу",
+    "workspace": "Жұмыс кеңістігі",
+    "navAria": "Бүйірлік панель навигациясы",
+    "emptyMessage": "Бұл рөл үшін навигация жақында қолжетімді болады.",
+    "navLabels": {
+      "trainings": "Оқулар",
+      "myRequests": "Менің өтінімдерім",
+      "profile": "Профиль"
+    },
+    "roles": {
+      "ADMIN": "Әкімші",
+      "MANAGER": "Менеджер",
+      "EMPLOYEE": "Қызметкер"
+    }
+  },
+  "topbar": {
+    "logout": "Шығу",
+    "roles": {
+      "ADMIN": "Әкімші",
+      "MANAGER": "Менеджер",
+      "EMPLOYEE": "Қызметкер"
     }
   },
   "auth": {

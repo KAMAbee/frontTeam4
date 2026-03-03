@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { PUBLIC_ROUTE_PATHS } from '../../app/routePaths'
 import { AuthInput } from '../../components/AuthInput'
 import { CommonButton } from '../../components/CommonButton'
 import { AuthLayout } from '../../layouts/AuthLayout'
@@ -127,13 +128,13 @@ export default function RegisterPage() {
 
     return (
         <AuthLayout>
-            <div className={styles.container}>
-                <div className={styles.header}>
-                    <h1 className={styles.title}>{t('auth.register.title')}</h1>
-                    <p className={styles.subtitle}>{t('auth.register.subtitle')}</p>
+            <div className={styles.registerPage}>
+                <div className={styles.registerPage__header}>
+                    <h1 className={styles.registerPage__title}>{t('auth.register.title')}</h1>
+                    <p className={styles.registerPage__subtitle}>{t('auth.register.subtitle')}</p>
                 </div>
 
-                <form className={styles.form} onSubmit={handleSubmit}>
+                <form className={styles.registerPage__form} onSubmit={handleSubmit}>
                     <AuthInput
                         label={t('auth.register.firstNameLabel')}
                         placeholder={t('auth.register.firstNamePlaceholder')}
@@ -170,7 +171,7 @@ export default function RegisterPage() {
                         error={errors.email}
                     />
 
-                    <div className={styles.passwordGroup}>
+                    <div className={styles.registerPage__passwordGroup}>
                         <AuthInput
                             label={t('auth.register.passwordLabel')}
                             placeholder={t('auth.register.passwordPlaceholder')}
@@ -180,7 +181,7 @@ export default function RegisterPage() {
                             name="password"
                             error={errors.password}
                         />
-                        <p className={styles.passwordHint}>{t('auth.register.passwordHint')}</p>
+                        <p className={styles.registerPage__passwordHint}>{t('auth.register.passwordHint')}</p>
                     </div>
 
                     <AuthInput
@@ -193,7 +194,7 @@ export default function RegisterPage() {
                         error={errors.confirmPassword}
                     />
 
-                    <label className={styles.policyRow}>
+                    <label className={styles.registerPage__policyRow}>
                         <input
                             type="checkbox"
                             checked={formValues.isPolicyAccepted}
@@ -207,18 +208,18 @@ export default function RegisterPage() {
                         </span>
                     </label>
                     {errors.isPolicyAccepted && (
-                        <p className={styles.policyError}>{errors.isPolicyAccepted}</p>
+                        <p className={styles.registerPage__policyError}>{errors.isPolicyAccepted}</p>
                     )}
 
-                    <div className={styles.submitButton}>
+                    <div className={styles.registerPage__submit}>
                         <CommonButton type="submit">{t('auth.register.submit')}</CommonButton>
                     </div>
                 </form>
 
-                <div className={styles.loginLink}>
+                <div className={styles.registerPage__loginLink}>
                     <Trans
                         i18nKey="auth.register.loginPrompt"
-                        components={{ login: <Link to="/login" /> }}
+                        components={{ login: <Link to={PUBLIC_ROUTE_PATHS.login} /> }}
                     />
                 </div>
             </div>

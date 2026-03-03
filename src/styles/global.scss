@@ -1,12 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
+    --color-bg-white: #ffffff;
     --color-bg: #FCFCFD;
     --color-bg-2: #F4F5F6;
     --color-bg-3: #E5E7EB;
+    --color-border: #D5DFEB;
     --color-text: #182135;
     --color-text-2: #7A828A;
     --color-text-3: #777E90;
+    --color-accent: #2A5D87;
+    --color-accent-hover: #1F4C72;
+    --color-accent-soft: #E9F1FF;
+    --color-sidebar-bg: #1F3148;
+    --color-on-dark: #DBE7F6;
 
     --color-label: #374151;
     --color-input-bg: #edf2f7;
@@ -17,6 +24,22 @@
     --color-button-text: #ffffff;
 
     --color-error: #e53e3e;
+
+    --color-badge-draft-bg: #f0f1f4;
+    --color-badge-draft-border: #d6d9e1;
+    --color-badge-pending-bg: #fff4dd;
+    --color-badge-pending-border: #f6ddaa;
+    --color-badge-approved-bg: #dcfce7;
+    --color-badge-approved-border: #9fdfb4;
+    --color-badge-rejected-bg: #fee2e2;
+    --color-badge-rejected-border: #f5b8b8;
+
+    --color-role-manager-bg: #E9F1FF;
+    --color-role-manager-border: #B3D1FF;
+    --color-role-employee-bg: #E8F5E9;
+    --color-role-employee-border: #A5D6A7;
+    --color-role-admin-bg: #ffd4d4;
+    --color-role-admin-border: #ff8f80;
 }
 
 *,

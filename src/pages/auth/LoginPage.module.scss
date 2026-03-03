@@ -1,69 +1,69 @@
 @use '../../styles/global.scss' as *;
 
-.container {
+.loginPage {
     width: 100%;
     max-width: 424px;
-}
 
-.header {
-    margin-bottom: 54px;
-}
-
-.title {
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--color-text);
-    margin: 0 0 8px;
-}
-
-.subtitle {
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--color-text);
-    margin: 0;
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.passwordWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.forgotPassword {
-    align-self: flex-end;
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--color-text-3);
-    text-decoration: none;
-
-    &:hover {
-        text-decoration: underline;
+    &__header {
+        margin-bottom: 54px;
     }
-}
 
-.signupLink {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 14px;
-    color: var(--color-text-2);
-
-    a {
-        color: var(--color-text);
+    &__title {
+        margin: 0 0 8px;
+        font-size: 28px;
         font-weight: 600;
+        color: var(--color-text);
+    }
+
+    &__subtitle {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--color-text);
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    &__passwordWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__forgotPassword {
+        align-self: flex-end;
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--color-text-3);
         text-decoration: none;
 
         &:hover {
-            text-decoration: none;
+            text-decoration: underline;
         }
     }
-}
 
-.loginButton {
-    margin-top: 10px;
+    &__submit {
+        margin-top: 10px;
+    }
+
+    &__signupLink {
+        margin-top: 50px;
+        text-align: center;
+        font-size: 14px;
+        color: var(--color-text-2);
+
+        a {
+            color: var(--color-text);
+            font-weight: 600;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
 }

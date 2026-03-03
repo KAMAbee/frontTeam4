@@ -1,0 +1,29 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-bg-white);
+    color: var(--color-text);
+    font-weight: 600;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+
+    &:hover {
+        border-color: var(--color-accent);
+        background-color: var(--color-bg-2);
+        transform: translateY(-1px);
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
+
+}
+
+.arrow {
+    font-size: 0.95rem;
+    line-height: 1;
+}

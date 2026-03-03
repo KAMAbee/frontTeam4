@@ -2,6 +2,37 @@
   "ui": {
     "languageSwitcher": {
       "aria": "Переключение языка"
+    },
+    "back": "Назад",
+    "pagination": {
+      "prev": "Назад",
+      "next": "Вперед",
+      "trainingsAria": "Пагинация обучений",
+      "requestsAria": "Пагинация заявок"
+    }
+  },
+  "sidebar": {
+    "brand": "Корпоративное обучение",
+    "workspace": "Рабочая область",
+    "navAria": "Навигация боковой панели",
+    "emptyMessage": "Навигация для этой роли скоро будет доступна.",
+    "navLabels": {
+      "trainings": "Обучения",
+      "myRequests": "Мои заявки",
+      "profile": "Профиль"
+    },
+    "roles": {
+      "ADMIN": "Администратор",
+      "MANAGER": "Менеджер",
+      "EMPLOYEE": "Сотрудник"
+    }
+  },
+  "topbar": {
+    "logout": "Выйти",
+    "roles": {
+      "ADMIN": "Администратор",
+      "MANAGER": "Менеджер",
+      "EMPLOYEE": "Сотрудник"
     }
   },
   "auth": {

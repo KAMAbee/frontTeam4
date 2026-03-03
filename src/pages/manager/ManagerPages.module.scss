@@ -1,0 +1,290 @@
+@use '../../styles/global.scss' as *;
+
+.managerPage {
+    display: grid;
+    gap: 20px;
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+
+    &__header {
+        display: grid;
+        gap: 10px;
+        padding: 18px;
+        border-radius: 16px;
+        border: 1px solid var(--color-border);
+        background-color: var(--color-bg-white);
+    }
+
+    &__headerWithBack {
+        grid-template-columns: auto 1fr;
+        align-items: start;
+        gap: 14px;
+    }
+
+    &__headerActions {
+        padding-top: 2px;
+    }
+
+    &__headerContent {
+        min-width: 0;
+    }
+
+    &__title {
+        margin: 0;
+        font-size: clamp(22px, 19px + 0.5vw, 28px);
+        letter-spacing: -0.01em;
+    }
+
+    &__subtitle {
+        margin: 8px 0 0;
+        max-width: 64ch;
+        color: var(--color-text-2);
+    }
+
+    &__searchInput,
+    &__textarea {
+        width: 100%;
+        max-width: 480px;
+        padding: 11px 14px;
+        border: 1px solid var(--color-border);
+        border-radius: 12px;
+        background-color: var(--color-bg-white);
+        transition: border-color 0.16s ease;
+
+        &:focus {
+            outline: 2px solid var(--color-accent-soft);
+            outline-offset: 1px;
+            border-color: var(--color-accent);
+        }
+    }
+
+    &__textarea {
+        height: 120px;
+        resize: none;
+    }
+
+    &__cardGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+    }
+
+    &__card {
+        display: block;
+        padding: 16px;
+        border: 1px solid var(--color-border);
+        border-radius: 14px;
+        background-color: var(--color-bg-white);
+        color: inherit;
+        text-decoration: none;
+        transition: transform 0.2s ease, border-color 0.2s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+            border-color: var(--color-accent);
+        }
+    }
+
+    &__cardTitle {
+        margin: 0;
+        font-size: 17px;
+    }
+
+    &__cardMeta {
+        margin: 8px 0 0;
+        font-size: 14px;
+        color: var(--color-text-2);
+    }
+
+    &__emptyState {
+        margin: 0;
+        padding: 14px 16px;
+        border: 1px solid var(--color-border);
+        border-radius: 12px;
+        background-color: var(--color-bg-white);
+        color: var(--color-text-2);
+    }
+
+    &__infoBlock {
+        padding: 18px;
+        border: 1px solid var(--color-border);
+        border-radius: 16px;
+        background-color: var(--color-bg-white);
+    }
+
+    &__infoTitle {
+        margin: 0;
+        font-size: 18px;
+    }
+
+    &__infoGrid {
+        margin-top: 12px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+    }
+
+    &__infoLabel {
+        margin: 0;
+        font-size: 13px;
+        color: var(--color-text-2);
+    }
+
+    &__infoValue {
+        margin: 4px 0 0;
+        font-weight: 600;
+    }
+
+    &__sectionTitle {
+        margin: 0 0 10px;
+        font-size: 18px;
+    }
+
+    &__inlineLink {
+        color: var(--color-accent);
+        font-weight: 600;
+        text-decoration-thickness: 1px;
+
+        &:hover {
+            color: var(--color-accent-hover);
+        }
+    }
+
+    &__primaryButton {
+        display: inline-flex;
+        padding: 10px 16px;
+        border: 1px solid var(--color-accent);
+        border-radius: 12px;
+        background-color: var(--color-accent);
+        color: var(--color-button-text);
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.16s ease, transform 0.16s ease;
+
+        &:hover {
+            background-color: var(--color-accent-hover);
+            transform: translateY(-1px);
+        }
+    }
+
+    &__selectList {
+        display: grid;
+        gap: 10px;
+        max-width: 560px;
+    }
+
+    &__checkboxRow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 12px;
+        border: 1px solid var(--color-border);
+        border-radius: 12px;
+        background-color: var(--color-bg-white);
+        transition: border-color 0.16s ease;
+
+        &:hover {
+            border-color: var(--color-accent);
+        }
+    }
+
+    &__metaText {
+        margin: 0;
+        font-size: 14px;
+        color: var(--color-text-2);
+    }
+
+    &__formActions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    &__tableWrap {
+        overflow-x: auto;
+        border: 1px solid var(--color-border);
+        border-radius: 16px;
+        background-color: var(--color-bg-white);
+    }
+
+    &__table {
+        width: 100%;
+        min-width: 680px;
+        border-collapse: collapse;
+
+        th,
+        td {
+            padding: 13px 12px;
+            border-bottom: 1px solid var(--color-bg-2);
+            text-align: left;
+        }
+
+        th {
+            background: var(--color-bg-2);
+            color: var(--color-text-2);
+            font-size: 13px;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+    }
+
+    &__tableRow {
+        cursor: pointer;
+        transition: background-color 0.1s ease;
+
+        &:hover {
+            background-color: var(--color-bg-2);
+        }
+    }
+
+    &__badge {
+        display: inline-flex;
+        padding: 5px 10px;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    &__badgeDraft {
+        background-color: var(--color-badge-draft-bg);
+        border-color: var(--color-badge-draft-border);
+    }
+
+    &__badgePending {
+        background-color: var(--color-badge-pending-bg);
+        border-color: var(--color-badge-pending-border);
+    }
+
+    &__badgeApproved {
+        background-color: var(--color-badge-approved-bg);
+        border-color: var(--color-badge-approved-border);
+    }
+
+    &__badgeRejected {
+        background-color: var(--color-badge-rejected-bg);
+        border-color: var(--color-badge-rejected-border);
+    }
+
+    &__list {
+        margin: 0;
+        padding-left: 20px;
+        display: grid;
+        gap: 8px;
+    }
+
+}
+
+@media (max-width: 760px) {
+    .managerPage {
+        &__headerWithBack {
+            grid-template-columns: 1fr;
+        }
+
+        &__headerActions {
+            padding-top: 0;
+        }
+    }
+}

@@ -1,0 +1,7 @@
+export { TrainingsPage } from './TrainingsPage'
+export { TrainingDetailsPage } from './TrainingDetailsPage'
+export { SessionDetailsPage } from './SessionDetailsPage'
+export { MyRequestsPage } from './MyRequestsPage'
+export { CreateRequestPage } from './CreateRequestPage'
+export { RequestDetailsPage } from './RequestDetailsPage'
+export { ProfilePage } from './ProfilePage'

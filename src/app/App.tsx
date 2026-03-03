@@ -4,9 +4,7 @@ import styles from './App.module.scss'
 export default function App() {
     return (
         <div className={styles.page}>
-            <main className={styles.content}>
-                <Outlet />
-            </main>
+            <Outlet />
         </div>
     )
 }

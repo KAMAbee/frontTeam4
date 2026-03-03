@@ -1,0 +1,78 @@
+@use '../../styles/global.scss' as *;
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 22px 16px;
+    color: var(--color-on-dark);
+}
+
+.topRow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--color-button-text);
+}
+
+.roleLabel {
+    margin: 0 0 8px;
+    color: var(--color-bg-3);
+    font-size: 14px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.navItem {
+    border-radius: 12px;
+    padding: 11px 12px;
+    color: var(--color-on-dark);
+    text-decoration: none;
+    border: 1px solid transparent;
+    font-weight: 500;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+
+    &:hover {
+        border-color: var(--color-accent);
+        background-color: var(--color-accent);
+        color: var(--color-button-text);
+    }
+}
+
+.active {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-soft);
+    color: var(--color-button-text);
+}
+
+.emptyMessage {
+    color: var(--color-bg-3);
+    font-size: 14px;
+}
+
+@media (max-width: 900px) {
+    .wrapper {
+        height: auto;
+    }
+
+    .nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .topRow {
+        flex-wrap: wrap;
+    }
+}

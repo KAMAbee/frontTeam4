@@ -10,19 +10,22 @@ const languages: { value: AppLanguage; label: string }[] = [
     { value: 'kk', label: 'KZ' },
 ]
 
-export const LanguageSwitcher = () => {
+interface LanguageSwitcherProps {
+    className?: string
+}
+
+export const LanguageSwitcher = ({ className }: LanguageSwitcherProps) => {
     const { t } = useTranslation()
     const { language, setLanguage } = useLanguage()
 
     return (
-        <div className={styles.wrapper}>
+        <div className={className ? `${styles.wrapper} ${className}` : styles.wrapper}>
             <select
                 className={styles.select}
                 value={language}
                 onChange={(e) => {
-                    setLanguage(e.target.value as AppLanguage)
+                    void setLanguage(e.target.value as AppLanguage)
                 }}
-
                 aria-label={t('ui.languageSwitcher.aria')}
             >
                 {languages.map((lang) => (
