@@ -19,7 +19,9 @@
     "navLabels": {
       "trainings": "Оқулар",
       "myRequests": "Менің өтінімдерім",
-      "profile": "Профиль"
+      "profile": "Профиль",
+      "adminSessions": "Сессии обучения",
+      "myLearning": "Моё обучение"
     },
     "roles": {
       "ADMIN": "Әкімші",

@@ -2,7 +2,6 @@
 import { Navigate, createBrowserRouter, type RouteObject } from 'react-router-dom'
 import App from './App'
 import {
-    FUTURE_ROLE_DEFAULT_PATHS,
     MANAGER_ROUTE_PATHS,
     PRIVATE_ROUTE_PATHS,
     PUBLIC_ROUTE_PATHS,
@@ -19,9 +18,13 @@ import {
     TrainingDetailsPage,
     TrainingsPage,
 } from '../pages/manager'
+
+import { SessionsPage, SessionDetailsPage as AdminSessionDetailsPage } from '../pages/admin'
+import { MyLearningPage, LearningDetailsPage } from '../pages/employee'
+
 import { AppLayout } from '../layouts/AppLayout'
 import { RequireAuth } from '../guards'
-import { RolePlaceholderPage, UnauthorizedPage } from '../pages/shared'
+import { UnauthorizedPage } from '../pages/shared'
 import { UserRole } from '../types'
 
 const publicRoutes: RouteObject[] = [
@@ -81,25 +84,39 @@ const privateRoutes: RouteObject[] = [
                         index: true,
                         element: <RoleHomeRedirect />,
                     },
+
+                    // MANAGER ROUTES
                     {
                         element: <RequireAuth allowedRoles={[UserRole.MANAGER]} />,
                         children: managerRoutes,
                     },
+
+                    // ADMIN ROUTES
                     {
                         element: <RequireAuth allowedRoles={[UserRole.ADMIN]} />,
                         children: [
                             {
-                                path: FUTURE_ROLE_DEFAULT_PATHS[UserRole.ADMIN],
-                                element: <RolePlaceholderPage role={UserRole.ADMIN} />,
+                                path: '/admin',
+                                element: <SessionsPage />,
+                            },
+                            {
+                                path: '/admin/sessions/:id',
+                                element: <AdminSessionDetailsPage />,
                             },
                         ],
                     },
+
+                    // EMPLOYEE ROUTES
                     {
                         element: <RequireAuth allowedRoles={[UserRole.EMPLOYEE]} />,
                         children: [
                             {
-                                path: FUTURE_ROLE_DEFAULT_PATHS[UserRole.EMPLOYEE],
-                                element: <RolePlaceholderPage role={UserRole.EMPLOYEE} />,
+                                path: '/employee',
+                                element: <MyLearningPage />,
+                            },
+                            {
+                                path: '/employee/learning/:id',
+                                element: <LearningDetailsPage />,
                             },
                         ],
                     },
