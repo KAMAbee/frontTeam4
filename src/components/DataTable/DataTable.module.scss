@@ -1,0 +1,39 @@
+.dataTableWrap {
+    overflow-x: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    background-color: var(--color-bg-white);
+}
+
+.dataTable {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+        padding: 13px 12px;
+        border-bottom: 1px solid var(--color-bg-2);
+        text-align: left;
+    }
+
+    th {
+        background: var(--color-bg-2);
+        color: var(--color-text-2);
+        font-size: 13px;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+    }
+}
+
+.dataTable__rowInteractive {
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+
+    &:hover {
+        background-color: var(--color-bg-2);
+    }
+}
+
+.dataTable__emptyCell {
+    color: var(--color-text-2);
+}
