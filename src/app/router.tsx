@@ -93,10 +93,10 @@ const privateRoutes: RouteObject[] = [
 
                     // ADMIN ROUTES
                     {
-                        element: <RequireAuth allowedRoles={[UserRole.ADMIN]} />,
+                        element: <RequireAuth allowedRoles={[UserRole.ADMIN, UserRole.MANAGER]} />,
                         children: [
                             {
-                                path: '/admin',
+                                path: '/admin/sessions',
                                 element: <SessionsPage />,
                             },
                             {
@@ -108,14 +108,14 @@ const privateRoutes: RouteObject[] = [
 
                     // EMPLOYEE ROUTES
                     {
-                        element: <RequireAuth allowedRoles={[UserRole.EMPLOYEE]} />,
+                        element: <RequireAuth allowedRoles={[UserRole.EMPLOYEE, UserRole.MANAGER]} />,
                         children: [
                             {
                                 path: '/employee',
                                 element: <MyLearningPage />,
                             },
                             {
-                                path: '/employee/learning/:id',
+                                path: '/employee/learning/:enrollmentId',
                                 element: <LearningDetailsPage />,
                             },
                         ],

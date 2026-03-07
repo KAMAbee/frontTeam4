@@ -4,11 +4,11 @@ import {
 import { UserRole } from '../../types'
 
 export type SidebarNavLabelKey =
-    | 'trainings'
-    | 'myRequests'
-    | 'profile'
-    | 'adminSessions'
-    | 'myLearning'
+  | 'trainings'
+  | 'myRequests'
+  | 'profile'
+  | 'sessions'
+  | 'myLearning'
 
 export interface SidebarNavItem {
     labelKey: SidebarNavLabelKey
@@ -17,10 +17,7 @@ export interface SidebarNavItem {
 
 export const ROLE_NAVIGATION: Record<UserRole, SidebarNavItem[]> = {
     [UserRole.ADMIN]: [
-        {
-            labelKey: 'adminSessions',
-            path: '/admin',
-        },
+        { labelKey: 'sessions', path: '/admin/sessions' },
     ],
 
     [UserRole.MANAGER]: [
@@ -30,9 +27,6 @@ export const ROLE_NAVIGATION: Record<UserRole, SidebarNavItem[]> = {
     ],
 
     [UserRole.EMPLOYEE]: [
-        {
-            labelKey: 'myLearning',
-            path: '/employee',
-        },
+        { labelKey: 'myLearning', path: '/employee' },
     ],
 }
