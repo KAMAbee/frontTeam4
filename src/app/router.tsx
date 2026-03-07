@@ -1,4 +1,14 @@
 /* eslint-disable react-refresh/only-export-components */
+import {
+    SessionsPage,
+    SessionDetailsPage as AdminSessionDetailsPage,
+    ContractsPage,
+    ContractDetailsPage,
+    SuppliersPage,
+    SupplierDetailsPage,
+    RequestsPage,
+    RequestDetailsPage as AdminRequestDetailsPage,
+} from '../pages/admin'
 import { Navigate, createBrowserRouter, type RouteObject } from 'react-router-dom'
 import App from './App'
 import {
@@ -98,12 +108,47 @@ const privateRoutes: RouteObject[] = [
                             {
                                 path: '/admin',
                                 element: <SessionsPage />,
+                            
                             },
+        
                             {
                                 path: '/admin/sessions/:id',
                                 element: <AdminSessionDetailsPage />,
                             },
+        
+                            {
+                                path: '/admin/contracts',
+                                element: <ContractsPage />,
+                            },
+        
+                            {
+                                path: '/admin/contracts/:id',
+                                element: <ContractDetailsPage />,
+                            },
+                            
+                            {
+                                path: '/admin/suppliers',
+                                element: <SuppliersPage />,
+                            },
+        
+                            {
+                                path: '/admin/suppliers/:id',
+                                element: <SupplierDetailsPage />,
+                            },
+        
+                            {
+                                path: '/admin/requests',
+                                element: <RequestsPage />,
+        
+                            },
+        
+                            {
+                                path: '/admin/requests/:id',
+                                element: <AdminRequestDetailsPage />,
+                            },
+    
                         ],
+
                     },
 
                     // EMPLOYEE ROUTES
