@@ -20,8 +20,9 @@
       "trainings": "Обучения",
       "myRequests": "Мои заявки",
       "profile": "Профиль",
-      "adminSessions": "Оқу сессиялары",
-      "myLearning": "Менің оқуым"
+      "adminSessions": "Сессии обучения",
+      "myLearning": "Моё обучение"
+      
     },
     "roles": {
       "ADMIN": "Администратор",

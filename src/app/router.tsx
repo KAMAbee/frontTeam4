@@ -29,7 +29,6 @@ import {
     TrainingsPage,
 } from '../pages/manager'
 
-import { SessionsPage, SessionDetailsPage as AdminSessionDetailsPage } from '../pages/admin'
 import { MyLearningPage, LearningDetailsPage } from '../pages/employee'
 
 import { AppLayout } from '../layouts/AppLayout'
