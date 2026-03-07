@@ -19,7 +19,9 @@
     "navLabels": {
       "trainings": "Trainings",
       "myRequests": "My Requests",
-      "profile": "Profile"
+      "profile": "Profile",
+      "adminSessions": "Admin Sessions",
+      "myLearning": "My Learning"
     },
     "roles": {
       "ADMIN": "Admin",

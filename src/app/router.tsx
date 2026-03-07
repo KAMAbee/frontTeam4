@@ -1,8 +1,17 @@
 /* eslint-disable react-refresh/only-export-components */
+import {
+    SessionsPage,
+    SessionDetailsPage as AdminSessionDetailsPage,
+    ContractsPage,
+    ContractDetailsPage,
+    SuppliersPage,
+    SupplierDetailsPage,
+    RequestsPage,
+    RequestDetailsPage as AdminRequestDetailsPage,
+} from '../pages/admin'
 import { Navigate, createBrowserRouter, type RouteObject } from 'react-router-dom'
 import App from './App'
 import {
-    FUTURE_ROLE_DEFAULT_PATHS,
     MANAGER_ROUTE_PATHS,
     PRIVATE_ROUTE_PATHS,
     PUBLIC_ROUTE_PATHS,
@@ -19,9 +28,13 @@ import {
     TrainingDetailsPage,
     TrainingsPage,
 } from '../pages/manager'
+
+import { SessionsPage, SessionDetailsPage as AdminSessionDetailsPage } from '../pages/admin'
+import { MyLearningPage, LearningDetailsPage } from '../pages/employee'
+
 import { AppLayout } from '../layouts/AppLayout'
 import { RequireAuth } from '../guards'
-import { RolePlaceholderPage, UnauthorizedPage } from '../pages/shared'
+import { UnauthorizedPage } from '../pages/shared'
 import { UserRole } from '../types'
 
 const publicRoutes: RouteObject[] = [
@@ -81,25 +94,74 @@ const privateRoutes: RouteObject[] = [
                         index: true,
                         element: <RoleHomeRedirect />,
                     },
+
+                    // MANAGER ROUTES
                     {
                         element: <RequireAuth allowedRoles={[UserRole.MANAGER]} />,
                         children: managerRoutes,
                     },
+
+                    // ADMIN ROUTES
                     {
                         element: <RequireAuth allowedRoles={[UserRole.ADMIN]} />,
                         children: [
                             {
-                                path: FUTURE_ROLE_DEFAULT_PATHS[UserRole.ADMIN],
-                                element: <RolePlaceholderPage role={UserRole.ADMIN} />,
+                                path: '/admin',
+                                element: <SessionsPage />,
+                            
                             },
+        
+                            {
+                                path: '/admin/sessions/:id',
+                                element: <AdminSessionDetailsPage />,
+                            },
+        
+                            {
+                                path: '/admin/contracts',
+                                element: <ContractsPage />,
+                            },
+        
+                            {
+                                path: '/admin/contracts/:id',
+                                element: <ContractDetailsPage />,
+                            },
+                            
+                            {
+                                path: '/admin/suppliers',
+                                element: <SuppliersPage />,
+                            },
+        
+                            {
+                                path: '/admin/suppliers/:id',
+                                element: <SupplierDetailsPage />,
+                            },
+        
+                            {
+                                path: '/admin/requests',
+                                element: <RequestsPage />,
+        
+                            },
+        
+                            {
+                                path: '/admin/requests/:id',
+                                element: <AdminRequestDetailsPage />,
+                            },
+    
                         ],
+
                     },
+
+                    // EMPLOYEE ROUTES
                     {
                         element: <RequireAuth allowedRoles={[UserRole.EMPLOYEE]} />,
                         children: [
                             {
-                                path: FUTURE_ROLE_DEFAULT_PATHS[UserRole.EMPLOYEE],
-                                element: <RolePlaceholderPage role={UserRole.EMPLOYEE} />,
+                                path: '/employee',
+                                element: <MyLearningPage />,
+                            },
+                            {
+                                path: '/employee/learning/:id',
+                                element: <LearningDetailsPage />,
                             },
                         ],
                     },

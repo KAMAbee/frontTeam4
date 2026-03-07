@@ -3,7 +3,12 @@ import {
 } from '../../app/routePaths'
 import { UserRole } from '../../types'
 
-export type SidebarNavLabelKey = 'trainings' | 'myRequests' | 'profile'
+export type SidebarNavLabelKey =
+    | 'trainings'
+    | 'myRequests'
+    | 'profile'
+    | 'adminSessions'
+    | 'myLearning'
 
 export interface SidebarNavItem {
     labelKey: SidebarNavLabelKey
@@ -11,11 +16,23 @@ export interface SidebarNavItem {
 }
 
 export const ROLE_NAVIGATION: Record<UserRole, SidebarNavItem[]> = {
-    [UserRole.ADMIN]: [],
+    [UserRole.ADMIN]: [
+        {
+            labelKey: 'adminSessions',
+            path: '/admin',
+        },
+    ],
+
     [UserRole.MANAGER]: [
         { labelKey: 'trainings', path: MANAGER_ROUTE_PATHS.trainings },
         { labelKey: 'myRequests', path: MANAGER_ROUTE_PATHS.requests },
         { labelKey: 'profile', path: MANAGER_ROUTE_PATHS.profile },
     ],
-    [UserRole.EMPLOYEE]: [],
+
+    [UserRole.EMPLOYEE]: [
+        {
+            labelKey: 'myLearning',
+            path: '/employee',
+        },
+    ],
 }

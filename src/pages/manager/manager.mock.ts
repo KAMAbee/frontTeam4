@@ -432,3 +432,117 @@ export const PRICING_TYPE_LABELS: Record<PricingType, string> = {
     [PricingType.PER_PERSON]: 'Per person',
     [PricingType.PER_GROUP]: 'Per group',
 }
+// =============== SUPPLIERS ===============
+export const suppliersMock = [
+  {
+    id: "sup-001",
+    name: "EduPro Training Center",
+    bin: "123456789012",
+    contactPerson: "Sarah Johnson",
+    phone: "+7 777 123 4567",
+    email: "contact@edupro.kz",
+  },
+  {
+    id: "sup-002",
+    name: "SkillWorks Academy",
+    bin: "987654321098",
+    contactPerson: "Mark Davis",
+    phone: "+7 777 222 3344",
+    email: "info@skillworks.kz",
+  },
+];
+
+// =============== CONTRACTS ===============
+export const contractsMock = [
+  {
+    id: "ctr-001",
+    supplierId: "sup-001",
+    contractNumber: "CT-001/2026",
+    startDate: "2026-01-01",
+    endDate: "2026-12-31",
+    limit: 1000000,
+  },
+  {
+    id: "ctr-002",
+    supplierId: "sup-002",
+    contractNumber: "CT-002/2026",
+    startDate: "2026-02-01",
+    endDate: "2026-10-31",
+    limit: 750000,
+  },
+];
+
+// =============== CONTRACT ALLOCATIONS ===============
+export const contractAllocationsMock = [
+  {
+    id: "alloc-001",
+    contractId: "ctr-001",
+    requestId: "req-001",
+    amount: 150000,
+  },
+  {
+    id: "alloc-002",
+    contractId: "ctr-001",
+    requestId: "req-002",
+    amount: 250000,
+  },
+  {
+    id: "alloc-003",
+    contractId: "ctr-002",
+    requestId: "req-003",
+    amount: 180000,
+  },
+];
+
+// =============== REQUEST EMPLOYEES ===============
+export const trainingRequestEmployeesMock = [
+  { id: "tre-001", requestId: "req-001", employeeId: "emp-101", name: "Ariana West" },
+  { id: "tre-002", requestId: "req-001", employeeId: "emp-103", name: "Emma Clark" },
+
+  { id: "tre-003", requestId: "req-002", employeeId: "emp-102", name: "Noah Reed" },
+
+  { id: "tre-004", requestId: "req-003", employeeId: "emp-104", name: "Liam Stone" },
+  { id: "tre-005", requestId: "req-003", employeeId: "emp-103", name: "Emma Clark" },
+];
+
+// =============== ENROLLMENTS ===============
+export const enrollmentsMock = [
+  {
+    id: "enr-001",
+    employeeName: "Ariana West",
+    sessionId: "sess-001",
+    status: "planned",
+  },
+  {
+    id: "enr-002",
+    employeeName: "Emma Clark",
+    sessionId: "sess-001",
+    status: "attended",
+  },
+  {
+    id: "enr-003",
+    employeeName: "Noah Reed",
+    sessionId: "sess-003",
+    status: "planned",
+  },
+];
+
+// =============== ATTENDANCE ===============
+export const attendanceMock = [
+  {
+    id: "att-001",
+    enrollmentId: "enr-002",
+    attended: true,
+  },
+];
+
+// =============== CERTIFICATES ===============
+export const certificatesMock = [
+  {
+    id: "cert-001",
+    enrollmentId: "enr-002",
+    certificateNumber: "C-2026-0001",
+    fileUrl: "/certificates/C-2026-0001.pdf",
+    issuedDate: "2026-03-23",
+  },
+];
