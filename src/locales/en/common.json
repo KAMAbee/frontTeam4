@@ -20,7 +20,10 @@
       "trainings": "Trainings",
       "myRequests": "My Requests",
       "profile": "Profile",
-      "adminSessions": "Admin Sessions",
+      "adminSessions": "Edu Sessions",
+      "adminRequests": "Requests",
+      "adminContracts": "Contracts",
+      "adminSuppliers": "Suppliers",
       "myLearning": "My Learning"
     },
     "roles": {

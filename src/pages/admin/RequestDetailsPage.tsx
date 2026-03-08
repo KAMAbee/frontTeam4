@@ -1,5 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom'
+import { ADMIN_ROUTE_PATHS } from '../../app/routePaths'
+import { BackButton } from '../../components/BackButton'
+import { RequestStatus } from '../../types'
 import {
+    REQUEST_STATUS_LABELS,
     requestsMock,
     sessionsMock,
     trainingsMock,
@@ -13,14 +17,33 @@ import {
 import styles from '../manager/ManagerPages.module.scss'
 import { useState } from 'react'
 
+const statusClassByValue: Record<RequestStatus, string> = {
+    [RequestStatus.DRAFT]: styles.managerPage__badgeDraft,
+    [RequestStatus.PENDING]: styles.managerPage__badgePending,
+    [RequestStatus.APPROVED]: styles.managerPage__badgeApproved,
+    [RequestStatus.REJECTED]: styles.managerPage__badgeRejected,
+}
+
 export const RequestDetailsPage = () => {
-    const { id } = useParams()
+    const { id } = useParams<{ id: string }>()
     const navigate = useNavigate()
 
     const request = requestsMock.find((r) => r.id === id)
 
     if (!request) {
-        return <p>Request not found</p>
+        return (
+            <section className={styles.managerPage}>
+                <header className={`${styles.managerPage__header} ${styles.managerPage__headerWithBack}`}>
+                    <div className={styles.managerPage__headerActions}>
+                        <BackButton fallbackTo={ADMIN_ROUTE_PATHS.requests} />
+                    </div>
+                    <div className={styles.managerPage__headerContent}>
+                        <h1 className={styles.managerPage__title}>Request not found</h1>
+                        <p className={styles.managerPage__subtitle}>The requested item is unavailable.</p>
+                    </div>
+                </header>
+            </section>
+        )
     }
 
     // session + training
@@ -51,23 +74,26 @@ export const RequestDetailsPage = () => {
 
     const approve = () => {
         alert(`Approved request ${request.id}. (Mock only)`)
-        navigate('/admin/requests')
+        navigate(ADMIN_ROUTE_PATHS.requests)
     }
 
     const reject = () => {
         alert(`Rejected request ${request.id} with comment: ${actionComment}`)
-        navigate('/admin/requests')
+        navigate(ADMIN_ROUTE_PATHS.requests)
     }
 
     return (
         <section className={styles.managerPage}>
-            <header className={styles.managerPage__header}>
+            <header className={`${styles.managerPage__header} ${styles.managerPage__headerWithBack}`}>
+                <div className={styles.managerPage__headerActions}>
+                    <BackButton fallbackTo={ADMIN_ROUTE_PATHS.requests} />
+                </div>
                 <div className={styles.managerPage__headerContent}>
                     <h1 className={styles.managerPage__title}>
                         Request {request.id}
                     </h1>
                     <p className={styles.managerPage__subtitle}>
-                        Review training request
+                        Review training request and allocation details
                     </p>
                 </div>
             </header>
@@ -102,7 +128,7 @@ export const RequestDetailsPage = () => {
                     <div>
                         <p className={styles.managerPage__infoLabel}>Manager</p>
                         <p className={styles.managerPage__infoValue}>
-                            {manager?.fullName}
+                            {manager?.fullName ?? `Manager ${request.managerId}`}
                         </p>
                     </div>
 
@@ -111,14 +137,18 @@ export const RequestDetailsPage = () => {
                             Department
                         </p>
                         <p className={styles.managerPage__infoValue}>
-                            {manager?.department}
+                            {manager?.department ?? 'N/A'}
                         </p>
                     </div>
 
                     <div>
                         <p className={styles.managerPage__infoLabel}>Status</p>
                         <p className={styles.managerPage__infoValue}>
-                            {request.status}
+                            <span
+                                className={`${styles.managerPage__badge} ${statusClassByValue[request.status]}`}
+                            >
+                                {REQUEST_STATUS_LABELS[request.status]}
+                            </span>
                         </p>
                     </div>
                 </div>
@@ -128,13 +158,40 @@ export const RequestDetailsPage = () => {
             <div className={styles.managerPage__infoBlock}>
                 <h2 className={styles.managerPage__infoTitle}>Employees</h2>
 
-                <div className={styles.managerPage__list}>
-                    {assignedEmployees.map((e) => (
-                        <div key={e.id} className={styles.managerPage__listItem}>
-                            {e.name}
-                        </div>
-                    ))}
-                </div>
+                {assignedEmployees.length > 0 ? (
+                    <details className={styles.managerPage__details}>
+                        <summary className={styles.managerPage__detailsSummary}>
+                            <span className={styles.managerPage__detailsLabel}>
+                                Team members
+                            </span>
+
+                            <span className={styles.managerPage__detailsMeta}>
+                                <span className={styles.managerPage__detailsCount}>
+                                    {assignedEmployees.length}
+                                </span>
+                                <span
+                                    className={styles.managerPage__detailsChevron}
+                                    aria-hidden
+                                >
+                                    ▾
+                                </span>
+                            </span>
+                        </summary>
+
+                        <ul className={styles.managerPage__employeeList}>
+                            {assignedEmployees.map((employee) => (
+                                <li
+                                    key={employee.id}
+                                    className={styles.managerPage__employeeChip}
+                                >
+                                    {employee.name}
+                                </li>
+                            ))}
+                        </ul>
+                    </details>
+                ) : (
+                    <p className={styles.managerPage__metaText}>No employees attached to this request.</p>
+                )}
             </div>
 
             {/* Contract Info */}
@@ -200,6 +257,7 @@ export const RequestDetailsPage = () => {
 
                 <div className={styles.managerPage__actionsRow}>
                     <button
+                        type="button"
                         className={styles.managerPage__buttonPrimary}
                         onClick={approve}
                     >
@@ -207,6 +265,7 @@ export const RequestDetailsPage = () => {
                     </button>
 
                     <button
+                        type="button"
                         className={styles.managerPage__buttonDanger}
                         onClick={reject}
                     >

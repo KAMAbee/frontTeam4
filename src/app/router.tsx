@@ -12,6 +12,7 @@ import {
 import { Navigate, createBrowserRouter, type RouteObject } from 'react-router-dom'
 import App from './App'
 import {
+    ADMIN_ROUTE_PATHS,
     MANAGER_ROUTE_PATHS,
     PRIVATE_ROUTE_PATHS,
     PUBLIC_ROUTE_PATHS,
@@ -105,44 +106,44 @@ const privateRoutes: RouteObject[] = [
                         element: <RequireAuth allowedRoles={[UserRole.ADMIN]} />,
                         children: [
                             {
-                                path: '/admin',
+                                path: ADMIN_ROUTE_PATHS.sessions,
                                 element: <SessionsPage />,
                             
                             },
         
                             {
-                                path: '/admin/sessions/:id',
+                                path: ADMIN_ROUTE_PATHS.sessionDetails,
                                 element: <AdminSessionDetailsPage />,
                             },
         
                             {
-                                path: '/admin/contracts',
+                                path: ADMIN_ROUTE_PATHS.contracts,
                                 element: <ContractsPage />,
                             },
         
                             {
-                                path: '/admin/contracts/:id',
+                                path: ADMIN_ROUTE_PATHS.contractDetails,
                                 element: <ContractDetailsPage />,
                             },
                             
                             {
-                                path: '/admin/suppliers',
+                                path: ADMIN_ROUTE_PATHS.suppliers,
                                 element: <SuppliersPage />,
                             },
         
                             {
-                                path: '/admin/suppliers/:id',
+                                path: ADMIN_ROUTE_PATHS.supplierDetails,
                                 element: <SupplierDetailsPage />,
                             },
         
                             {
-                                path: '/admin/requests',
+                                path: ADMIN_ROUTE_PATHS.requests,
                                 element: <RequestsPage />,
         
                             },
         
                             {
-                                path: '/admin/requests/:id',
+                                path: ADMIN_ROUTE_PATHS.requestDetails,
                                 element: <AdminRequestDetailsPage />,
                             },
     

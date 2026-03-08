@@ -1,22 +1,42 @@
+import { ADMIN_ROUTE_PATHS } from '../../app/routePaths'
+import { BackButton } from '../../components/BackButton'
 import { useParams } from 'react-router-dom'
 import { sessionsMock, trainingsMock } from '../manager/manager.mock'
 import styles from '../manager/ManagerPages.module.scss'
 
 export const SessionDetailsPage = () => {
-    const { id } = useParams()
+    const { id } = useParams<{ id: string }>()
 
     const session = sessionsMock.find((s) => s.id === id)
     const training = trainingsMock.find((t) => t.id === session?.trainingId)
 
     if (!session) {
-        return <p>Session not found</p>
+        return (
+            <section className={styles.managerPage}>
+                <header className={`${styles.managerPage__header} ${styles.managerPage__headerWithBack}`}>
+                    <div className={styles.managerPage__headerActions}>
+                        <BackButton fallbackTo={ADMIN_ROUTE_PATHS.sessions} />
+                    </div>
+                    <div className={styles.managerPage__headerContent}>
+                        <h1 className={styles.managerPage__title}>Session not found</h1>
+                        <p className={styles.managerPage__subtitle}>The requested session is unavailable.</p>
+                    </div>
+                </header>
+            </section>
+        )
     }
 
     return (
         <section className={styles.managerPage}>
-            <header className={styles.managerPage__header}>
+            <header className={`${styles.managerPage__header} ${styles.managerPage__headerWithBack}`}>
+                <div className={styles.managerPage__headerActions}>
+                    <BackButton fallbackTo={ADMIN_ROUTE_PATHS.sessions} />
+                </div>
                 <div className={styles.managerPage__headerContent}>
                     <h1 className={styles.managerPage__title}>Session Details</h1>
+                    <p className={styles.managerPage__subtitle}>
+                        {training?.title ?? 'Training'} in {session.city}
+                    </p>
                 </div>
             </header>
 

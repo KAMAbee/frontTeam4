@@ -1,6 +1,9 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { adminRouteLinks } from '../../app/routePaths'
+import { DataTable, type DataTableColumn } from '../../components/DataTable'
 import { Pagination } from '../../components/Pagination'
+import type { Session } from '../../types'
 import { sessionsMock, trainingsMock } from '../manager/manager.mock'
 import styles from '../manager/ManagerPages.module.scss'
 
@@ -10,6 +13,10 @@ export const SessionsPage = () => {
     const navigate = useNavigate()
     const [searchValue, setSearchValue] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
+    const trainingsById = useMemo(
+        () => new Map(trainingsMock.map((training) => [training.id, training])),
+        [],
+    )
 
     const filteredSessions = useMemo(() => {
         const query = searchValue.trim().toLowerCase()
@@ -17,7 +24,7 @@ export const SessionsPage = () => {
         if (!query) return sessionsMock
 
         return sessionsMock.filter((session) => {
-            const training = trainingsMock.find((t) => t.id === session.trainingId)
+            const training = trainingsById.get(session.trainingId)
 
             const text = [
                 training?.title ?? '',
@@ -29,7 +36,7 @@ export const SessionsPage = () => {
 
             return text.includes(query)
         })
-    }, [searchValue])
+    }, [searchValue, trainingsById])
 
     const totalPages = Math.max(1, Math.ceil(filteredSessions.length / ITEMS_PER_PAGE))
     const normalizedCurrentPage = Math.min(currentPage, totalPages)
@@ -38,6 +45,32 @@ export const SessionsPage = () => {
         const startIndex = (normalizedCurrentPage - 1) * ITEMS_PER_PAGE
         return filteredSessions.slice(startIndex, startIndex + ITEMS_PER_PAGE)
     }, [filteredSessions, normalizedCurrentPage])
+
+    const columns = useMemo<DataTableColumn<Session>[]>(
+        () => [
+            {
+                key: 'training',
+                header: 'Training',
+                renderCell: (session) => trainingsById.get(session.trainingId)?.title ?? 'N/A',
+            },
+            {
+                key: 'city',
+                header: 'City',
+                renderCell: (session) => session.city,
+            },
+            {
+                key: 'dates',
+                header: 'Dates',
+                renderCell: (session) => `${session.startDate} – ${session.endDate}`,
+            },
+            {
+                key: 'capacity',
+                header: 'Capacity',
+                renderCell: (session) => session.capacity,
+            },
+        ],
+        [trainingsById],
+    )
 
     return (
         <section className={styles.managerPage}>
@@ -61,40 +94,16 @@ export const SessionsPage = () => {
                 placeholder="Search sessions"
             />
 
-            <div className={styles.managerPage__tableWrap}>
-                <table className={styles.managerPage__table}>
-                    <thead>
-                        <tr>
-                            <th>Training</th>
-                            <th>City</th>
-                            <th>Dates</th>
-                            <th>Capacity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {paginatedSessions.map((session) => {
-                            const training = trainingsMock.find(
-                                (t) => t.id === session.trainingId,
-                            )
-
-                            return (
-                                <tr
-                                    key={session.id}
-                                    className={styles.managerPage__tableRow}
-                                    onClick={() => navigate(`/admin/sessions/${session.id}`)}
-                                >
-                                    <td>{training?.title ?? 'N/A'}</td>
-                                    <td>{session.city}</td>
-                                    <td>
-                                        {session.startDate} – {session.endDate}
-                                    </td>
-                                    <td>{session.capacity}</td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
-            </div>
+            <DataTable
+                columns={columns}
+                rows={paginatedSessions}
+                getRowKey={(session) => session.id}
+                emptyState="No sessions found"
+                onRowClick={(session) => {
+                    navigate(adminRouteLinks.sessionDetails(session.id))
+                }}
+                minWidth={700}
+            />
 
             <Pagination
                 currentPage={normalizedCurrentPage}

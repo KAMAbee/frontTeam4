@@ -21,6 +21,9 @@
       "myRequests": "Мои заявки",
       "profile": "Профиль",
       "adminSessions": "Сессии обучения",
+      "adminRequests": "Заявки",
+      "adminContracts": "Договоры",
+      "adminSuppliers": "Поставщики",
       "myLearning": "Моё обучение"
       
     },

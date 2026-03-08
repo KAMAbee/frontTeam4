@@ -21,6 +21,9 @@
       "myRequests": "Менің өтінімдерім",
       "profile": "Профиль",
       "adminSessions": "Оқу сессиялары",
+      "adminRequests": "Өтінімдер",
+      "adminContracts": "Келісімшарттар",
+      "adminSuppliers": "Жеткізушілер",
       "myLearning": "Менің оқуым"
     },
     "roles": {

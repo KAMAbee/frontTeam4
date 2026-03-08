@@ -43,7 +43,8 @@
     }
 
     &__searchInput,
-    &__textarea {
+    &__textarea,
+    &__select {
         width: 100%;
         max-width: 480px;
         padding: 11px 14px;
@@ -113,8 +114,14 @@
         background-color: var(--color-bg-white);
     }
 
+    &__content {
+        display: grid;
+        gap: 18px;
+    }
+
     &__infoTitle {
-        margin: 0;
+        margin-top: 0;
+        margin-bottom: 8px;
         font-size: 18px;
     }
 
@@ -238,6 +245,150 @@
         gap: 8px;
     }
 
+    &__listItem {
+        margin: 0;
+        padding: 10px 12px;
+        border: 1px solid var(--color-border);
+        border-radius: 10px;
+        background-color: var(--color-bg);
+        list-style: none;
+    }
+
+    &__details {
+        margin-top: 10px;
+        padding: 10px 12px 12px;
+        border: 1px solid var(--color-border);
+        border-radius: 12px;
+        background-color: var(--color-bg);
+    }
+
+    &__detailsSummary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        list-style: none;
+        user-select: none;
+
+        &::-webkit-details-marker {
+            display: none;
+        }
+    }
+
+    &__detailsLabel {
+        font-weight: 600;
+        color: var(--color-text);
+    }
+
+    &__detailsMeta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__detailsCount {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 24px;
+        height: 24px;
+        padding: 0 8px;
+        border-radius: 999px;
+        background-color: var(--color-accent-soft);
+        color: var(--color-accent);
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    &__detailsChevron {
+        font-size: 12px;
+        color: var(--color-text-2);
+        transition: transform 0.16s ease;
+    }
+
+    &__details[open] &__detailsChevron {
+        transform: rotate(180deg);
+    }
+
+    &__employeeList {
+        margin: 12px 0 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    &__employeeChip {
+        display: inline-flex;
+        align-items: center;
+        min-height: 34px;
+        padding: 0 12px;
+        border-radius: 999px;
+        border: 1px solid var(--color-border);
+        background-color: var(--color-bg-white);
+        font-weight: 500;
+        color: var(--color-text);
+    }
+
+    &__filters {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    &__actionsRow {
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    &__buttonPrimary,
+    &__buttonDanger {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        padding: 0 16px;
+        border-radius: 10px;
+        font-weight: 600;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: transform 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
+
+        &:hover {
+            transform: translateY(-1px);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
+
+    &__buttonPrimary {
+        background-color: var(--color-accent);
+        border-color: var(--color-accent);
+        color: var(--color-button-text);
+
+        &:hover {
+            background-color: var(--color-accent-hover);
+            border-color: var(--color-accent-hover);
+        }
+    }
+
+    &__buttonDanger {
+        background-color: #fff4f4;
+        border-color: #efc2c2;
+        color: #8a2c2c;
+
+        &:hover {
+            background-color: #ffe7e7;
+            border-color: #e9aaaa;
+        }
+    }
 }
 
 @media (max-width: 760px) {
@@ -248,6 +399,16 @@
 
         &__headerActions {
             padding-top: 0;
+        }
+
+        &__filters {
+            display: grid;
+        }
+
+        &__searchInput,
+        &__textarea,
+        &__select {
+            max-width: none;
         }
     }
 }

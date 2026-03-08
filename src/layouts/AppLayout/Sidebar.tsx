@@ -33,6 +33,7 @@ export const Sidebar = () => {
                         <NavLink
                             key={item.path}
                             to={item.path}
+                            end={item.end}
                             className={({ isActive }) =>
                                 isActive ? `${styles.navItem} ${styles.active}` : styles.navItem
                             }
