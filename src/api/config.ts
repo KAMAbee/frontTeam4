@@ -2,7 +2,7 @@ const normalizeBaseUrl = (rawBaseUrl: string): string => rawBaseUrl.replace(/\/$
 
 const envBaseUrl = import.meta.env.VITE_API_BASE_URL
 
-export const API_BASE_URL = normalizeBaseUrl(envBaseUrl?.trim() || 'http://localhost:8000')
+export const API_BASE_URL = normalizeBaseUrl(envBaseUrl?.trim() || 'https://backteam4.onrender.com')
 
 export const API_PATHS = {
     tokenObtain: '/api/token/',
