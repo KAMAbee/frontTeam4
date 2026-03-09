@@ -1,0 +1,19 @@
+.copyableId {
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--color-accent);
+    font: inherit;
+    font-weight: 600;
+    cursor: copy;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 2px;
+
+    &:hover {
+        color: var(--color-accent-hover);
+    }
+}
+

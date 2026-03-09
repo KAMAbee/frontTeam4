@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, type PropsWithChildren } from 'react'
 import type { User } from '../types'
+import { clearStoredTokens } from '../api/authStorage'
 import { AuthContext, type AuthContextValue } from './auth-context'
 
 const AUTH_STORAGE_KEY = 'ctms_auth_user'
@@ -45,6 +46,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
             login: setUser,
             logout: () => {
                 setUser(null)
+                clearStoredTokens()
             },
         }),
         [user],

@@ -1,5 +1,8 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { PRIVATE_ROUTE_PATHS, PUBLIC_ROUTE_PATHS } from '../app/routePaths'
+import {
+    FUTURE_ROLE_DEFAULT_PATHS,
+    PUBLIC_ROUTE_PATHS,
+} from '../app/routePaths'
 import { useAuth } from '../hooks/useAuth'
 import type { UserRole } from '../types'
 
@@ -22,7 +25,7 @@ export const RequireAuth = ({ allowedRoles }: RequireAuthProps) => {
     }
 
     if (allowedRoles && !allowedRoles.includes(user.role)) {
-        return <Navigate to={PRIVATE_ROUTE_PATHS.unauthorized} replace />
+        return <Navigate to={FUTURE_ROLE_DEFAULT_PATHS[user.role]} replace />
     }
 
     return <Outlet />

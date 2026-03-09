@@ -1,11 +1,17 @@
 export const RequestStatus = {
-    DRAFT: 'DRAFT',
     PENDING: 'PENDING',
     APPROVED: 'APPROVED',
     REJECTED: 'REJECTED',
-} as const;
+    CANCELLED: 'CANCELLED',
+} as const
 
-export type RequestStatus = typeof RequestStatus[keyof typeof RequestStatus];
+export type RequestStatus = typeof RequestStatus[keyof typeof RequestStatus]
+
+export interface RequestEmployee {
+    id: string
+    employeeId: string
+    name: string
+}
 
 export interface TrainingRequest {
     id: string
@@ -13,7 +19,10 @@ export interface TrainingRequest {
     managerId: string
     status: RequestStatus
     employees: string[]
+    employeeDetails?: RequestEmployee[]
     comment: string
+    createdAt?: string
+    trainingTitle?: string
 }
 
 export type Request = TrainingRequest

@@ -8,6 +8,7 @@ export const PUBLIC_ROUTE_PATHS = {
 
 export const PRIVATE_ROUTE_PATHS = {
     unauthorized: '/unauthorized',
+    profile: '/profile',
 } as const
 
 export const ADMIN_ROUTE_PATHS = {
@@ -32,7 +33,7 @@ export const MANAGER_ROUTE_PATHS = {
 } as const
 
 export const FUTURE_ROLE_DEFAULT_PATHS: Record<UserRole, string> = {
-    [UserRole.ADMIN]: ADMIN_ROUTE_PATHS.sessions,
+    [UserRole.ADMIN]: ADMIN_ROUTE_PATHS.requests,
     [UserRole.MANAGER]: MANAGER_ROUTE_PATHS.trainings,
     [UserRole.EMPLOYEE]: '/employee',
 }

@@ -23,13 +23,13 @@ export interface SidebarNavItem {
 export const ROLE_NAVIGATION: Record<UserRole, SidebarNavItem[]> = {
     [UserRole.ADMIN]: [
         {
+            labelKey: 'adminRequests',
+            path: ADMIN_ROUTE_PATHS.requests,
+        },
+        {
             labelKey: 'adminSessions',
             path: ADMIN_ROUTE_PATHS.sessions,
             end: true,
-        },
-        {
-            labelKey: 'adminRequests',
-            path: ADMIN_ROUTE_PATHS.requests,
         },
         {
             labelKey: 'adminContracts',

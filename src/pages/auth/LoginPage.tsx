@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { ApiError, fetchCurrentUserProfile, loginWithUsername, setStoredTokens } from '../../api'
 import {
     FUTURE_ROLE_DEFAULT_PATHS,
     PUBLIC_ROUTE_PATHS,
@@ -9,17 +10,14 @@ import { AuthInput } from '../../components/AuthInput'
 import { CommonButton } from '../../components/CommonButton'
 import { useAuth } from '../../hooks/useAuth'
 import { AuthLayout } from '../../layouts/AuthLayout'
-import { UserRole } from '../../types'
 import styles from './LoginPage.module.scss'
 
 interface LoginFormValues {
-    email: string
+    username: string
     password: string
 }
 
 type LoginFormErrors = Partial<Record<keyof LoginFormValues, string>>
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 interface LocationState {
     from?: string
@@ -31,19 +29,19 @@ export default function LoginPage() {
     const navigate = useNavigate()
     const location = useLocation()
     const [formValues, setFormValues] = useState<LoginFormValues>({
-        email: '',
+        username: '',
         password: '',
     })
     const [errors, setErrors] = useState<LoginFormErrors>({})
+    const [submitError, setSubmitError] = useState<string | null>(null)
     const [isSubmitted, setIsSubmitted] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const validate = (values: LoginFormValues): LoginFormErrors => {
         const nextErrors: LoginFormErrors = {}
 
-        if (!values.email.trim()) {
-            nextErrors.email = t('auth.validation.requiredField')
-        } else if (!EMAIL_REGEX.test(values.email.trim())) {
-            nextErrors.email = t('auth.validation.invalidEmail')
+        if (!values.username.trim()) {
+            nextErrors.username = t('auth.validation.requiredField')
         }
 
         if (!values.password) {
@@ -59,15 +57,17 @@ export default function LoginPage() {
         (field: keyof LoginFormValues) => (event: ChangeEvent<HTMLInputElement>) => {
             const nextValues = { ...formValues, [field]: event.target.value }
             setFormValues(nextValues)
+            setSubmitError(null)
 
             if (isSubmitted) {
                 setErrors(validate(nextValues))
             }
         }
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setIsSubmitted(true)
+        setSubmitError(null)
 
         const nextErrors = validate(formValues)
         setErrors(nextErrors)
@@ -76,23 +76,28 @@ export default function LoginPage() {
             return
         }
 
-        const redirectState = location.state as LocationState | null
-        const fallbackPath = FUTURE_ROLE_DEFAULT_PATHS[UserRole.MANAGER]
+        try {
+            setIsSubmitting(true)
 
-        login({
-            id: 'mgr-001',
-            firstName: 'Jordan',
-            lastName: 'Miles',
-            role: UserRole.MANAGER,
-            department: 'Learning and Development',
-        })
+            const tokens = await loginWithUsername(formValues.username.trim(), formValues.password)
+            setStoredTokens(tokens)
 
-        console.log({
-            email: formValues.email.trim(),
-            password: formValues.password,
-        })
+            const currentUser = await fetchCurrentUserProfile()
+            login(currentUser)
 
-        navigate(redirectState?.from ?? fallbackPath, { replace: true })
+            const redirectState = location.state as LocationState | null
+            const fallbackPath = FUTURE_ROLE_DEFAULT_PATHS[currentUser.role]
+            navigate(redirectState?.from ?? fallbackPath, { replace: true })
+        } catch (submitActionError) {
+            if (submitActionError instanceof ApiError) {
+                setSubmitError(submitActionError.message)
+                return
+            }
+
+            setSubmitError(t('auth.validation.serverError'))
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     return (
@@ -105,12 +110,12 @@ export default function LoginPage() {
 
                 <form className={styles.loginPage__form} onSubmit={handleSubmit}>
                     <AuthInput
-                        label={t('auth.login.emailLabel')}
-                        placeholder={t('auth.login.emailPlaceholder')}
-                        value={formValues.email}
-                        onChange={handleFieldChange('email')}
-                        name="email"
-                        error={errors.email}
+                        label={t('auth.login.usernameLabel')}
+                        placeholder={t('auth.login.usernamePlaceholder')}
+                        value={formValues.username}
+                        onChange={handleFieldChange('username')}
+                        name="username"
+                        error={errors.username}
                     />
 
                     <div className={styles.loginPage__passwordWrapper}>
@@ -129,8 +134,12 @@ export default function LoginPage() {
                     </div>
 
                     <div className={styles.loginPage__submit}>
-                        <CommonButton type="submit">{t('auth.login.submit')}</CommonButton>
+                        <CommonButton type="submit" disabled={isSubmitting}>
+                            {isSubmitting ? t('auth.login.loading') : t('auth.login.submit')}
+                        </CommonButton>
                     </div>
+
+                    {submitError && <p className={styles.loginPage__submitError}>{submitError}</p>}
                 </form>
 
                 <div className={styles.loginPage__signupLink}>

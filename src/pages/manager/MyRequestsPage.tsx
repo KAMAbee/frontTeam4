@@ -1,25 +1,23 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { fetchSessions, fetchTrainingRequests, fetchTrainings } from '../../api'
 import { managerRouteLinks } from '../../app/routePaths'
+import { CopyableId } from '../../components/CopyableId'
 import { DataTable, type DataTableColumn } from '../../components/DataTable'
+import { DateTimeRangeBadge } from '../../components/DateTimeBadge'
 import { Pagination } from '../../components/Pagination'
+import { useAsyncData } from '../../hooks'
 import { RequestStatus, type Request } from '../../types'
-import {
-    REQUEST_STATUS_LABELS,
-    requestsMock,
-    sessionsMock,
-    trainingsMock,
-} from './manager.mock'
 import styles from './ManagerPages.module.scss'
 
 const ITEMS_PER_PAGE = 7
 
 const statusClassByValue: Record<RequestStatus, string> = {
-    [RequestStatus.DRAFT]: styles.managerPage__badgeDraft,
     [RequestStatus.PENDING]: styles.managerPage__badgePending,
     [RequestStatus.APPROVED]: styles.managerPage__badgeApproved,
     [RequestStatus.REJECTED]: styles.managerPage__badgeRejected,
+    [RequestStatus.CANCELLED]: styles.managerPage__badgeCancelled,
 }
 
 export const MyRequestsPage = () => {
@@ -27,23 +25,39 @@ export const MyRequestsPage = () => {
     const navigate = useNavigate()
     const [searchValue, setSearchValue] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
-    const sessionsById = useMemo(
-        () => new Map(sessionsMock.map((session) => [session.id, session])),
+    const { data: requests, isLoading: isRequestsLoading, error: requestsError } = useAsyncData(
+        fetchTrainingRequests,
+        [],
         [],
     )
-    const trainingsById = useMemo(
-        () => new Map(trainingsMock.map((training) => [training.id, training])),
+    const { data: sessions, isLoading: isSessionsLoading, error: sessionsError } = useAsyncData(
+        fetchSessions,
         [],
+        [],
+    )
+    const { data: trainings, isLoading: isTrainingsLoading, error: trainingsError } = useAsyncData(
+        fetchTrainings,
+        [],
+        [],
+    )
+
+    const sessionsById = useMemo(
+        () => new Map(sessions.map((session) => [session.id, session])),
+        [sessions],
+    )
+    const trainingsById = useMemo(
+        () => new Map(trainings.map((training) => [training.id, training])),
+        [trainings],
     )
 
     const filteredRequests = useMemo(() => {
         const normalizedQuery = searchValue.trim().toLowerCase()
 
         if (!normalizedQuery) {
-            return requestsMock
+            return requests
         }
 
-        return requestsMock.filter((request) => {
+        return requests.filter((request) => {
             const session = sessionsById.get(request.sessionId)
             const training = session ? trainingsById.get(session.trainingId) : undefined
 
@@ -51,14 +65,14 @@ export const MyRequestsPage = () => {
                 request.id,
                 training?.title ?? '',
                 session?.city ?? '',
-                REQUEST_STATUS_LABELS[request.status],
+                t(`labels.requestStatus.${request.status}`),
             ]
                 .join(' ')
                 .toLowerCase()
 
             return searchText.includes(normalizedQuery)
         })
-    }, [searchValue, sessionsById, trainingsById])
+    }, [requests, searchValue, sessionsById, t, trainingsById])
 
     const totalPages = Math.max(1, Math.ceil(filteredRequests.length / ITEMS_PER_PAGE))
     const normalizedCurrentPage = Math.min(currentPage, totalPages)
@@ -73,54 +87,59 @@ export const MyRequestsPage = () => {
             {
                 key: 'id',
                 header: 'ID',
-                renderCell: (request) => request.id,
+                renderCell: (request) => <CopyableId value={request.id} />,
             },
             {
                 key: 'training',
-                header: 'Training',
+                header: t('manager.myRequests.columns.training'),
                 renderCell: (request) => {
                     const session = sessionsById.get(request.sessionId)
                     const training = session ? trainingsById.get(session.trainingId) : undefined
 
-                    return training?.title ?? 'N/A'
+                    return training?.title ?? t('ui.na')
                 },
             },
             {
                 key: 'session',
-                header: 'Session',
+                header: t('manager.myRequests.columns.session'),
                 renderCell: (request) => {
                     const session = sessionsById.get(request.sessionId)
-                    return session ? `${session.city} (${session.startDate})` : 'N/A'
+                    if (!session) {
+                        return t('ui.na')
+                    }
+
+                    return (
+                        <div className={styles.managerPage__dateCell}>
+                            <span>{session.city}</span>
+                            <DateTimeRangeBadge startValue={session.startDate} endValue={session.endDate} />
+                        </div>
+                    )
                 },
             },
             {
                 key: 'status',
-                header: 'Status',
+                header: t('manager.myRequests.columns.status'),
                 renderCell: (request) => (
-                    <span
-                        className={`${styles.managerPage__badge} ${statusClassByValue[request.status]}`}
-                    >
-                        {REQUEST_STATUS_LABELS[request.status]}
+                    <span className={`${styles.managerPage__badge} ${statusClassByValue[request.status]}`}>
+                        {t(`labels.requestStatus.${request.status}`)}
                     </span>
                 ),
             },
             {
                 key: 'employees',
-                header: 'Employees',
+                header: t('manager.myRequests.columns.employees'),
                 renderCell: (request) => request.employees.length,
             },
         ],
-        [sessionsById, trainingsById],
+        [sessionsById, t, trainingsById],
     )
 
     return (
         <section className={styles.managerPage}>
             <header className={styles.managerPage__header}>
                 <div className={styles.managerPage__headerContent}>
-                    <h1 className={styles.managerPage__title}>My Requests</h1>
-                    <p className={styles.managerPage__subtitle}>
-                        Track submitted requests and approval statuses.
-                    </p>
+                    <h1 className={styles.managerPage__title}>{t('manager.myRequests.title')}</h1>
+                    <p className={styles.managerPage__subtitle}>{t('manager.myRequests.subtitle')}</p>
                 </div>
             </header>
 
@@ -132,20 +151,29 @@ export const MyRequestsPage = () => {
                     setSearchValue(event.target.value)
                     setCurrentPage(1)
                 }}
-                placeholder="Search by request ID, training, city or status"
-                aria-label="Search requests"
+                placeholder={t('manager.myRequests.searchPlaceholder')}
+                aria-label={t('manager.myRequests.searchAria')}
             />
 
             <DataTable
                 columns={columns}
                 rows={paginatedRequests}
                 getRowKey={(request) => request.id}
-                emptyState="No requests found"
+                emptyState={t('manager.myRequests.empty')}
                 onRowClick={(request) => {
                     navigate(managerRouteLinks.requestDetails(request.id))
                 }}
                 minWidth={680}
             />
+
+            {(isRequestsLoading || isSessionsLoading || isTrainingsLoading) && (
+                <p className={styles.managerPage__metaText}>{t('manager.myRequests.loading')}</p>
+            )}
+            {(requestsError || sessionsError || trainingsError) && (
+                <p className={styles.managerPage__metaText}>
+                    {t('ui.error.withMessage', { error: requestsError || sessionsError || trainingsError })}
+                </p>
+            )}
 
             <Pagination
                 currentPage={normalizedCurrentPage}

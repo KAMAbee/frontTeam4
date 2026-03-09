@@ -1,17 +1,28 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
-import { PUBLIC_ROUTE_PATHS } from '../../app/routePaths'
+import { Link, useNavigate } from 'react-router-dom'
+import {
+    ApiError,
+    fetchCurrentUserProfile,
+    loginWithUsername,
+    registerUser,
+    setStoredTokens,
+} from '../../api'
+import { FUTURE_ROLE_DEFAULT_PATHS, PUBLIC_ROUTE_PATHS } from '../../app/routePaths'
 import { AuthInput } from '../../components/AuthInput'
 import { CommonButton } from '../../components/CommonButton'
+import { useAuth } from '../../hooks/useAuth'
 import { AuthLayout } from '../../layouts/AuthLayout'
+import { UserRole, type UserRole as UserRoleType } from '../../types'
 import styles from './RegisterPage.module.scss'
 
 interface RegisterFormValues {
+    username: string
     firstName: string
     lastName: string
     middleName: string
     email: string
+    role: UserRoleType
     password: string
     confirmPassword: string
     isPolicyAccepted: boolean
@@ -21,27 +32,41 @@ type RegisterFormErrors = Partial<Record<keyof RegisterFormValues, string>>
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const NAME_REGEX = /^[\p{L}][\p{L}\s'-]*$/u
+const USERNAME_REGEX = /^[a-zA-Z0-9._@+-]{3,150}$/
 
 export default function RegisterPage() {
     const { t } = useTranslation()
+    const navigate = useNavigate()
+    const { login } = useAuth()
     const [formValues, setFormValues] = useState<RegisterFormValues>({
+        username: '',
         firstName: '',
         lastName: '',
         middleName: '',
         email: '',
+        role: UserRole.EMPLOYEE,
         password: '',
         confirmPassword: '',
         isPolicyAccepted: false,
     })
     const [errors, setErrors] = useState<RegisterFormErrors>({})
+    const [submitError, setSubmitError] = useState<string | null>(null)
     const [isSubmitted, setIsSubmitted] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const validate = (values: RegisterFormValues): RegisterFormErrors => {
         const nextErrors: RegisterFormErrors = {}
+        const username = values.username.trim()
         const firstName = values.firstName.trim()
         const lastName = values.lastName.trim()
         const middleName = values.middleName.trim()
         const email = values.email.trim()
+
+        if (!username) {
+            nextErrors.username = t('auth.validation.requiredField')
+        } else if (!USERNAME_REGEX.test(username)) {
+            nextErrors.username = t('auth.validation.invalidUsername')
+        }
 
         if (!firstName) {
             nextErrors.firstName = t('auth.validation.requiredField')
@@ -85,10 +110,11 @@ export default function RegisterPage() {
     }
 
     const handleTextFieldChange =
-        (field: keyof Omit<RegisterFormValues, 'isPolicyAccepted'>) =>
+        (field: keyof Omit<RegisterFormValues, 'isPolicyAccepted' | 'role'>) =>
             (event: ChangeEvent<HTMLInputElement>) => {
                 const nextValues = { ...formValues, [field]: event.target.value }
                 setFormValues(nextValues)
+                setSubmitError(null)
 
                 if (isSubmitted) {
                     setErrors(validate(nextValues))
@@ -98,15 +124,27 @@ export default function RegisterPage() {
     const handlePolicyChange = (event: ChangeEvent<HTMLInputElement>) => {
         const nextValues = { ...formValues, isPolicyAccepted: event.target.checked }
         setFormValues(nextValues)
+        setSubmitError(null)
 
         if (isSubmitted) {
             setErrors(validate(nextValues))
         }
     }
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleRoleButtonClick = (role: UserRoleType) => {
+        const nextValues = { ...formValues, role }
+        setFormValues(nextValues)
+        setSubmitError(null)
+
+        if (isSubmitted) {
+            setErrors(validate(nextValues))
+        }
+    }
+
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setIsSubmitted(true)
+        setSubmitError(null)
 
         const nextErrors = validate(formValues)
         setErrors(nextErrors)
@@ -115,15 +153,35 @@ export default function RegisterPage() {
             return
         }
 
-        console.log({
-            firstName: formValues.firstName.trim(),
-            lastName: formValues.lastName.trim(),
-            middleName: formValues.middleName.trim(),
-            email: formValues.email.trim(),
-            password: formValues.password,
-            confirmPassword: formValues.confirmPassword,
-            isPolicyAccepted: formValues.isPolicyAccepted,
-        })
+        try {
+            setIsSubmitting(true)
+
+            await registerUser({
+                username: formValues.username.trim(),
+                firstName: formValues.firstName.trim(),
+                lastName: formValues.lastName.trim(),
+                middleName: formValues.middleName.trim(),
+                email: formValues.email.trim(),
+                password: formValues.password,
+                role: formValues.role,
+            })
+
+            const tokens = await loginWithUsername(formValues.username.trim(), formValues.password)
+            setStoredTokens(tokens)
+
+            const currentUser = await fetchCurrentUserProfile()
+            login(currentUser)
+            navigate(FUTURE_ROLE_DEFAULT_PATHS[currentUser.role], { replace: true })
+        } catch (submitActionError) {
+            if (submitActionError instanceof ApiError) {
+                setSubmitError(submitActionError.message)
+                return
+            }
+
+            setSubmitError(t('auth.validation.serverError'))
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     return (
@@ -136,22 +194,33 @@ export default function RegisterPage() {
 
                 <form className={styles.registerPage__form} onSubmit={handleSubmit}>
                     <AuthInput
-                        label={t('auth.register.firstNameLabel')}
-                        placeholder={t('auth.register.firstNamePlaceholder')}
-                        value={formValues.firstName}
-                        onChange={handleTextFieldChange('firstName')}
-                        name="firstName"
-                        error={errors.firstName}
+                        label={t('auth.register.usernameLabel')}
+                        placeholder={t('auth.register.usernamePlaceholder')}
+                        value={formValues.username}
+                        onChange={handleTextFieldChange('username')}
+                        name="username"
+                        error={errors.username}
                     />
 
-                    <AuthInput
-                        label={t('auth.register.lastNameLabel')}
-                        placeholder={t('auth.register.lastNamePlaceholder')}
-                        value={formValues.lastName}
-                        onChange={handleTextFieldChange('lastName')}
-                        name="lastName"
-                        error={errors.lastName}
-                    />
+                    <div className={styles.registerPage__nameRow}>
+                        <AuthInput
+                            label={t('auth.register.firstNameLabel')}
+                            placeholder={t('auth.register.firstNamePlaceholder')}
+                            value={formValues.firstName}
+                            onChange={handleTextFieldChange('firstName')}
+                            name="firstName"
+                            error={errors.firstName}
+                        />
+
+                        <AuthInput
+                            label={t('auth.register.lastNameLabel')}
+                            placeholder={t('auth.register.lastNamePlaceholder')}
+                            value={formValues.lastName}
+                            onChange={handleTextFieldChange('lastName')}
+                            name="lastName"
+                            error={errors.lastName}
+                        />
+                    </div>
 
                     <AuthInput
                         label={t('auth.register.middleNameLabel')}
@@ -170,6 +239,35 @@ export default function RegisterPage() {
                         name="email"
                         error={errors.email}
                     />
+
+                    <div className={styles.registerPage__field}>
+                        <label className={styles.registerPage__fieldLabel}>
+                            {t('auth.register.roleLabel')}
+                        </label>
+                        <div className={styles.registerPage__roleButtons}>
+                            <button
+                                type="button"
+                                className={`${styles.registerPage__roleButton} ${styles.registerPage__roleButtonEmployee} ${formValues.role === UserRole.EMPLOYEE ? styles.registerPage__roleButtonActive : ''}`}
+                                onClick={() => handleRoleButtonClick(UserRole.EMPLOYEE)}
+                            >
+                                {t('auth.register.roles.employee')}
+                            </button>
+                            <button
+                                type="button"
+                                className={`${styles.registerPage__roleButton} ${styles.registerPage__roleButtonManager} ${formValues.role === UserRole.MANAGER ? styles.registerPage__roleButtonActive : ''}`}
+                                onClick={() => handleRoleButtonClick(UserRole.MANAGER)}
+                            >
+                                {t('auth.register.roles.manager')}
+                            </button>
+                            <button
+                                type="button"
+                                className={`${styles.registerPage__roleButton} ${styles.registerPage__roleButtonAdmin} ${formValues.role === UserRole.ADMIN ? styles.registerPage__roleButtonActive : ''}`}
+                                onClick={() => handleRoleButtonClick(UserRole.ADMIN)}
+                            >
+                                {t('auth.register.roles.admin')}
+                            </button>
+                        </div>
+                    </div>
 
                     <div className={styles.registerPage__passwordGroup}>
                         <AuthInput
@@ -212,8 +310,12 @@ export default function RegisterPage() {
                     )}
 
                     <div className={styles.registerPage__submit}>
-                        <CommonButton type="submit">{t('auth.register.submit')}</CommonButton>
+                        <CommonButton type="submit" disabled={isSubmitting}>
+                            {isSubmitting ? t('auth.register.loading') : t('auth.register.submit')}
+                        </CommonButton>
                     </div>
+
+                    {submitError && <p className={styles.registerPage__submitError}>{submitError}</p>}
                 </form>
 
                 <div className={styles.registerPage__loginLink}>

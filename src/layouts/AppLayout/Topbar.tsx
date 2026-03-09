@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { PUBLIC_ROUTE_PATHS } from '../../app/routePaths'
+import { PRIVATE_ROUTE_PATHS, PUBLIC_ROUTE_PATHS } from '../../app/routePaths'
 import { useAuth } from '../../hooks/useAuth'
 import { UserRole } from '../../types'
 import styles from './Topbar.module.scss'
@@ -29,15 +29,21 @@ export const Topbar = () => {
         navigate(PUBLIC_ROUTE_PATHS.login, { replace: true })
     }
 
+    const handleOpenProfile = () => {
+        navigate(PRIVATE_ROUTE_PATHS.profile)
+    }
+
     return (
         <header className={styles.wrapper}>
             <div>
                 <p className={styles.userName}>{fullName}</p>
-                <p className={styles.department}>{user.department}</p>
             </div>
 
             <div className={styles.actions}>
                 <span className={roleBadgeClass}>{roleLabel}</span>
+                <button type="button" className={styles.profileButton} onClick={handleOpenProfile}>
+                    {t('topbar.profile')}
+                </button>
                 <button type="button" className={styles.logoutButton} onClick={handleLogout}>
                     {t('topbar.logout')}
                 </button>

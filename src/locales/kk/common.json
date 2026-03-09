@@ -4,11 +4,35 @@
       "aria": "Тіл ауыстырғыш"
     },
     "back": "Артқа",
+    "na": "Жоқ",
+    "error": {
+      "withMessage": "Деректерді жүктеу мүмкін болмады: {{error}}"
+    },
+    "currency": {
+      "usd": "₸",
+      "kzt": "₸"
+    },
     "pagination": {
       "prev": "Артқа",
       "next": "Алға",
       "trainingsAria": "Оқулар беттеу",
-      "requestsAria": "Өтінімдер беттеу"
+      "requestsAria": "Өтінімдер беттеу",
+      "sessionsAria": "Сессиялар беттеу",
+      "contractsAria": "Келісімшарттар беттеу",
+      "suppliersAria": "Жеткізушілер беттеу",
+      "supplierContractsAria": "Жеткізуші келісімшарттары беттеу"
+    }
+  },
+  "labels": {
+    "pricingType": {
+      "PER_PERSON": "Бір адамға",
+      "PER_GROUP": "Бір топқа"
+    },
+    "requestStatus": {
+      "PENDING": "Қаралуда",
+      "APPROVED": "Бекітілді",
+      "REJECTED": "Қабылданбады",
+      "CANCELLED": "Бас тартылды"
     }
   },
   "sidebar": {
@@ -34,6 +58,7 @@
   },
   "topbar": {
     "logout": "Шығу",
+    "profile": "Профиль",
     "roles": {
       "ADMIN": "Әкімші",
       "MANAGER": "Менеджер",
@@ -48,17 +73,22 @@
     "login": {
       "title": "Қайта қош келдіңіз!",
       "subtitle": "Бүгін әріптестеріңізбен кездесіңіз",
+      "usernameLabel": "Логин",
+      "usernamePlaceholder": "Логинді енгізіңіз",
       "emailLabel": "E-mail",
-      "emailPlaceholder": "E-mail",
+      "emailPlaceholder": "E-mail енгізіңіз",
       "passwordLabel": "Құпия сөз",
       "passwordPlaceholder": "Құпия сөзді енгізіңіз",
       "forgotPassword": "Құпия сөзді ұмыттыңыз ба?",
       "submit": "Кіру",
+      "loading": "Кіру...",
       "signupPrompt": "Тіркелгіңіз жоқ па? <signup>Тіркелу</signup>"
     },
     "register": {
       "title": "Тіркелгі жасаңыз",
       "subtitle": "Бұл тегін және оңай",
+      "usernameLabel": "Логин",
+      "usernamePlaceholder": "Логин ойлап табыңыз",
       "lastNameLabel": "Тегі",
       "lastNamePlaceholder": "Тегіңізді енгізіңіз",
       "firstNameLabel": "Аты",
@@ -68,7 +98,13 @@
       "fullNameLabel": "Толық аты-жөні",
       "fullNamePlaceholder": "Атыңызды енгізіңіз",
       "contactLabel": "E-mail",
-      "contactPlaceholder": "E-mail",
+      "contactPlaceholder": "E-mail енгізіңіз",
+      "roleLabel": "Рөл",
+      "roles": {
+        "employee": "Қызметкер",
+        "manager": "Менеджер",
+        "admin": "Әкімші"
+      },
       "passwordLabel": "Құпия сөз",
       "passwordPlaceholder": "Құпия сөзді енгізіңіз",
       "passwordHint": "Кемінде 8 таңба",
@@ -76,15 +112,479 @@
       "confirmPasswordPlaceholder": "Құпия сөзді қайта енгізіңіз",
       "policy": "Тіркелгі жасау арқылы сіз <terms>Пайдалану шарттарымен</terms> және <privacy>Құпиялылық саясатымен</privacy> келісесіз",
       "submit": "Тіркелу",
+      "loading": "Тіркелу...",
       "loginPrompt": "Тіркелгіңіз бар ма? <login>Кіру</login>"
     },
     "validation": {
       "requiredField": "Бұл өрісті толтырыңыз",
       "invalidEmail": "Дұрыс e-mail енгізіңіз",
+      "invalidUsername": "Логин кемінде 3 таңба болуы керек, ._@+- рұқсат",
       "invalidName": "Тек әріптер, бос орын, апостроф және дефис рұқсат етіледі",
       "passwordMinLength": "Құпия сөз кемінде 8 таңбадан тұруы керек",
       "passwordsMismatch": "Құпия сөздер сәйкес келмейді",
-      "policyRequired": "Шарттар мен құпиялылық саясатына келісу керек"
+      "policyRequired": "Шарттар мен құпиялылық саясатына келісу керек",
+      "serverError": "Сұрау орындалмады. Қайталап көріңіз."
+    }
+  },
+  "manager": {
+    "trainings": {
+      "title": "Оқулар",
+      "subtitle": "Қолжетімді бағдарламалар және сессияларға өту.",
+      "searchPlaceholder": "Оқуды атауы бойынша іздеу",
+      "searchAria": "Оқуды іздеу",
+      "loading": "Оқулар жүктелуде...",
+      "empty": "Сұрауыңыз бойынша ештеңе табылмады.",
+      "card": {
+        "type": "Түрі",
+        "pricing": "Төлем"
+      }
+    },
+    "trainingDetails": {
+      "loading": "Оқу жүктелуде...",
+      "notFoundTitle": "Оқу табылмады",
+      "notFoundSubtitle": "Сұралған оқу табылмады.",
+      "subtitle": "Оқу туралы мәлімет және алдағы сессиялар.",
+      "infoTitle": "Оқу туралы ақпарат",
+      "fields": {
+        "type": "Түрі",
+        "pricing": "Төлем үлгісі",
+        "basePrice": "Негізгі баға (₸)",
+        "capacity": "Сыйымдылық"
+      },
+      "sessionsTitle": "Сессиялар",
+      "loadingSessions": "Сессиялар жүктелуде...",
+      "sessionsEmpty": "Бұл оқу үшін сессиялар жоқ.",
+      "openSession": "Сессияны ашу"
+    },
+    "sessionDetails": {
+      "loading": "Сессия жүктелуде...",
+      "notFoundTitle": "Сессия табылмады",
+      "notFoundSubtitle": "Сұралған сессия қолжетімсіз.",
+      "title": "Сессия мәліметі",
+      "subtitle": "Сессия контексті және өтінім жасау.",
+      "fields": {
+        "date": "Күні мен уақыты",
+        "city": "Қала",
+        "capacity": "Сыйымдылық"
+      },
+      "createRequest": "Өтінім жасау"
+    },
+    "myRequests": {
+      "title": "Менің өтінімдерім",
+      "subtitle": "Жіберілген өтінімдер мен олардың мәртебесін бақылаңыз.",
+      "searchPlaceholder": "ID, оқу, қала немесе мәртебе бойынша іздеу",
+      "searchAria": "Өтінімдерді іздеу",
+      "loading": "Өтінімдер жүктелуде...",
+      "empty": "Өтінімдер табылмады.",
+      "sessionCell": "{{city}} ({{date}})",
+      "columns": {
+        "training": "Оқу",
+        "session": "Сессия",
+        "status": "Мәртебе",
+        "employees": "Қызметкерлер"
+      }
+    },
+    "requestDetails": {
+      "loading": "Өтінім жүктелуде...",
+      "notFoundTitle": "Өтінім табылмады",
+      "notFoundSubtitle": "Сұралған өтінім табылмады.",
+      "title": "Өтінім {{id}}",
+      "subtitle": "Өтінім мәліметі және таңдалған қатысушылар.",
+      "infoTitle": "Өтінім туралы ақпарат",
+      "fields": {
+        "training": "Оқу",
+        "session": "Сессия",
+        "status": "Мәртебе"
+      },
+      "employeesTitle": "Қызметкерлер",
+      "noEmployees": "Өтінімде қызметкерлер жоқ.",
+      "commentTitle": "Түсініктеме",
+      "noComment": "Түсініктеме жоқ.",
+      "actionsTitle": "Әрекеттер",
+      "cancel": "Өтінімді болдырмау",
+      "cancelling": "Болдырмау...",
+      "cancelError": "Өтінімді болдырмау сәтсіз. Қайталап көріңіз."
+    },
+    "createRequest": {
+      "unavailableTitle": "Өтінім жасау мүмкін емес",
+      "unavailableSubtitle": "Сессия немесе пайдаланушы деректері жетіспейді.",
+      "title": "Өтінім жасау",
+      "subtitle": "Қызметкерлерді таңдап, өтінімді жіберіңіз.",
+      "sessionContextTitle": "Сессия контексті",
+      "trainingRow": "Оқу: {{title}}",
+      "sessionRow": "Сессия: {{city}}",
+      "sessionDateTimeRow": "Күні мен уақыты:",
+      "pricingRow": "Төлем: {{pricingType}} | Негізгі баға: {{basePrice}} {{currency}}",
+      "loading": "Деректер жүктелуде...",
+      "employeesTitle": "Қызметкерлер",
+      "manualEmployeesHint": "Қызметкерлер анықтамалығы қолжетімсіз. UUID мәндерін бос орынмен немесе үтірмен енгізіңіз.",
+      "manualEmployeesPlaceholder": "Мысалы: 3eec3aa4-2f7a-4eb8-93d4-6b6a9f5f8b22, 5a0f4f9e-...",
+      "employeeOption": "{{name}} ({{department}})",
+      "commentTitle": "Түсініктеме",
+      "commentPlaceholder": "Бекітушіге арналған түсініктеме",
+      "pricePreviewTitle": "Баға болжамы",
+      "selectedEmployees": "Таңдалған қызметкерлер: {{count}}",
+      "estimatedTotal": "Болжамды сома: {{amount}} {{currency}}",
+      "submit": "Өтінімді жіберу",
+      "submitting": "Жіберілуде...",
+      "errors": {
+        "noEmployees": "Кемінде бір қызметкерді таңдаңыз.",
+        "submitFailed": "Өтінімді жіберу сәтсіз. Қайта көріңіз."
+      }
+    },
+    "profile": {
+      "unavailableTitle": "Профиль қолжетімсіз",
+      "unavailableSubtitle": "Ағымдағы сессияда пайдаланушы дерегі жоқ.",
+      "title": "Профиль",
+      "subtitle": "Менеджер профилі (тек оқу).",
+      "fields": {
+        "firstName": "Аты",
+        "lastName": "Тегі",
+        "role": "Рөлі",
+        "department": "Бөлім",
+        "userId": "Пайдаланушы ID"
+      }
+    }
+  },
+  "admin": {
+    "sessions": {
+      "title": "Сессиялар",
+      "subtitle": "Барлық оқу сессияларын басқару.",
+      "searchPlaceholder": "Сессияларды іздеу",
+      "searchAria": "Сессияларды іздеу",
+      "loading": "Сессиялар жүктелуде...",
+      "empty": "Сессиялар табылмады.",
+      "columns": {
+        "training": "Оқу",
+        "city": "Қала",
+        "dates": "Күні мен уақыты",
+        "capacity": "Сыйымдылық"
+      },
+      "trainingTypes": {
+        "SEMINAR": "Семинар",
+        "TRAINING": "Тренинг",
+        "CERTIFICATION": "Сертификаттау"
+      },
+      "trainingForm": {
+        "title": "Тренинг құру",
+        "sections": {
+          "general": "1. Негізгі ақпарат",
+          "pricing": "2. Құны",
+          "description": "3. Сипаттама"
+        },
+        "supplier": "Жеткізуші",
+        "titleField": "Атауы",
+        "type": "Түрі",
+        "trainer": "Тренер",
+        "pricingType": "Баға түрі",
+        "price": "Баға (₸)",
+        "priceHint": "Төлем моделі: {{pricingType}}. Ағымдағы сома: {{amount}}.",
+        "description": "Сипаттама",
+        "submit": "Тренинг құру",
+        "creating": "Құрылуда...",
+        "validation": {
+          "required": "Тренингтің міндетті өрістерін толтырыңыз.",
+          "failed": "Тренинг құру сәтсіз."
+        }
+      },
+      "sessionForm": {
+        "title": "Сессия құру",
+        "sections": {
+          "training": "1. Оқу және сыйымдылық",
+          "schedule": "2. Кесте",
+          "location": "3. Өтетін орын"
+        },
+        "training": "Тренинг",
+        "startDate": "Басталу күні мен уақыты",
+        "endDate": "Аяқталу күні мен уақыты",
+        "location": "Өтетін орын",
+        "city": "Қала",
+        "capacity": "Сыйымдылық",
+        "selectedTrainingSummary": "Таңдалған оқу: {{title}} | Құны: {{price}}",
+        "scheduleHint": "Уақыт жергілікті уақыт белдеуіңізде көрсетіледі.",
+        "submit": "Сессия құру",
+        "creating": "Құрылуда...",
+        "validation": {
+          "required": "Сессияның міндетті өрістерін толтырыңыз.",
+          "range": "Аяқталу күні мен уақыты басталу уақытынан кейін болуы керек.",
+          "failed": "Сессия құру сәтсіз."
+        }
+      }
+    },
+    "sessionDetails": {
+      "loading": "Сессия жүктелуде...",
+      "notFoundTitle": "Сессия табылмады",
+      "notFoundSubtitle": "Сұралған сессия қолжетімсіз.",
+      "title": "Сессия мәліметі",
+      "subtitle": "{{training}} / {{city}}",
+      "defaultTrainingTitle": "Оқу",
+      "fields": {
+        "city": "Қала",
+        "startDate": "Басталу күні мен уақыты",
+        "endDate": "Аяқталу күні мен уақыты",
+        "capacity": "Сыйымдылық"
+      },
+      "participantsTitle": "Қатысу және сертификаттар",
+      "participantsLoading": "Қатысушылар жүктелуде...",
+      "noParticipants": "Бұл сессияға тіркелген қатысушылар жоқ.",
+      "notFinishedHint": "Нәтижелерді өңдеу тек іс-шара аяқталғаннан кейін қолжетімді.",
+      "table": {
+        "employee": "Қызметкер",
+        "email": "E-mail",
+        "attended": "Қатысты",
+        "certificate": "Сертификат №",
+        "certificateFile": "Сертификат сканы"
+      },
+      "certificatePlaceholder": "Сертификат нөмірі",
+      "openCurrentFile": "Ағымдағы файлды ашу",
+      "save": "Нәтижені сақтау",
+      "saving": "Сақталуда...",
+      "saveSuccess": "Қатысу және сертификаттар жаңартылды.",
+      "saveError": "Қатысушыларды жаңарту сәтсіз."
+    },
+    "requests": {
+      "title": "Өтінімдер",
+      "subtitle": "Оқу өтінімдерін қарау және сүзгілеу.",
+      "searchPlaceholder": "Өтінімдерді іздеу",
+      "searchAria": "Өтінімдерді іздеу",
+      "statusFilterAria": "Мәртебе бойынша сүзгі",
+      "loading": "Өтінімдер жүктелуде...",
+      "empty": "Өтінімдер табылмады.",
+      "managerFallback": "ID: {{id}}",
+      "filters": {
+        "allStatuses": "Барлық мәртебе"
+      },
+      "columns": {
+        "status": "Мәртебе",
+        "manager": "Менеджер",
+        "department": "Бөлім",
+        "training": "Оқу",
+        "dates": "Күні мен уақыты",
+        "city": "Қала",
+        "employees": "Қызметкерлер"
+      }
+    },
+    "requestDetails": {
+      "loading": "Өтінім жүктелуде...",
+      "notFoundTitle": "Өтінім табылмады",
+      "notFoundSubtitle": "Сұралған өтінім қолжетімсіз.",
+      "title": "Өтінім {{id}}",
+      "subtitle": "Өтінімді қарап, бекіту үшін келісімшарт таңдаңыз.",
+      "trainingInfoTitle": "Оқу туралы ақпарат",
+      "fields": {
+        "training": "Оқу",
+        "city": "Қала",
+        "dates": "Күні мен уақыты",
+        "manager": "Менеджер",
+        "department": "Бөлім",
+        "status": "Мәртебе",
+        "supplier": "Жеткізуші",
+        "totalLimit": "Лимит (₸)"
+      },
+      "employeesTitle": "Қызметкерлер",
+      "noEmployees": "Бұл өтінімде қызметкерлер жоқ.",
+      "contractTitle": "Келісімшарт",
+      "noContracts": "Бұл оқу жеткізушісі үшін келісімшарттар жоқ.",
+      "contractSelectAria": "Келісімшарт таңдау",
+      "contractOption": "{{number}} ({{startDate}} - {{endDate}})",
+      "actionsTitle": "Әрекеттер",
+      "commentPlaceholder": "Түсініктеме (міндетті емес)",
+      "approve": "Бекіту",
+      "reject": "Қабылдамау",
+      "processing": "Өңделуде...",
+      "errors": {
+        "chooseContract": "Бекіту алдында келісімшарт таңдаңыз.",
+        "approveFailed": "Өтінімді бекіту сәтсіз. Қайта көріңіз.",
+        "rejectFailed": "Өтінімді қабылдамау сәтсіз. Қайта көріңіз."
+      }
+    },
+    "suppliers": {
+      "title": "Жеткізушілер",
+      "subtitle": "Тіркелген оқу жеткізушілері.",
+      "searchPlaceholder": "Жеткізушілерді іздеу",
+      "searchAria": "Жеткізушілерді іздеу",
+      "loading": "Жеткізушілер жүктелуде...",
+      "empty": "Жеткізушілер табылмады.",
+      "columns": {
+        "name": "Атауы",
+        "bin": "БСН",
+        "contactPerson": "Байланыс тұлғасы",
+        "phone": "Телефон",
+        "email": "E-mail"
+      },
+      "form": {
+        "title": "Жеткізуші құру",
+        "name": "Атауы",
+        "bin": "БСН",
+        "contactPerson": "Байланыс тұлғасы",
+        "phone": "Телефон",
+        "email": "E-mail",
+        "submit": "Жеткізуші құру",
+        "creating": "Құрылуда...",
+        "validation": {
+          "required": "Атауы мен БСН міндетті.",
+          "failed": "Жеткізушіні құру сәтсіз."
+        }
+      }
+    },
+    "supplierDetails": {
+      "loading": "Жеткізуші жүктелуде...",
+      "notFoundTitle": "Жеткізуші табылмады",
+      "notFoundSubtitle": "Сұралған жеткізуші қолжетімсіз.",
+      "title": "Жеткізуші: {{name}}",
+      "subtitle": "Жеткізуші деректері және келісімшарт бюджеттері.",
+      "infoTitle": "Жеткізуші туралы ақпарат",
+      "analyticsError": "Кейбір келісімшарттар бойынша аналитика жүктелмеді.",
+      "fields": {
+        "name": "Атауы",
+        "bin": "БСН",
+        "contactPerson": "Байланыс тұлғасы",
+        "phone": "Телефон",
+        "email": "E-mail"
+      },
+      "contractsTitle": "Келісімшарттар және бюджет қолдану",
+      "emptyContracts": "Келісімшарттар табылмады.",
+      "columns": {
+        "contractNumber": "Келісімшарт №",
+        "startDate": "Басталу күні мен уақыты",
+        "endDate": "Аяқталу күні мен уақыты",
+        "limit": "Лимит (₸)",
+        "used": "Пайдаланылды (₸)",
+        "remaining": "Қалды (₸)",
+        "progress": "Прогресс"
+      }
+    },
+    "contracts": {
+      "title": "Келісімшарттар",
+      "subtitle": "Жеткізуші келісімшарттары және бюджет қолдану.",
+      "searchPlaceholder": "Келісімшарттарды іздеу",
+      "searchAria": "Келісімшарттарды іздеу",
+      "loading": "Келісімшарттар жүктелуде...",
+      "empty": "Келісімшарттар табылмады.",
+      "analyticsError": "Кейбір келісімшарттар бойынша аналитика жүктелмеді.",
+      "budgetTitle": "Бюджет жиынтығы",
+      "budget": {
+        "total": "Келісімшарттар сомасы (₸)",
+        "allocated": "Бөлінген (₸)",
+        "remaining": "Қалғаны (₸)"
+      },
+      "form": {
+        "title": "Келісімшарт құру",
+        "supplier": "Жеткізуші",
+        "contractNumber": "Келісімшарт нөмірі",
+        "startDate": "Басталу күні мен уақыты",
+        "endDate": "Аяқталу күні мен уақыты",
+        "limit": "Бюджет лимиті (₸)",
+        "submit": "Келісімшарт құру",
+        "creating": "Құрылуда...",
+        "validation": {
+          "required": "Келісімшарттың міндетті өрістерін толтырыңыз.",
+          "failed": "Келісімшарт құру сәтсіз."
+        }
+      },
+      "columns": {
+        "supplier": "Жеткізуші",
+        "contractNumber": "Келісімшарт №",
+        "startDate": "Басталу күні мен уақыты",
+        "endDate": "Аяқталу күні мен уақыты",
+        "limit": "Лимит (₸)",
+        "used": "Пайдаланылды (₸)",
+        "remaining": "Қалды (₸)",
+        "progress": "Прогресс"
+      }
+    },
+    "contractDetails": {
+      "loading": "Келісімшарт жүктелуде...",
+      "notFoundTitle": "Келісімшарт табылмады",
+      "notFoundSubtitle": "Сұралған келісімшарт қолжетімсіз.",
+      "title": "Келісімшарт {{number}}",
+      "subtitle": "Жеткізуші: {{supplier}}",
+      "warnings": {
+        "analyticsUnavailable": "Бұл келісімшарт бойынша толық аналитика уақытша қолжетімсіз."
+      },
+      "budgetTitle": "Бюджет шолуы",
+      "fields": {
+        "startDate": "Басталу күні мен уақыты",
+        "endDate": "Аяқталу күні мен уақыты",
+        "limit": "Лимит (₸)",
+        "used": "Пайдаланылды (₸)",
+        "remaining": "Қалды (₸)",
+        "utilization": "Қолдану пайызы"
+      },
+      "allocationsTitle": "Бөліністер",
+      "allocationsDescription": "Бэкенд қазір келісімшарт бойынша тек жиынтық аналитиканы қайтарады. Өтінімдер бойынша детализация жоқ."
+    }
+  },
+  "profile": {
+    "unavailableTitle": "Профиль қолжетімсіз",
+    "unavailableSubtitle": "Ағымдағы сессияда пайдаланушы дерегі жоқ.",
+    "title": "Профиль",
+    "subtitle": "Жеке деректеріңізді жаңартыңыз.",
+    "editTitle": "Атын өзгерту",
+    "save": "Сақтау",
+    "saving": "Сақталуда...",
+    "saveSuccess": "Профиль жаңартылды.",
+    "errors": {
+      "required": "Аты мен тегі міндетті.",
+      "saveFailed": "Профильді жаңарту сәтсіз."
+    },
+    "infoTitle": "Тіркелгі деректері",
+    "fields": {
+      "firstName": "Аты",
+      "lastName": "Тегі",
+      "role": "Рөлі",
+      "department": "Бөлім",
+      "userId": "Пайдаланушы ID"
+    },
+    "certificates": {
+      "title": "Қызметкер сертификаттары",
+      "loading": "Сертификаттар жүктелуде...",
+      "empty": "Сертификаттар әлі жоқ.",
+      "number": "Куәлік нөмірі",
+      "openFile": "Сертификат сканын ашу"
+    }
+  },
+  "employee": {
+    "myLearning": {
+      "title": "Менің оқуым",
+      "subtitle": "Сізге тағайындалған оқу сессиялары.",
+      "loading": "Оқу жазбалары жүктелуде...",
+      "empty": "Тағайындалған оқу жазбалары жоқ.",
+      "card": {
+        "dates": "Күні мен уақыты",
+        "place": "Өтетін орын",
+        "status": "Мәртебе"
+      }
+    },
+    "learningDetails": {
+      "loading": "Оқу сессиясы жүктелуде...",
+      "notFoundTitle": "Оқу сессиясы табылмады",
+      "notFoundSubtitle": "Сұралған оқу сессиясы жоқ.",
+      "fields": {
+        "startDate": "Басталу күні мен уақыты",
+        "endDate": "Аяқталу күні мен уақыты",
+        "city": "Қала",
+        "location": "Локация",
+        "attendance": "Қатысу",
+        "certificateNumber": "Сертификат нөмірі",
+        "certificateFile": "Сертификат сканы"
+      },
+      "openCertificate": "Сертификат файлын ашу",
+      "attendance": {
+        "attended": "Қатысты",
+        "planned": "Жоспарланған"
+      }
+    }
+  },
+  "shared": {
+    "rolePlaceholder": {
+      "title": "«{{role}}» рөлі бөлімі әлі іске асырылмаған",
+      "description": "Бұл маршрут рөлге байланысты дашбордты кеңейту үшін сақталған."
+    },
+    "unauthorized": {
+      "title": "Қол жеткізуге тыйым салынған",
+      "description": "Сіздің рөліңізде бұл бетке рұқсат жоқ.",
+      "back": "Басты бетке оралу"
     }
   }
 }

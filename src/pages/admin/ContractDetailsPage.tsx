@@ -1,26 +1,48 @@
+import { useTranslation } from 'react-i18next'
+import { useParams } from 'react-router-dom'
+import {
+    fetchContractAnalytics,
+    fetchContracts,
+    fetchSuppliers,
+} from '../../api'
 import { ADMIN_ROUTE_PATHS } from '../../app/routePaths'
 import { BackButton } from '../../components/BackButton'
-import { useParams } from 'react-router-dom'
-import { DataTable, type DataTableColumn } from '../../components/DataTable'
-import { Pagination } from '../../components/Pagination'
-import { useState } from 'react'
-
-import {
-    contractsMock,
-    suppliersMock,
-    contractAllocationsMock,
-    requestsMock,
-} from '../manager/manager.mock'
-
+import { DateTimeBadge } from '../../components/DateTimeBadge'
+import { useAsyncData } from '../../hooks'
+import { formatMoneyKzt } from '../../utils/formatters'
 import styles from '../manager/ManagerPages.module.scss'
 
-const ITEMS_PER_PAGE = 5
-
 export const ContractDetailsPage = () => {
+    const { t } = useTranslation()
     const { id } = useParams<{ id: string }>()
-    const [currentPage, setCurrentPage] = useState(1)
 
-    const contract = contractsMock.find((c) => c.id === id)
+    const { data: contracts, isLoading: isContractsLoading, error: contractsError } = useAsyncData(
+        fetchContracts,
+        [],
+        [],
+    )
+    const { data: suppliers, isLoading: isSuppliersLoading, error: suppliersError } = useAsyncData(
+        fetchSuppliers,
+        [],
+        [],
+    )
+    const { data: analytics, isLoading: isAnalyticsLoading, error: analyticsError } = useAsyncData(
+        async () => {
+            if (!id) {
+                return null
+            }
+
+            return fetchContractAnalytics(id)
+        },
+        null,
+        [id],
+    )
+
+    const contract = contracts.find((item) => item.id === id)
+
+    if ((isContractsLoading || isSuppliersLoading) && !contract) {
+        return <p className={styles.managerPage__metaText}>{t('admin.contractDetails.loading')}</p>
+    }
 
     if (!contract) {
         return (
@@ -30,46 +52,32 @@ export const ContractDetailsPage = () => {
                         <BackButton fallbackTo={ADMIN_ROUTE_PATHS.contracts} />
                     </div>
                     <div className={styles.managerPage__headerContent}>
-                        <h1 className={styles.managerPage__title}>Contract not found</h1>
-                        <p className={styles.managerPage__subtitle}>The requested contract is unavailable.</p>
+                        <h1 className={styles.managerPage__title}>{t('admin.contractDetails.notFoundTitle')}</h1>
+                        <p className={styles.managerPage__subtitle}>{t('admin.contractDetails.notFoundSubtitle')}</p>
                     </div>
                 </header>
             </section>
         )
     }
 
-    const supplier = suppliersMock.find(
-        (s) => s.id === contract.supplierId
-    )
+    const supplier = suppliers.find((item) => item.id === contract.supplierId)
+    const spent = analytics?.spentAmount ?? 0
+    const remaining = analytics?.remainingAmount ?? contract.limit - spent
+    const utilization = analytics?.spentPercent ?? (contract.limit > 0 ? (spent / contract.limit) * 100 : 0)
 
-    const allocations = contractAllocationsMock.filter(
-        (a) => a.contractId === contract.id
-    )
+    const warnings: string[] = []
 
-    const used = allocations.reduce((sum, a) => sum + a.amount, 0)
+    if (analyticsError) {
+        warnings.push(t('admin.contractDetails.warnings.analyticsUnavailable'))
+    }
 
-    const remaining = contract.limit - used
-    const utilization = contract.limit > 0 ? (used / contract.limit) * 100 : 0
-    const requestsById = new Map(requestsMock.map((request) => [request.id, request]))
-    const columns: DataTableColumn<(typeof contractAllocationsMock)[number]>[] = [
-        {
-            key: 'request',
-            header: 'Request',
-            renderCell: (allocation) => requestsById.get(allocation.requestId)?.id ?? 'N/A',
-        },
-        {
-            key: 'amount',
-            header: 'Amount',
-            renderCell: (allocation) => `${allocation.amount} ₸`,
-        },
-    ]
-    const totalPages = Math.max(1, Math.ceil(allocations.length / ITEMS_PER_PAGE))
-    const normalizedCurrentPage = Math.min(currentPage, totalPages)
-    const startIndex = (normalizedCurrentPage - 1) * ITEMS_PER_PAGE
-    const paginatedAllocations = allocations.slice(
-        startIndex,
-        startIndex + ITEMS_PER_PAGE,
-    )
+    if (contractsError || suppliersError) {
+        warnings.push(
+            t('ui.error.withMessage', {
+                error: contractsError || suppliersError,
+            }),
+        )
+    }
 
     return (
         <section className={styles.managerPage}>
@@ -79,62 +87,70 @@ export const ContractDetailsPage = () => {
                 </div>
                 <div className={styles.managerPage__headerContent}>
                     <h1 className={styles.managerPage__title}>
-                        Contract {contract.contractNumber}
+                        {t('admin.contractDetails.title', { number: contract.contractNumber })}
                     </h1>
                     <p className={styles.managerPage__subtitle}>
-                        Supplier: {supplier?.name}
+                        {t('admin.contractDetails.subtitle', {
+                            supplier: supplier?.name || contract.supplierName || t('ui.na'),
+                        })}
                     </p>
                 </div>
             </header>
 
+            {(isContractsLoading || isSuppliersLoading || isAnalyticsLoading) && (
+                <p className={styles.managerPage__metaText}>{t('admin.contractDetails.loading')}</p>
+            )}
+
+            {warnings.map((warning) => (
+                <p key={warning} className={styles.managerPage__metaText}>{warning}</p>
+            ))}
+
             <div className={styles.managerPage__content}>
                 <article className={styles.managerPage__infoBlock}>
-                    <h2 className={styles.managerPage__infoTitle}>Budget Overview</h2>
+                    <h2 className={styles.managerPage__infoTitle}>{t('admin.contractDetails.budgetTitle')}</h2>
                     <div className={styles.managerPage__infoGrid}>
                         <div>
-                            <p className={styles.managerPage__infoLabel}>Start date</p>
-                            <p className={styles.managerPage__infoValue}>{contract.startDate}</p>
+                            <p className={styles.managerPage__infoLabel}>{t('admin.contractDetails.fields.startDate')}</p>
+                            <p className={styles.managerPage__infoValue}>
+                                <DateTimeBadge value={contract.startDate} />
+                            </p>
                         </div>
                         <div>
-                            <p className={styles.managerPage__infoLabel}>End date</p>
-                            <p className={styles.managerPage__infoValue}>{contract.endDate}</p>
+                            <p className={styles.managerPage__infoLabel}>{t('admin.contractDetails.fields.endDate')}</p>
+                            <p className={styles.managerPage__infoValue}>
+                                <DateTimeBadge value={contract.endDate} tone="end" />
+                            </p>
                         </div>
                         <div>
-                            <p className={styles.managerPage__infoLabel}>Limit</p>
-                            <p className={styles.managerPage__infoValue}>{contract.limit} ₸</p>
+                            <p className={styles.managerPage__infoLabel}>{t('admin.contractDetails.fields.limit')}</p>
+                            <p className={styles.managerPage__infoValue}>
+                                {formatMoneyKzt(contract.limit)}
+                            </p>
                         </div>
                         <div>
-                            <p className={styles.managerPage__infoLabel}>Used</p>
-                            <p className={styles.managerPage__infoValue}>{used} ₸</p>
+                            <p className={styles.managerPage__infoLabel}>{t('admin.contractDetails.fields.used')}</p>
+                            <p className={styles.managerPage__infoValue}>
+                                {formatMoneyKzt(spent)}
+                            </p>
                         </div>
                         <div>
-                            <p className={styles.managerPage__infoLabel}>Remaining</p>
-                            <p className={styles.managerPage__infoValue}>{remaining} ₸</p>
+                            <p className={styles.managerPage__infoLabel}>{t('admin.contractDetails.fields.remaining')}</p>
+                            <p className={styles.managerPage__infoValue}>
+                                {formatMoneyKzt(remaining)}
+                            </p>
                         </div>
                         <div>
-                            <p className={styles.managerPage__infoLabel}>Utilization</p>
+                            <p className={styles.managerPage__infoLabel}>
+                                {t('admin.contractDetails.fields.utilization')}
+                            </p>
                             <p className={styles.managerPage__infoValue}>{utilization.toFixed(1)}%</p>
                         </div>
                     </div>
                 </article>
 
                 <article className={styles.managerPage__infoBlock}>
-                    <h2 className={styles.managerPage__infoTitle}>Allocations</h2>
-                    <DataTable
-                        columns={columns}
-                        rows={paginatedAllocations}
-                        getRowKey={(allocation) => allocation.id}
-                        emptyState="No allocations yet"
-                        minWidth={380}
-                    />
-                    <Pagination
-                        currentPage={normalizedCurrentPage}
-                        totalPages={totalPages}
-                        onPageChange={(nextPage) => {
-                            setCurrentPage(Math.max(1, Math.min(nextPage, totalPages)))
-                        }}
-                        ariaLabel="allocations pagination"
-                    />
+                    <h2 className={styles.managerPage__infoTitle}>{t('admin.contractDetails.allocationsTitle')}</h2>
+                    <p className={styles.managerPage__metaText}>{t('admin.contractDetails.allocationsDescription')}</p>
                 </article>
             </div>
         </section>

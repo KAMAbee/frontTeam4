@@ -4,11 +4,35 @@
       "aria": "Language switcher"
     },
     "back": "Back",
+    "na": "N/A",
+    "error": {
+      "withMessage": "Failed to load data: {{error}}"
+    },
+    "currency": {
+      "usd": "₸",
+      "kzt": "₸"
+    },
     "pagination": {
       "prev": "Prev",
       "next": "Next",
       "trainingsAria": "Trainings pagination",
-      "requestsAria": "Requests pagination"
+      "requestsAria": "Requests pagination",
+      "sessionsAria": "Sessions pagination",
+      "contractsAria": "Contracts pagination",
+      "suppliersAria": "Suppliers pagination",
+      "supplierContractsAria": "Supplier contracts pagination"
+    }
+  },
+  "labels": {
+    "pricingType": {
+      "PER_PERSON": "Per person",
+      "PER_GROUP": "Per group"
+    },
+    "requestStatus": {
+      "PENDING": "Pending",
+      "APPROVED": "Approved",
+      "REJECTED": "Rejected",
+      "CANCELLED": "Cancelled"
     }
   },
   "sidebar": {
@@ -34,6 +58,7 @@
   },
   "topbar": {
     "logout": "Logout",
+    "profile": "Profile",
     "roles": {
       "ADMIN": "Admin",
       "MANAGER": "Manager",
@@ -48,17 +73,22 @@
     "login": {
       "title": "Welcome back!",
       "subtitle": "Meet your teammates today",
+      "usernameLabel": "Username",
+      "usernamePlaceholder": "Enter your username",
       "emailLabel": "E-mail",
       "emailPlaceholder": "Enter your e-mail",
       "passwordLabel": "Password",
       "passwordPlaceholder": "Enter your password",
       "forgotPassword": "Forgot password?",
       "submit": "Log In",
+      "loading": "Signing in...",
       "signupPrompt": "No account yet? <signup>Sign up</signup>"
     },
     "register": {
       "title": "Create your account",
       "subtitle": "It is free and easy",
+      "usernameLabel": "Username",
+      "usernamePlaceholder": "Create a username",
       "lastNameLabel": "Last name",
       "lastNamePlaceholder": "Enter your last name",
       "firstNameLabel": "First name",
@@ -69,6 +99,12 @@
       "fullNamePlaceholder": "Enter your name",
       "contactLabel": "E-mail",
       "contactPlaceholder": "Enter your e-mail",
+      "roleLabel": "Role",
+      "roles": {
+        "employee": "Employee",
+        "manager": "Manager",
+        "admin": "Admin"
+      },
       "passwordLabel": "Password",
       "passwordPlaceholder": "Enter your password",
       "passwordHint": "At least 8 characters",
@@ -76,15 +112,479 @@
       "confirmPasswordPlaceholder": "Enter your password again",
       "policy": "By creating an account, you agree to the <terms>Terms and Conditions</terms> and the <privacy>Privacy Policy</privacy>",
       "submit": "Sign Up",
+      "loading": "Signing up...",
       "loginPrompt": "Already have an account? <login>Log In</login>"
     },
     "validation": {
       "requiredField": "This field is required",
       "invalidEmail": "Enter a valid e-mail",
+      "invalidUsername": "Username must be at least 3 chars and may include letters, numbers and ._@+-",
       "invalidName": "Only letters, spaces, apostrophes and hyphens are allowed",
       "passwordMinLength": "Password must be at least 8 characters",
       "passwordsMismatch": "Passwords do not match",
-      "policyRequired": "You must accept the terms and privacy policy"
+      "policyRequired": "You must accept the terms and privacy policy",
+      "serverError": "Request failed. Please try again."
+    }
+  },
+  "manager": {
+    "trainings": {
+      "title": "Trainings",
+      "subtitle": "Available programs and access to sessions.",
+      "searchPlaceholder": "Search training by title",
+      "searchAria": "Search training",
+      "loading": "Loading trainings...",
+      "empty": "No trainings found for this query.",
+      "card": {
+        "type": "Type",
+        "pricing": "Pricing"
+      }
+    },
+    "trainingDetails": {
+      "loading": "Loading training...",
+      "notFoundTitle": "Training not found",
+      "notFoundSubtitle": "The requested training does not exist.",
+      "subtitle": "Training details and upcoming sessions.",
+      "infoTitle": "Training Info",
+      "fields": {
+        "type": "Type",
+        "pricing": "Pricing Model",
+        "basePrice": "Base Price (₸)",
+        "capacity": "Capacity"
+      },
+      "sessionsTitle": "Sessions",
+      "loadingSessions": "Loading training sessions...",
+      "sessionsEmpty": "No sessions available for this training.",
+      "openSession": "Open session"
+    },
+    "sessionDetails": {
+      "loading": "Loading session...",
+      "notFoundTitle": "Session not found",
+      "notFoundSubtitle": "The requested session is unavailable.",
+      "title": "Session Details",
+      "subtitle": "Session context and quick request action.",
+      "fields": {
+        "date": "Date and Time",
+        "city": "City",
+        "capacity": "Capacity"
+      },
+      "createRequest": "Create Request"
+    },
+    "myRequests": {
+      "title": "My Requests",
+      "subtitle": "Track submitted requests and approval statuses.",
+      "searchPlaceholder": "Search by request ID, training, city or status",
+      "searchAria": "Search requests",
+      "loading": "Loading requests...",
+      "empty": "No requests found.",
+      "sessionCell": "{{city}} ({{date}})",
+      "columns": {
+        "training": "Training",
+        "session": "Session",
+        "status": "Status",
+        "employees": "Employees"
+      }
+    },
+    "requestDetails": {
+      "loading": "Loading request...",
+      "notFoundTitle": "Request not found",
+      "notFoundSubtitle": "The requested request could not be found.",
+      "title": "Request {{id}}",
+      "subtitle": "Request details and selected participants.",
+      "infoTitle": "Request Info",
+      "fields": {
+        "training": "Training",
+        "session": "Session",
+        "status": "Status"
+      },
+      "employeesTitle": "Employees",
+      "noEmployees": "No employees in this request.",
+      "commentTitle": "Comment",
+      "noComment": "No comment provided.",
+      "actionsTitle": "Actions",
+      "cancel": "Cancel request",
+      "cancelling": "Cancelling...",
+      "cancelError": "Failed to cancel request. Try again."
+    },
+    "createRequest": {
+      "unavailableTitle": "Cannot create request now",
+      "unavailableSubtitle": "Missing session or user context for request creation.",
+      "title": "Create Request",
+      "subtitle": "Select employees and submit a manager request.",
+      "sessionContextTitle": "Session Context",
+      "trainingRow": "Training: {{title}}",
+      "sessionRow": "Session: {{city}}",
+      "sessionDateTimeRow": "Date and time:",
+      "pricingRow": "Pricing: {{pricingType}} | Base: {{basePrice}} {{currency}}",
+      "loading": "Loading data...",
+      "employeesTitle": "Employees",
+      "manualEmployeesHint": "Employee directory is unavailable. Paste employee UUIDs separated by spaces or commas.",
+      "manualEmployeesPlaceholder": "e.g. 3eec3aa4-2f7a-4eb8-93d4-6b6a9f5f8b22, 5a0f4f9e-...",
+      "employeeOption": "{{name}} ({{department}})",
+      "commentTitle": "Comment",
+      "commentPlaceholder": "Add context for approver",
+      "pricePreviewTitle": "Price Preview",
+      "selectedEmployees": "Selected employees: {{count}}",
+      "estimatedTotal": "Estimated total: {{amount}} {{currency}}",
+      "submit": "Submit Request",
+      "submitting": "Submitting...",
+      "errors": {
+        "noEmployees": "Select at least one employee.",
+        "submitFailed": "Failed to submit request. Try again."
+      }
+    },
+    "profile": {
+      "unavailableTitle": "Profile unavailable",
+      "unavailableSubtitle": "User data is missing in current session.",
+      "title": "Profile",
+      "subtitle": "Read-only manager profile information.",
+      "fields": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "role": "Role",
+        "department": "Department",
+        "userId": "User ID"
+      }
+    }
+  },
+  "admin": {
+    "sessions": {
+      "title": "Sessions",
+      "subtitle": "Manage all training sessions.",
+      "searchPlaceholder": "Search sessions",
+      "searchAria": "Search sessions",
+      "loading": "Loading sessions...",
+      "empty": "No sessions found.",
+      "columns": {
+        "training": "Training",
+        "city": "City",
+        "dates": "Date and Time",
+        "capacity": "Capacity"
+      },
+      "trainingTypes": {
+        "SEMINAR": "Seminar",
+        "TRAINING": "Training",
+        "CERTIFICATION": "Certification"
+      },
+      "trainingForm": {
+        "title": "Create training",
+        "sections": {
+          "general": "1. General Information",
+          "pricing": "2. Pricing",
+          "description": "3. Description"
+        },
+        "supplier": "Supplier",
+        "titleField": "Title",
+        "type": "Type",
+        "trainer": "Trainer",
+        "pricingType": "Pricing type",
+        "price": "Price (₸)",
+        "priceHint": "Pricing model: {{pricingType}}. Current amount: {{amount}}.",
+        "description": "Description",
+        "submit": "Create training",
+        "creating": "Creating...",
+        "validation": {
+          "required": "Fill all required training fields.",
+          "failed": "Failed to create training."
+        }
+      },
+      "sessionForm": {
+        "title": "Create session",
+        "sections": {
+          "training": "1. Training and Capacity",
+          "schedule": "2. Schedule",
+          "location": "3. Location"
+        },
+        "training": "Training",
+        "startDate": "Start date and time",
+        "endDate": "End date and time",
+        "location": "Location",
+        "city": "City",
+        "capacity": "Capacity",
+        "selectedTrainingSummary": "Selected training: {{title}} | Cost: {{price}}",
+        "scheduleHint": "Time is shown in your local timezone.",
+        "submit": "Create session",
+        "creating": "Creating...",
+        "validation": {
+          "required": "Fill all required session fields.",
+          "range": "End date and time must be later than start date and time.",
+          "failed": "Failed to create session."
+        }
+      }
+    },
+    "sessionDetails": {
+      "loading": "Loading session...",
+      "notFoundTitle": "Session not found",
+      "notFoundSubtitle": "The requested session is unavailable.",
+      "title": "Session Details",
+      "subtitle": "{{training}} in {{city}}",
+      "defaultTrainingTitle": "Training",
+      "fields": {
+        "city": "City",
+        "startDate": "Start Date and Time",
+        "endDate": "End Date and Time",
+        "capacity": "Capacity"
+      },
+      "participantsTitle": "Attendance & Certificates",
+      "participantsLoading": "Loading participants...",
+      "noParticipants": "No enrolled participants for this session.",
+      "notFinishedHint": "Results can be edited only after the session is finished.",
+      "table": {
+        "employee": "Employee",
+        "email": "E-mail",
+        "attended": "Attended",
+        "certificate": "Certificate #",
+        "certificateFile": "Certificate Scan"
+      },
+      "certificatePlaceholder": "Certificate number",
+      "openCurrentFile": "Open current file",
+      "save": "Save results",
+      "saving": "Saving...",
+      "saveSuccess": "Attendance and certificates updated.",
+      "saveError": "Failed to update participants."
+    },
+    "requests": {
+      "title": "Requests",
+      "subtitle": "View and filter all training requests.",
+      "searchPlaceholder": "Search requests",
+      "searchAria": "Search requests",
+      "statusFilterAria": "Filter by status",
+      "loading": "Loading requests...",
+      "empty": "No requests found.",
+      "managerFallback": "ID: {{id}}",
+      "filters": {
+        "allStatuses": "All statuses"
+      },
+      "columns": {
+        "status": "Status",
+        "manager": "Manager",
+        "department": "Department",
+        "training": "Training",
+        "dates": "Date and Time",
+        "city": "City",
+        "employees": "Employees"
+      }
+    },
+    "requestDetails": {
+      "loading": "Loading request...",
+      "notFoundTitle": "Request not found",
+      "notFoundSubtitle": "The requested request is unavailable.",
+      "title": "Request {{id}}",
+      "subtitle": "Review request and choose a contract for approval.",
+      "trainingInfoTitle": "Training Information",
+      "fields": {
+        "training": "Training",
+        "city": "City",
+        "dates": "Date and Time",
+        "manager": "Manager",
+        "department": "Department",
+        "status": "Status",
+        "supplier": "Supplier",
+        "totalLimit": "Total limit (₸)"
+      },
+      "employeesTitle": "Employees",
+      "noEmployees": "No employees attached to this request.",
+      "contractTitle": "Contract",
+      "noContracts": "No contracts are available for this training supplier.",
+      "contractSelectAria": "Contract selector",
+      "contractOption": "{{number}} ({{startDate}} - {{endDate}})",
+      "actionsTitle": "Actions",
+      "commentPlaceholder": "Comment (optional)",
+      "approve": "Approve",
+      "reject": "Reject",
+      "processing": "Processing...",
+      "errors": {
+        "chooseContract": "Choose a contract before approval.",
+        "approveFailed": "Failed to approve request. Try again.",
+        "rejectFailed": "Failed to reject request. Try again."
+      }
+    },
+    "suppliers": {
+      "title": "Suppliers",
+      "subtitle": "All registered training suppliers.",
+      "searchPlaceholder": "Search suppliers",
+      "searchAria": "Search suppliers",
+      "loading": "Loading suppliers...",
+      "empty": "No suppliers found.",
+      "columns": {
+        "name": "Name",
+        "bin": "BIN",
+        "contactPerson": "Contact Person",
+        "phone": "Phone",
+        "email": "E-mail"
+      },
+      "form": {
+        "title": "Create supplier",
+        "name": "Name",
+        "bin": "BIN",
+        "contactPerson": "Contact person",
+        "phone": "Phone",
+        "email": "E-mail",
+        "submit": "Create supplier",
+        "creating": "Creating...",
+        "validation": {
+          "required": "Name and BIN are required.",
+          "failed": "Failed to create supplier."
+        }
+      }
+    },
+    "supplierDetails": {
+      "loading": "Loading supplier...",
+      "notFoundTitle": "Supplier not found",
+      "notFoundSubtitle": "The requested supplier is unavailable.",
+      "title": "Supplier: {{name}}",
+      "subtitle": "Supplier details and contract budgets.",
+      "infoTitle": "Supplier Info",
+      "analyticsError": "Failed to load analytics for some contracts.",
+      "fields": {
+        "name": "Name",
+        "bin": "BIN",
+        "contactPerson": "Contact Person",
+        "phone": "Phone",
+        "email": "E-mail"
+      },
+      "contractsTitle": "Contracts & Budget Usage",
+      "emptyContracts": "No contracts found.",
+      "columns": {
+        "contractNumber": "Contract #",
+        "startDate": "Start Date and Time",
+        "endDate": "End Date and Time",
+        "limit": "Limit (₸)",
+        "used": "Used (₸)",
+        "remaining": "Remaining (₸)",
+        "progress": "Progress"
+      }
+    },
+    "contracts": {
+      "title": "Contracts",
+      "subtitle": "Supplier contracts and budget usage.",
+      "searchPlaceholder": "Search contracts",
+      "searchAria": "Search contracts",
+      "loading": "Loading contracts...",
+      "empty": "No contracts found.",
+      "analyticsError": "Failed to load analytics for some contracts.",
+      "budgetTitle": "Budget summary",
+      "budget": {
+        "total": "Total contracts (₸)",
+        "allocated": "Allocated (₸)",
+        "remaining": "Remaining (₸)"
+      },
+      "form": {
+        "title": "Create contract",
+        "supplier": "Supplier",
+        "contractNumber": "Contract number",
+        "startDate": "Start date and time",
+        "endDate": "End date and time",
+        "limit": "Budget limit (₸)",
+        "submit": "Create contract",
+        "creating": "Creating...",
+        "validation": {
+          "required": "Fill all required contract fields.",
+          "failed": "Failed to create contract."
+        }
+      },
+      "columns": {
+        "supplier": "Supplier",
+        "contractNumber": "Contract #",
+        "startDate": "Start Date and Time",
+        "endDate": "End Date and Time",
+        "limit": "Limit (₸)",
+        "used": "Used (₸)",
+        "remaining": "Remaining (₸)",
+        "progress": "Progress"
+      }
+    },
+    "contractDetails": {
+      "loading": "Loading contract...",
+      "notFoundTitle": "Contract not found",
+      "notFoundSubtitle": "The requested contract is unavailable.",
+      "title": "Contract {{number}}",
+      "subtitle": "Supplier: {{supplier}}",
+      "warnings": {
+        "analyticsUnavailable": "Detailed analytics endpoint is temporarily unavailable for this contract."
+      },
+      "budgetTitle": "Budget Overview",
+      "fields": {
+        "startDate": "Start date and time",
+        "endDate": "End date and time",
+        "limit": "Limit (₸)",
+        "used": "Used (₸)",
+        "remaining": "Remaining (₸)",
+        "utilization": "Utilization"
+      },
+      "allocationsTitle": "Allocations",
+      "allocationsDescription": "Backend currently returns only aggregate analytics for a contract. Per-request allocations are not exposed by API."
+    }
+  },
+  "profile": {
+    "unavailableTitle": "Profile unavailable",
+    "unavailableSubtitle": "User data is missing in current session.",
+    "title": "Profile",
+    "subtitle": "Update your personal information.",
+    "editTitle": "Edit name",
+    "save": "Save",
+    "saving": "Saving...",
+    "saveSuccess": "Profile updated.",
+    "errors": {
+      "required": "First name and last name are required.",
+      "saveFailed": "Failed to update profile."
+    },
+    "infoTitle": "Account details",
+    "fields": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "role": "Role",
+      "department": "Department",
+      "userId": "User ID"
+    },
+    "certificates": {
+      "title": "Employee Certificates",
+      "loading": "Loading certificates...",
+      "empty": "No certificates yet.",
+      "number": "Certificate Number",
+      "openFile": "Open certificate scan"
+    }
+  },
+  "employee": {
+    "myLearning": {
+      "title": "My Learning",
+      "subtitle": "Your assigned training sessions.",
+      "loading": "Loading learning records...",
+      "empty": "No assigned learning records.",
+      "card": {
+        "dates": "Date and Time",
+        "place": "Place",
+        "status": "Status"
+      }
+    },
+    "learningDetails": {
+      "loading": "Loading learning session...",
+      "notFoundTitle": "Learning session not found",
+      "notFoundSubtitle": "The requested learning session does not exist.",
+      "fields": {
+        "startDate": "Start Date and Time",
+        "endDate": "End Date and Time",
+        "city": "City",
+        "location": "Location",
+        "attendance": "Attendance",
+        "certificateNumber": "Certificate Number",
+        "certificateFile": "Certificate Scan"
+      },
+      "openCertificate": "Open certificate file",
+      "attendance": {
+        "attended": "Attended",
+        "planned": "Planned"
+      }
+    }
+  },
+  "shared": {
+    "rolePlaceholder": {
+      "title": "{{role}} area is not implemented yet",
+      "description": "This route is reserved for future role-specific dashboard expansion."
+    },
+    "unauthorized": {
+      "title": "Access denied",
+      "description": "Your role does not have permission to access this page.",
+      "back": "Back to dashboard"
     }
   }
 }

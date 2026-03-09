@@ -2,10 +2,10 @@
 
 .registerPage {
     width: 100%;
-    max-width: 424px;
+    max-width: 520px;
 
     &__header {
-        margin-bottom: 54px;
+        margin-bottom: 28px;
     }
 
     &__title {
@@ -25,13 +25,73 @@
     &__form {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 14px;
+    }
+
+    &__nameRow {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
     }
 
     &__passwordGroup {
         display: flex;
         flex-direction: column;
         gap: 8px;
+    }
+
+    &__field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__fieldLabel {
+        font-size: 16px;
+        color: var(--color-label);
+        font-weight: 500;
+    }
+
+    &__roleButtons {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    &__roleButton {
+        min-height: 42px;
+        padding: 0 10px;
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        background: var(--color-bg-2);
+        color: var(--color-text);
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.16s ease, border-color 0.16s ease, background-color 0.16s ease;
+
+        &:hover {
+            transform: translateY(-1px);
+            border-color: var(--color-text-2);
+        }
+    }
+
+    &__roleButtonActive {
+        color: var(--color-text);
+    }
+
+    &__roleButtonEmployee.registerPage__roleButtonActive {
+        background: var(--color-role-employee-bg);
+        border-color: var(--color-role-employee-border);
+    }
+
+    &__roleButtonManager.registerPage__roleButtonActive {
+        background: var(--color-role-manager-bg);
+        border-color: var(--color-role-manager-border);
+    }
+
+    &__roleButtonAdmin.registerPage__roleButtonActive {
+        background: var(--color-role-admin-bg);
+        border-color: var(--color-role-admin-border);
     }
 
     &__passwordHint {
@@ -75,11 +135,17 @@
     }
 
     &__submit {
-        margin-top: 12px;
+        margin-top: 8px;
+    }
+
+    &__submitError {
+        margin: -4px 0 0;
+        font-size: 14px;
+        color: var(--color-error);
     }
 
     &__loginLink {
-        margin-top: 50px;
+        margin-top: 22px;
         text-align: center;
         font-size: 14px;
         color: var(--color-text-2);
@@ -98,6 +164,17 @@
 
 @media (max-width: 640px) {
     .registerPage {
+        max-width: 424px;
+
+        &__nameRow {
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        &__roleButtons {
+            grid-template-columns: 1fr;
+        }
+
         &__title {
             font-size: 28px;
         }

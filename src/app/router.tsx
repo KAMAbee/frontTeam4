@@ -73,10 +73,6 @@ const managerRoutes: RouteObject[] = [
         path: MANAGER_ROUTE_PATHS.requestDetails,
         element: <RequestDetailsPage />,
     },
-    {
-        path: MANAGER_ROUTE_PATHS.profile,
-        element: <ProfilePage />,
-    },
 ]
 
 const privateRoutes: RouteObject[] = [
@@ -93,6 +89,10 @@ const privateRoutes: RouteObject[] = [
                     {
                         index: true,
                         element: <RoleHomeRedirect />,
+                    },
+                    {
+                        path: PRIVATE_ROUTE_PATHS.profile,
+                        element: <ProfilePage />,
                     },
 
                     // MANAGER ROUTES

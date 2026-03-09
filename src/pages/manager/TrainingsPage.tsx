@@ -1,9 +1,12 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { fetchTrainings } from '../../api'
 import { managerRouteLinks } from '../../app/routePaths'
+import { useAsyncData } from '../../hooks'
 import { Pagination } from '../../components/Pagination'
-import { PRICING_TYPE_LABELS, trainingsMock } from './manager.mock'
+import { PricingType } from '../../types'
+import { formatMoneyKzt } from '../../utils/formatters'
 import styles from './ManagerPages.module.scss'
 
 const ITEMS_PER_PAGE = 8
@@ -12,13 +15,14 @@ export const TrainingsPage = () => {
     const { t } = useTranslation()
     const [searchValue, setSearchValue] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
+    const { data: trainings, isLoading, error } = useAsyncData(fetchTrainings, [], [])
 
     const filteredTrainings = useMemo(
         () =>
-            trainingsMock.filter((training) =>
+            trainings.filter((training) =>
                 training.title.toLowerCase().includes(searchValue.trim().toLowerCase()),
             ),
-        [searchValue],
+        [searchValue, trainings],
     )
 
     const totalPages = Math.max(1, Math.ceil(filteredTrainings.length / ITEMS_PER_PAGE))
@@ -33,10 +37,8 @@ export const TrainingsPage = () => {
         <section className={styles.managerPage}>
             <header className={styles.managerPage__header}>
                 <div className={styles.managerPage__headerContent}>
-                    <h1 className={styles.managerPage__title}>Trainings</h1>
-                    <p className={styles.managerPage__subtitle}>
-                        Browse available trainings and open session details.
-                    </p>
+                    <h1 className={styles.managerPage__title}>{t('manager.trainings.title')}</h1>
+                    <p className={styles.managerPage__subtitle}>{t('manager.trainings.subtitle')}</p>
                 </div>
             </header>
 
@@ -48,12 +50,19 @@ export const TrainingsPage = () => {
                     setSearchValue(event.target.value)
                     setCurrentPage(1)
                 }}
-                placeholder="Search training by title"
-                aria-label="Search training"
+                placeholder={t('manager.trainings.searchPlaceholder')}
+                aria-label={t('manager.trainings.searchAria')}
             />
 
+            {isLoading && <p className={styles.managerPage__metaText}>{t('manager.trainings.loading')}</p>}
+            {error && (
+                <p className={styles.managerPage__metaText}>
+                    {t('ui.error.withMessage', { error })}
+                </p>
+            )}
+
             {paginatedTrainings.length === 0 ? (
-                <p className={styles.managerPage__emptyState}>No trainings found for this query.</p>
+                <p className={styles.managerPage__emptyState}>{t('manager.trainings.empty')}</p>
             ) : (
                 <div className={styles.managerPage__cardGrid}>
                     {paginatedTrainings.map((training) => (
@@ -63,10 +72,13 @@ export const TrainingsPage = () => {
                             to={managerRouteLinks.trainingDetails(training.id)}
                         >
                             <h2 className={styles.managerPage__cardTitle}>{training.title}</h2>
-                            <p className={styles.managerPage__cardMeta}>Type: {training.type}</p>
                             <p className={styles.managerPage__cardMeta}>
-                                Pricing: {PRICING_TYPE_LABELS[training.pricingType]} ({training.price}{' '}
-                                USD)
+                                {t('manager.trainings.card.type')}: {training.type}
+                            </p>
+                            <p className={styles.managerPage__cardMeta}>
+                                {t('manager.trainings.card.pricing')}:{' '}
+                                {t(`labels.pricingType.${training.pricingType as PricingType}`)} (
+                                {formatMoneyKzt(training.price)})
                             </p>
                         </Link>
                     ))}

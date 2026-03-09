@@ -50,6 +50,12 @@
         margin-top: 10px;
     }
 
+    &__submitError {
+        margin: 4px 0 0;
+        font-size: 14px;
+        color: var(--color-error);
+    }
+
     &__signupLink {
         margin-top: 50px;
         text-align: center;

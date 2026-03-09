@@ -4,11 +4,35 @@
       "aria": "Переключение языка"
     },
     "back": "Назад",
+    "na": "Н/Д",
+    "error": {
+      "withMessage": "Не удалось загрузить данные: {{error}}"
+    },
+    "currency": {
+      "usd": "₸",
+      "kzt": "₸"
+    },
     "pagination": {
       "prev": "Назад",
       "next": "Вперед",
       "trainingsAria": "Пагинация обучений",
-      "requestsAria": "Пагинация заявок"
+      "requestsAria": "Пагинация заявок",
+      "sessionsAria": "Пагинация сессий",
+      "contractsAria": "Пагинация договоров",
+      "suppliersAria": "Пагинация поставщиков",
+      "supplierContractsAria": "Пагинация договоров поставщика"
+    }
+  },
+  "labels": {
+    "pricingType": {
+      "PER_PERSON": "За человека",
+      "PER_GROUP": "За группу"
+    },
+    "requestStatus": {
+      "PENDING": "На рассмотрении",
+      "APPROVED": "Одобрено",
+      "REJECTED": "Отклонено",
+      "CANCELLED": "Отменено"
     }
   },
   "sidebar": {
@@ -25,20 +49,20 @@
       "adminContracts": "Договоры",
       "adminSuppliers": "Поставщики",
       "myLearning": "Моё обучение"
-      
     },
     "roles": {
       "ADMIN": "Администратор",
       "MANAGER": "Менеджер",
-      "EMPLOYEE": "Сотрудник"
+      "EMPLOYEE": "Работник"
     }
   },
   "topbar": {
     "logout": "Выйти",
+    "profile": "Профиль",
     "roles": {
       "ADMIN": "Администратор",
       "MANAGER": "Менеджер",
-      "EMPLOYEE": "Сотрудник"
+      "EMPLOYEE": "Работник"
     }
   },
   "auth": {
@@ -49,17 +73,22 @@
     "login": {
       "title": "С возвращением!",
       "subtitle": "Встретьте своих товарищей сегодня",
+      "usernameLabel": "Логин",
+      "usernamePlaceholder": "Введите логин",
       "emailLabel": "E-mail",
       "emailPlaceholder": "Введите e-mail",
       "passwordLabel": "Пароль",
       "passwordPlaceholder": "Введите пароль",
       "forgotPassword": "Забыли пароль?",
       "submit": "Войти",
+      "loading": "Вход...",
       "signupPrompt": "Нет аккаунта? <signup>Зарегистрироваться</signup>"
     },
     "register": {
       "title": "Создайте аккаунт",
       "subtitle": "Это бесплатно и просто",
+      "usernameLabel": "Логин",
+      "usernamePlaceholder": "Придумайте логин",
       "lastNameLabel": "Фамилия",
       "lastNamePlaceholder": "Введите фамилию",
       "firstNameLabel": "Имя",
@@ -70,6 +99,12 @@
       "fullNamePlaceholder": "Введите ваше имя",
       "contactLabel": "E-mail",
       "contactPlaceholder": "Введите e-mail",
+      "roleLabel": "Роль",
+      "roles": {
+        "employee": "Работник",
+        "manager": "Менеджер",
+        "admin": "Администратор"
+      },
       "passwordLabel": "Пароль",
       "passwordPlaceholder": "Введите пароль",
       "passwordHint": "Минимум 8 символов",
@@ -77,15 +112,479 @@
       "confirmPasswordPlaceholder": "Введите пароль ещё раз",
       "policy": "Создавая аккаунт, вы соглашаетесь с <terms>Условиями использования</terms> и <privacy>Политикой конфиденциальности</privacy>",
       "submit": "Зарегистрироваться",
+      "loading": "Регистрация...",
       "loginPrompt": "Уже есть аккаунт? <login>Войти</login>"
     },
     "validation": {
       "requiredField": "Заполните это поле",
       "invalidEmail": "Введите корректный e-mail",
+      "invalidUsername": "Логин: минимум 3 символа, допустимы буквы, цифры и ._@+-",
       "invalidName": "Допустимы только буквы, пробелы, апостроф и дефис",
       "passwordMinLength": "Пароль должен содержать минимум 8 символов",
       "passwordsMismatch": "Пароли не совпадают",
-      "policyRequired": "Нужно согласиться с условиями и политикой"
+      "policyRequired": "Нужно согласиться с условиями и политикой",
+      "serverError": "Не удалось выполнить запрос. Попробуйте снова."
+    }
+  },
+  "manager": {
+    "trainings": {
+      "title": "Обучения",
+      "subtitle": "Доступные программы и переход к сессиям.",
+      "searchPlaceholder": "Поиск обучения по названию",
+      "searchAria": "Поиск обучения",
+      "loading": "Загрузка обучений...",
+      "empty": "По вашему запросу ничего не найдено.",
+      "card": {
+        "type": "Тип",
+        "pricing": "Оплата"
+      }
+    },
+    "trainingDetails": {
+      "loading": "Загрузка обучения...",
+      "notFoundTitle": "Обучение не найдено",
+      "notFoundSubtitle": "Запрошенное обучение отсутствует.",
+      "subtitle": "Детали обучения и ближайшие сессии.",
+      "infoTitle": "Информация об обучении",
+      "fields": {
+        "type": "Тип",
+        "pricing": "Модель оплаты",
+        "basePrice": "Базовая стоимость (₸)",
+        "capacity": "Вместимость"
+      },
+      "sessionsTitle": "Сессии",
+      "loadingSessions": "Загрузка сессий...",
+      "sessionsEmpty": "Сессии для этого обучения отсутствуют.",
+      "openSession": "Открыть сессию"
+    },
+    "sessionDetails": {
+      "loading": "Загрузка сессии...",
+      "notFoundTitle": "Сессия не найдена",
+      "notFoundSubtitle": "Запрошенная сессия недоступна.",
+      "title": "Детали сессии",
+      "subtitle": "Контекст сессии и быстрое создание заявки.",
+      "fields": {
+        "date": "Дата и время",
+        "city": "Город",
+        "capacity": "Вместимость"
+      },
+      "createRequest": "Создать заявку"
+    },
+    "myRequests": {
+      "title": "Мои заявки",
+      "subtitle": "Отслеживайте отправленные заявки и их статусы.",
+      "searchPlaceholder": "Поиск по ID, обучению, городу или статусу",
+      "searchAria": "Поиск заявок",
+      "loading": "Загрузка заявок...",
+      "empty": "Заявки не найдены.",
+      "sessionCell": "{{city}} ({{date}})",
+      "columns": {
+        "training": "Обучение",
+        "session": "Сессия",
+        "status": "Статус",
+        "employees": "Сотрудники"
+      }
+    },
+    "requestDetails": {
+      "loading": "Загрузка заявки...",
+      "notFoundTitle": "Заявка не найдена",
+      "notFoundSubtitle": "Запрошенная заявка отсутствует.",
+      "title": "Заявка {{id}}",
+      "subtitle": "Детали заявки и выбранные участники.",
+      "infoTitle": "Информация о заявке",
+      "fields": {
+        "training": "Обучение",
+        "session": "Сессия",
+        "status": "Статус"
+      },
+      "employeesTitle": "Сотрудники",
+      "noEmployees": "В заявке нет сотрудников.",
+      "commentTitle": "Комментарий",
+      "noComment": "Комментарий не указан.",
+      "actionsTitle": "Действия",
+      "cancel": "Отменить заявку",
+      "cancelling": "Отмена...",
+      "cancelError": "Не удалось отменить заявку. Попробуйте снова."
+    },
+    "createRequest": {
+      "unavailableTitle": "Невозможно создать заявку",
+      "unavailableSubtitle": "Не хватает данных по сессии или пользователю.",
+      "title": "Создание заявки",
+      "subtitle": "Выберите сотрудников и отправьте заявку.",
+      "sessionContextTitle": "Контекст сессии",
+      "trainingRow": "Обучение: {{title}}",
+      "sessionRow": "Сессия: {{city}}",
+      "sessionDateTimeRow": "Дата и время:",
+      "pricingRow": "Оплата: {{pricingType}} | База: {{basePrice}} {{currency}}",
+      "loading": "Загрузка данных...",
+      "employeesTitle": "Сотрудники",
+      "manualEmployeesHint": "Справочник сотрудников недоступен. Вставьте UUID через пробел или запятую.",
+      "manualEmployeesPlaceholder": "Например: 3eec3aa4-2f7a-4eb8-93d4-6b6a9f5f8b22, 5a0f4f9e-...",
+      "employeeOption": "{{name}} ({{department}})",
+      "commentTitle": "Комментарий",
+      "commentPlaceholder": "Добавьте контекст для согласующего",
+      "pricePreviewTitle": "Предварительная стоимость",
+      "selectedEmployees": "Выбрано сотрудников: {{count}}",
+      "estimatedTotal": "Оценка суммы: {{amount}} {{currency}}",
+      "submit": "Отправить заявку",
+      "submitting": "Отправка...",
+      "errors": {
+        "noEmployees": "Выберите хотя бы одного сотрудника.",
+        "submitFailed": "Не удалось отправить заявку. Попробуйте снова."
+      }
+    },
+    "profile": {
+      "unavailableTitle": "Профиль недоступен",
+      "unavailableSubtitle": "В текущей сессии отсутствуют данные пользователя.",
+      "title": "Профиль",
+      "subtitle": "Информация профиля менеджера (только чтение).",
+      "fields": {
+        "firstName": "Имя",
+        "lastName": "Фамилия",
+        "role": "Роль",
+        "department": "Отдел",
+        "userId": "ID пользователя"
+      }
+    }
+  },
+  "admin": {
+    "sessions": {
+      "title": "Сессии",
+      "subtitle": "Управление всеми учебными сессиями.",
+      "searchPlaceholder": "Поиск сессий",
+      "searchAria": "Поиск сессий",
+      "loading": "Загрузка сессий...",
+      "empty": "Сессии не найдены.",
+      "columns": {
+        "training": "Обучение",
+        "city": "Город",
+        "dates": "Дата и время",
+        "capacity": "Вместимость"
+      },
+      "trainingTypes": {
+        "SEMINAR": "Семинар",
+        "TRAINING": "Тренинг",
+        "CERTIFICATION": "Сертификация"
+      },
+      "trainingForm": {
+        "title": "Создание тренинга",
+        "sections": {
+          "general": "1. Основная информация",
+          "pricing": "2. Стоимость",
+          "description": "3. Описание"
+        },
+        "supplier": "Поставщик",
+        "titleField": "Название",
+        "type": "Тип",
+        "trainer": "Тренер",
+        "pricingType": "Тип оплаты",
+        "price": "Стоимость (₸)",
+        "priceHint": "Модель оплаты: {{pricingType}}. Текущая сумма: {{amount}}.",
+        "description": "Описание",
+        "submit": "Создать тренинг",
+        "creating": "Создание...",
+        "validation": {
+          "required": "Заполните все обязательные поля тренинга.",
+          "failed": "Не удалось создать тренинг."
+        }
+      },
+      "sessionForm": {
+        "title": "Создание сессии",
+        "sections": {
+          "training": "1. Обучение и вместимость",
+          "schedule": "2. Расписание",
+          "location": "3. Место проведения"
+        },
+        "training": "Тренинг",
+        "startDate": "Дата и время начала",
+        "endDate": "Дата и время окончания",
+        "location": "Место",
+        "city": "Город",
+        "capacity": "Вместимость",
+        "selectedTrainingSummary": "Выбрано обучение: {{title}} | Стоимость: {{price}}",
+        "scheduleHint": "Время отображается в локальном часовом поясе.",
+        "submit": "Создать сессию",
+        "creating": "Создание...",
+        "validation": {
+          "required": "Заполните все обязательные поля сессии.",
+          "range": "Дата и время окончания должны быть позже начала.",
+          "failed": "Не удалось создать сессию."
+        }
+      }
+    },
+    "sessionDetails": {
+      "loading": "Загрузка сессии...",
+      "notFoundTitle": "Сессия не найдена",
+      "notFoundSubtitle": "Запрошенная сессия недоступна.",
+      "title": "Детали сессии",
+      "subtitle": "{{training}} в {{city}}",
+      "defaultTrainingTitle": "Обучение",
+      "fields": {
+        "city": "Город",
+        "startDate": "Дата и время начала",
+        "endDate": "Дата и время окончания",
+        "capacity": "Вместимость"
+      },
+      "participantsTitle": "Посещаемость и сертификаты",
+      "participantsLoading": "Загрузка участников...",
+      "noParticipants": "Нет участников для этой сессии.",
+      "notFinishedHint": "Редактирование результатов доступно только после завершения мероприятия.",
+      "table": {
+        "employee": "Сотрудник",
+        "email": "E-mail",
+        "attended": "Посетил",
+        "certificate": "Сертификат №",
+        "certificateFile": "Скан сертификата"
+      },
+      "certificatePlaceholder": "Номер сертификата",
+      "openCurrentFile": "Открыть текущий файл",
+      "save": "Сохранить результат",
+      "saving": "Сохранение...",
+      "saveSuccess": "Посещаемость и сертификаты обновлены.",
+      "saveError": "Не удалось обновить участников."
+    },
+    "requests": {
+      "title": "Заявки",
+      "subtitle": "Просмотр и фильтрация всех заявок на обучение.",
+      "searchPlaceholder": "Поиск заявок",
+      "searchAria": "Поиск заявок",
+      "statusFilterAria": "Фильтр по статусу",
+      "loading": "Загрузка заявок...",
+      "empty": "Заявки не найдены.",
+      "managerFallback": "ID: {{id}}",
+      "filters": {
+        "allStatuses": "Все статусы"
+      },
+      "columns": {
+        "status": "Статус",
+        "manager": "Менеджер",
+        "department": "Отдел",
+        "training": "Обучение",
+        "dates": "Дата и время",
+        "city": "Город",
+        "employees": "Сотрудники"
+      }
+    },
+    "requestDetails": {
+      "loading": "Загрузка заявки...",
+      "notFoundTitle": "Заявка не найдена",
+      "notFoundSubtitle": "Запрошенная заявка недоступна.",
+      "title": "Заявка {{id}}",
+      "subtitle": "Проверка заявки и выбор договора для согласования.",
+      "trainingInfoTitle": "Информация по обучению",
+      "fields": {
+        "training": "Обучение",
+        "city": "Город",
+        "dates": "Дата и время",
+        "manager": "Менеджер",
+        "department": "Отдел",
+        "status": "Статус",
+        "supplier": "Поставщик",
+        "totalLimit": "Лимит (₸)"
+      },
+      "employeesTitle": "Сотрудники",
+      "noEmployees": "В заявке нет сотрудников.",
+      "contractTitle": "Договор",
+      "noContracts": "Для поставщика этого обучения договоры не найдены.",
+      "contractSelectAria": "Выбор договора",
+      "contractOption": "{{number}} ({{startDate}} - {{endDate}})",
+      "actionsTitle": "Действия",
+      "commentPlaceholder": "Комментарий (необязательно)",
+      "approve": "Одобрить",
+      "reject": "Отклонить",
+      "processing": "Обработка...",
+      "errors": {
+        "chooseContract": "Перед согласованием выберите договор.",
+        "approveFailed": "Не удалось одобрить заявку. Попробуйте снова.",
+        "rejectFailed": "Не удалось отклонить заявку. Попробуйте снова."
+      }
+    },
+    "suppliers": {
+      "title": "Поставщики",
+      "subtitle": "Все зарегистрированные поставщики обучения.",
+      "searchPlaceholder": "Поиск поставщиков",
+      "searchAria": "Поиск поставщиков",
+      "loading": "Загрузка поставщиков...",
+      "empty": "Поставщики не найдены.",
+      "columns": {
+        "name": "Название",
+        "bin": "БИН",
+        "contactPerson": "Контактное лицо",
+        "phone": "Телефон",
+        "email": "E-mail"
+      },
+      "form": {
+        "title": "Создание поставщика",
+        "name": "Название",
+        "bin": "БИН",
+        "contactPerson": "Контактное лицо",
+        "phone": "Телефон",
+        "email": "E-mail",
+        "submit": "Создать поставщика",
+        "creating": "Создание...",
+        "validation": {
+          "required": "Название и БИН обязательны.",
+          "failed": "Не удалось создать поставщика."
+        }
+      }
+    },
+    "supplierDetails": {
+      "loading": "Загрузка поставщика...",
+      "notFoundTitle": "Поставщик не найден",
+      "notFoundSubtitle": "Запрошенный поставщик недоступен.",
+      "title": "Поставщик: {{name}}",
+      "subtitle": "Информация о поставщике и бюджеты договоров.",
+      "infoTitle": "Информация о поставщике",
+      "analyticsError": "Не удалось получить аналитику по части договоров.",
+      "fields": {
+        "name": "Название",
+        "bin": "БИН",
+        "contactPerson": "Контактное лицо",
+        "phone": "Телефон",
+        "email": "E-mail"
+      },
+      "contractsTitle": "Договоры и использование бюджета",
+      "emptyContracts": "Договоры не найдены.",
+      "columns": {
+        "contractNumber": "№ договора",
+        "startDate": "Дата и время начала",
+        "endDate": "Дата и время окончания",
+        "limit": "Лимит (₸)",
+        "used": "Использовано (₸)",
+        "remaining": "Остаток (₸)",
+        "progress": "Прогресс"
+      }
+    },
+    "contracts": {
+      "title": "Договоры",
+      "subtitle": "Договоры поставщиков и использование бюджета.",
+      "searchPlaceholder": "Поиск договоров",
+      "searchAria": "Поиск договоров",
+      "loading": "Загрузка договоров...",
+      "empty": "Договоры не найдены.",
+      "analyticsError": "Не удалось получить аналитику по части договоров.",
+      "budgetTitle": "Сводка бюджета",
+      "budget": {
+        "total": "Сумма договоров (₸)",
+        "allocated": "Распределено (₸)",
+        "remaining": "Остаток (₸)"
+      },
+      "form": {
+        "title": "Создание договора",
+        "supplier": "Поставщик",
+        "contractNumber": "Номер договора",
+        "startDate": "Дата и время начала",
+        "endDate": "Дата и время окончания",
+        "limit": "Лимит бюджета (₸)",
+        "submit": "Создать договор",
+        "creating": "Создание...",
+        "validation": {
+          "required": "Заполните все обязательные поля договора.",
+          "failed": "Не удалось создать договор."
+        }
+      },
+      "columns": {
+        "supplier": "Поставщик",
+        "contractNumber": "№ договора",
+        "startDate": "Дата и время начала",
+        "endDate": "Дата и время окончания",
+        "limit": "Лимит (₸)",
+        "used": "Использовано (₸)",
+        "remaining": "Остаток (₸)",
+        "progress": "Прогресс"
+      }
+    },
+    "contractDetails": {
+      "loading": "Загрузка договора...",
+      "notFoundTitle": "Договор не найден",
+      "notFoundSubtitle": "Запрошенный договор недоступен.",
+      "title": "Договор {{number}}",
+      "subtitle": "Поставщик: {{supplier}}",
+      "warnings": {
+        "analyticsUnavailable": "Подробная аналитика по договору временно недоступна."
+      },
+      "budgetTitle": "Сводка бюджета",
+      "fields": {
+        "startDate": "Дата и время начала",
+        "endDate": "Дата и время окончания",
+        "limit": "Лимит (₸)",
+        "used": "Использовано (₸)",
+        "remaining": "Остаток (₸)",
+        "utilization": "Утилизация"
+      },
+      "allocationsTitle": "Распределения",
+      "allocationsDescription": "Бэкенд сейчас возвращает только агрегированную аналитику по договору. Детализация по заявкам недоступна."
+    }
+  },
+  "profile": {
+    "unavailableTitle": "Профиль недоступен",
+    "unavailableSubtitle": "В текущей сессии отсутствуют данные пользователя.",
+    "title": "Профиль",
+    "subtitle": "Обновите ваши личные данные.",
+    "editTitle": "Изменение имени",
+    "save": "Сохранить",
+    "saving": "Сохранение...",
+    "saveSuccess": "Профиль обновлён.",
+    "errors": {
+      "required": "Имя и фамилия обязательны.",
+      "saveFailed": "Не удалось обновить профиль."
+    },
+    "infoTitle": "Данные аккаунта",
+    "fields": {
+      "firstName": "Имя",
+      "lastName": "Фамилия",
+      "role": "Роль",
+      "department": "Отдел",
+      "userId": "ID пользователя"
+    },
+    "certificates": {
+      "title": "Сертификаты сотрудника",
+      "loading": "Загрузка сертификатов...",
+      "empty": "Сертификаты пока отсутствуют.",
+      "number": "Номер удостоверения",
+      "openFile": "Открыть скан сертификата"
+    }
+  },
+  "employee": {
+    "myLearning": {
+      "title": "Моё обучение",
+      "subtitle": "Назначенные вам учебные сессии.",
+      "loading": "Загрузка записей обучения...",
+      "empty": "Назначенные обучения отсутствуют.",
+      "card": {
+        "dates": "Дата и время",
+        "place": "Место",
+        "status": "Статус"
+      }
+    },
+    "learningDetails": {
+      "loading": "Загрузка учебной сессии...",
+      "notFoundTitle": "Сессия не найдена",
+      "notFoundSubtitle": "Запрошенная учебная сессия не найдена.",
+      "fields": {
+        "startDate": "Дата и время начала",
+        "endDate": "Дата и время окончания",
+        "city": "Город",
+        "location": "Локация",
+        "attendance": "Посещаемость",
+        "certificateNumber": "Номер сертификата",
+        "certificateFile": "Скан сертификата"
+      },
+      "openCertificate": "Открыть файл сертификата",
+      "attendance": {
+        "attended": "Посетил",
+        "planned": "Планируется"
+      }
+    }
+  },
+  "shared": {
+    "rolePlaceholder": {
+      "title": "Раздел роли «{{role}}» пока не реализован",
+      "description": "Этот маршрут зарезервирован для дальнейшего развития дашборда по ролям."
+    },
+    "unauthorized": {
+      "title": "Доступ запрещён",
+      "description": "У вашей роли нет доступа к этой странице.",
+      "back": "Вернуться на главную"
     }
   }
 }

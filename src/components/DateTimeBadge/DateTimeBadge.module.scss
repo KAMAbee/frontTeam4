@@ -1,0 +1,56 @@
+.dateTimeBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.dateChip,
+.timeChip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.dateChip {
+    background: #f0f7ff;
+    border-color: #d5e8ff;
+    color: #174f86;
+}
+
+.dateChipEnd {
+    background: #f8f3ff;
+    border-color: #e7d8fb;
+    color: #5c3f85;
+}
+
+.timeChip {
+    background: #effaf4;
+    border-color: #d1eddc;
+    color: #1e6b48;
+}
+
+.timeChipEnd {
+    background: #fff7ef;
+    border-color: #f2dfc7;
+    color: #8a5a27;
+}
+
+.range {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.arrow {
+    color: var(--color-text-2);
+    font-weight: 700;
+}
