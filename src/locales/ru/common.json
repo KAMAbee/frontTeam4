@@ -51,7 +51,7 @@
       "myLearning": "Моё обучение"
     },
     "roles": {
-      "ADMIN": "Администратор",
+      "ADMIN": "Администратор (HR)",
       "MANAGER": "Менеджер",
       "EMPLOYEE": "Работник"
     }
@@ -60,7 +60,7 @@
     "logout": "Выйти",
     "profile": "Профиль",
     "roles": {
-      "ADMIN": "Администратор",
+      "ADMIN": "Администратор (HR)",
       "MANAGER": "Менеджер",
       "EMPLOYEE": "Работник"
     }
@@ -103,7 +103,7 @@
       "roles": {
         "employee": "Работник",
         "manager": "Менеджер",
-        "admin": "Администратор"
+        "admin": "Администратор (HR)"
       },
       "passwordLabel": "Пароль",
       "passwordPlaceholder": "Введите пароль",

@@ -51,7 +51,7 @@
       "myLearning": "My Learning"
     },
     "roles": {
-      "ADMIN": "Admin",
+      "ADMIN": "Admin (HR)",
       "MANAGER": "Manager",
       "EMPLOYEE": "Employee"
     }
@@ -60,7 +60,7 @@
     "logout": "Logout",
     "profile": "Profile",
     "roles": {
-      "ADMIN": "Admin",
+      "ADMIN": "Admin (HR)",
       "MANAGER": "Manager",
       "EMPLOYEE": "Employee"
     }
@@ -103,7 +103,7 @@
       "roles": {
         "employee": "Employee",
         "manager": "Manager",
-        "admin": "Admin"
+        "admin": "Admin (HR)"
       },
       "passwordLabel": "Password",
       "passwordPlaceholder": "Enter your password",

@@ -51,7 +51,7 @@
       "myLearning": "Менің оқуым"
     },
     "roles": {
-      "ADMIN": "Әкімші",
+      "ADMIN": "Әкімші (HR)",
       "MANAGER": "Менеджер",
       "EMPLOYEE": "Қызметкер"
     }
@@ -60,7 +60,7 @@
     "logout": "Шығу",
     "profile": "Профиль",
     "roles": {
-      "ADMIN": "Әкімші",
+      "ADMIN": "Әкімші (HR)",
       "MANAGER": "Менеджер",
       "EMPLOYEE": "Қызметкер"
     }
@@ -103,7 +103,7 @@
       "roles": {
         "employee": "Қызметкер",
         "manager": "Менеджер",
-        "admin": "Әкімші"
+        "admin": "Әкімші (HR)"
       },
       "passwordLabel": "Құпия сөз",
       "passwordPlaceholder": "Құпия сөзді енгізіңіз",
